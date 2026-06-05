@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -e
+
+APP_NAME="proinvestment-page"
+PORT="1204"
+
+docker stop "$APP_NAME" 2>/dev/null || true
+docker rm "$APP_NAME" 2>/dev/null || true
+
+git pull
+
+docker build -t "$APP_NAME" .
+
+docker run -d \
+  --name "$APP_NAME" \
+  --restart unless-stopped \
+  -p "$PORT:$PORT" \
+  "$APP_NAME"
+
+docker ps --filter "name=$APP_NAME"
