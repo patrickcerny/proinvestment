@@ -1,0 +1,318 @@
+@use "@/styles/mixins" as *;
+@use "@/styles/tokens" as *;
+
+.header {
+  border-bottom: 1px solid $color-line;
+  background: rgba($color-ink, 0.96);
+  color: $color-paper;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.inner {
+  @include container;
+  display: grid;
+  min-height: 5.5rem;
+  align-items: center;
+  grid-template-columns: 1fr auto 1fr;
+  animation: header-enter 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+.logo {
+  width: 2.25rem;
+  height: 2.25rem;
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+
+.navigation {
+  display: flex;
+  gap: clamp(1rem, 2.5vw, 2.5rem);
+
+  a {
+    @include eyebrow;
+    color: $color-muted;
+    transition: color 180ms ease;
+
+    &:hover {
+      color: $color-paper;
+    }
+  }
+}
+
+.cta {
+  @include eyebrow;
+  justify-self: end;
+  border: 1px solid $color-accent;
+  padding: 0.9rem 1.35rem;
+  color: $color-accent;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-self: end;
+  gap: 1rem;
+}
+
+.language {
+  @include eyebrow;
+  color: $color-muted;
+}
+
+.menuButton {
+  display: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  color: $color-paper;
+  cursor: pointer;
+}
+
+.menuIcon {
+  position: relative;
+  width: 1.5rem;
+  height: 1.125rem;
+
+  span {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: currentColor;
+    transition: transform 0.2s ease, opacity 0.2s ease, top 0.2s ease;
+  }
+
+  span:nth-child(1) { top: 0; }
+  span:nth-child(2) { top: calc(50% - 1px); }
+  span:nth-child(3) { top: calc(100% - 2px); }
+}
+
+.menuIcon[data-open="true"] {
+  span:nth-child(1) { top: calc(50% - 1px); transform: rotate(45deg); }
+  span:nth-child(2) { opacity: 0; }
+  span:nth-child(3) { top: calc(50% - 1px); transform: rotate(-45deg); }
+}
+
+.mobileMenu,
+.backdrop {
+  display: none;
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .inner {
+    grid-template-columns: 1fr auto;
+  }
+
+  .navigation {
+    display: none;
+  }
+
+  .actions {
+    display: none;
+  }
+
+  .menuButton {
+    display: inline-flex;
+    justify-self: end;
+  }
+
+  .mobileMenu {
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    padding: 0 $page-gutter 2rem;
+    background: $color-surface;
+    color: $color-paper;
+    transform: translateX(100%);
+    transition: transform 0.25s ease;
+  }
+
+  .mobileMenu[data-open="true"] {
+    transform: translateX(0);
+  }
+
+  .mobileWatermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: min(76vw, 24rem);
+    opacity: 0.08;
+    pointer-events: none;
+    transform: translate(-50%, -45%);
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .mobileMenuTop {
+    position: relative;
+    z-index: 1;
+    min-height: 5.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+
+  .mobileLanguage,
+  .mobileMenuFooter {
+    @include eyebrow;
+    color: $color-accent;
+  }
+
+  .mobileCloseButton {
+    width: 2.75rem;
+    height: 2.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    background: transparent;
+    color: $color-paper;
+    cursor: pointer;
+  }
+
+  .closeIcon {
+    position: relative;
+    width: 1.5rem;
+    height: 1.5rem;
+
+    span {
+      position: absolute;
+      top: calc(50% - 1px);
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: currentColor;
+    }
+
+    span:first-child { transform: rotate(45deg); }
+    span:last-child { transform: rotate(-45deg); }
+  }
+
+  .mobileMenuNav {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    margin-top: 2.5rem;
+  }
+
+  .mobileNavList {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.55rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .mobileNavItem {
+    opacity: 0;
+    transform: translateX(2rem);
+    transition: opacity 0.38s ease, transform 0.38s ease;
+  }
+
+  .mobileMenu[data-open="true"] .mobileNavItem {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  @for $i from 1 through 5 {
+    .mobileMenu[data-open="true"] .mobileNavItem:nth-child(#{$i}) {
+      transition-delay: #{0.04 + ($i * 0.08)}s;
+    }
+  }
+
+  .mobileNavLink {
+    display: inline-flex;
+    width: fit-content;
+    color: $color-paper;
+    font-size: clamp(2.5rem, 9vw, 4.75rem);
+    font-weight: 400;
+    letter-spacing: -0.07em;
+    line-height: 0.92;
+  }
+
+  .mobileNavLink[data-active="true"] {
+    color: $color-accent;
+  }
+
+  .mobileMenuFooter {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    padding-top: 1.5rem;
+    color: $color-muted;
+    font-size: 0.62rem;
+  }
+
+  .backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: block;
+    border: 0;
+    background: rgba(0, 0, 0, 0.28);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+
+  .backdrop[data-open="true"] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .logo {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .brand span:last-child {
+    font-size: 0.8rem;
+  }
+
+}
+
+@keyframes header-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inner {
+    animation: none;
+  }
+}

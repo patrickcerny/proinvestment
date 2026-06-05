@@ -1,0 +1,23 @@
+@use "@/styles/mixins" as *;
+@use "@/styles/tokens" as *;
+
+.link {
+  @include eyebrow;
+  display: inline-flex;
+  min-height: 3.6rem;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  padding: 0.85rem 1.75rem;
+  border: 1px solid $color-accent;
+}
+
+.filled {
+  background: $color-accent;
+  color: $color-ink;
+}
+
+.outline {
+  background: transparent;
+  color: $color-accent;
+}

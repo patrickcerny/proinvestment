@@ -1,0 +1,53 @@
+{
+  "meta": { "title": "ProInvestment", "description": "Strategic real estate investments and financing." },
+  "navigation": { "home": "Home", "investment": "Investment", "financing": "Financing", "realEstate": "Real Estate", "getInTouch": "Get in Touch", "language": "DE", "openMenu": "Open menu", "closeMenu": "Close menu" },
+  "home": {
+    "hero": { "titleLine1": "Creating value.", "titleLine2": "Shaping the future.", "description": "Strategic real estate investments and financing focused on long-term value creation and sustainable growth.", "primaryAction": "Explore opportunities", "secondaryAction": "Get in touch" },
+    "metrics": [
+      { "value": "2B+", "label": "Assets Under Management" },
+      { "value": "150+", "label": "Completed Projects" },
+      { "value": "25+", "label": "Years of Experience" },
+      { "value": "40+", "label": "Strategic Partners" }
+    ],
+    "focus": {
+      "title": "Our Focus",
+      "description": "We create sustainable value through strategic investments, tailored financing, and comprehensive real estate expertise.",
+      "items": [
+        { "title": "Investment", "description": "Strategic investments designed for resilient, long-term value creation." },
+        { "title": "Financing", "description": "Tailored financing structures for ambitious real estate projects." },
+        { "title": "Real Estate", "description": "Prime commercial and residential properties across Austria and Central Europe." }
+      ]
+    },
+    "projects": {
+      "title": "Featured Projects",
+      "items": [
+        { "type": "Commercial Real Estate", "title": "Vienna City Center", "location": "Vienna, Austria", "value": "EUR 85M" },
+        { "type": "Residential Development", "title": "Green Valley Residence", "location": "Salzburg, Austria", "value": "EUR 42M" },
+        { "type": "Mixed-Use Development", "title": "Innovation Hub Prague", "location": "Prague, Czech Republic", "value": "EUR 120M" }
+      ]
+    },
+    "philosophy": { "quote": "We don't just invest in buildings. We invest in communities, futures, and sustainable prosperity.", "label": "PROINVESTMENT PHILOSOPHY" },
+    "cta": { "title": "Ready to Explore Investment Opportunities?", "description": "Connect with our team to discuss how we can help you achieve your investment goals.", "action": "Schedule a consultation" }
+  },
+  "pages": {
+    "investment": { "eyebrow": "Investment", "title": "Strategic opportunities.", "description": "Selected investments designed for lasting value." },
+    "financing": { "eyebrow": "Financing", "title": "Capital with perspective.", "description": "Tailored financing structures built around every project's potential." },
+    "realEstate": { "eyebrow": "Real Estate", "title": "Properties of lasting value.", "description": "Commercial and residential real estate across Austria and Central Europe." },
+    "getInTouch": { "eyebrow": "Get in Touch", "title": "Start a conversation.", "description": "Tell us about your plans and our team will respond with a considered next step." }
+  },
+  "investmentStory": {
+    "eyebrow": "Investment",
+    "title": "Invest with clarity.",
+    "intro": "Our investment offering provides individual, optimal solutions tailored to your budget, wishes, and goals.",
+    "scrollHint": "Scroll to explore",
+    "chapters": [
+      { "number": "01", "title": "Profitable. Flexible. Transparent.", "body": "We rely exclusively on selected investments that meet the highest quality criteria. Together with our national and international partner experts, we continuously monitor the complex and constantly changing financial market. Every strategy is regularly reviewed, challenged, and adapted to changing economic conditions. Our focus is not on short-lived trends, but on understandable concepts, solid structures, and the long-term objectives of our clients. Each investment solution is tailored to the available budget, personal expectations, desired flexibility, and individual investment horizon.", "aside": "Especially in an environment of low or volatile interest rates, well-designed investment solutions can create opportunities for regular and reasonably predictable distributions. Transparent costs, understandable decision-making foundations, and continuous communication remain essential." },
+      { "number": "02", "title": "Funds & Equities", "body": "The range of investment funds is extensive, spanning conservative solutions as well as products exposed to considerable volatility and risk. Because the security needs of our clients matter deeply, we maintain a deliberately conservative foundation. Before considering a solution, we analyze the investment concept, management quality, costs, risk structure, and long-term prospects. Our attention is directed toward solvent investments with understandable business models and realistic opportunities for sustainable income. Equities can provide substantial return potential, but they also require careful selection, continuous monitoring, and clearly defined risk limits.", "aside": "An experienced advisor with comprehensive knowledge of the relevant market segment is indispensable. Together, we determine which allocation to funds and equities fits the client's circumstances, risk tolerance, and financial objectives." },
+      { "number": "03", "title": "Land register, not savings book.", "body": "There are numerous ways to invest in real estate. The spectrum extends from open and closed real estate funds to developer models, investment apartments, private homes, and directly owned commercial properties. The appropriate form depends on several factors: available capital, disposable income, taxation, the intended investment horizon, and the personal need for security and flexibility. For this reason, every real estate investment is assessed individually, considering its opportunities, recurring income, financing structure, costs, and potential risks as one connected picture.", "aside": "Durability and value preservation make real estate particularly attractive. Property can offer inflation protection and, depending on the structure, potential tax benefits. These opportunities must always be assessed alongside location quality, intended use, market conditions, and long-term marketability." },
+      { "number": "04", "title": "Success, together.", "body": "We continuously seek investors interested in attractive, high-yield projects in national and international markets. Our collaboration begins with a clear understanding of personal expectations, available capital, and the desired risk profile. On this basis, we identify suitable projects and create transparent foundations for decision-making. We are committed to continuous and understandable communication with our partners. Openness, reliability, and regular information exchange are indispensable requirements for a trusted, effective, and successful long-term partnership.", "aside": "For concrete opportunities, we are pleased to provide a current project list and a tailored project exposé. To protect every involved party, detailed documentation is provided only after a confidentiality agreement has been signed." }
+    ],
+    "closingTitle": "Let us shape your investment strategy.",
+    "closingAction": "Contact"
+  },
+  "footer": { "description": "Creating sustainable value through strategic investments, financing, and real estate expertise.", "company": "Company", "contact": "Contact", "rights": "All rights reserved.", "privacy": "Privacy Policy", "terms": "Terms of Service", "legal": "Legal Notice" }
+}

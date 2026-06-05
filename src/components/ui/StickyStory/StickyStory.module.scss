@@ -1,0 +1,311 @@
+@use "@/styles/mixins" as *;
+@use "@/styles/tokens" as *;
+
+.story {
+  background: $color-ink;
+}
+
+.hero {
+  min-height: calc(100svh - 5.5rem);
+  display: grid;
+  align-content: space-between;
+  padding: clamp(3rem, 7vw, 7rem) $page-gutter;
+  background: radial-gradient(circle at 75% 35%, rgba($color-accent, 0.16), transparent 36%), $color-ink;
+
+  > p {
+    @include eyebrow;
+    color: $color-accent;
+  }
+
+  h1 {
+    max-width: 11ch;
+    margin: auto 0;
+    font-size: clamp(4rem, 11vw, 11rem);
+    font-weight: 400;
+    letter-spacing: -0.075em;
+    line-height: 0.98;
+  }
+}
+
+.heroBottom {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 2rem;
+
+  span {
+    max-width: 40rem;
+    color: $color-muted;
+    font-size: clamp(1rem, 1.5vw, 1.3rem);
+    line-height: 1.7;
+  }
+
+  small {
+    @include eyebrow;
+    color: $color-accent;
+    white-space: nowrap;
+  }
+}
+
+.chapter {
+  --progress: 0;
+  min-height: 175svh;
+  position: relative;
+}
+
+.panel {
+  position: sticky;
+  top: 5.5rem;
+  min-height: calc(100svh - 5.5rem);
+  display: grid;
+  overflow: hidden;
+  grid-template-columns: 8rem 1fr;
+  grid-template-rows: 1fr auto;
+  padding: clamp(2rem, 5vw, 5rem) $page-gutter;
+  border-top: 1px solid $color-line;
+  background: $color-surface;
+  color: $color-paper;
+
+  > *:not(.buildingLayer) {
+    position: relative;
+    z-index: 1;
+  }
+
+  &[data-tone="light"] {
+    background: $color-accent;
+    color: $color-ink;
+
+    .number,
+    .copy p,
+    .copy aside {
+      color: $color-ink;
+    }
+
+    .copy aside {
+      border-color: rgba($color-ink, 0.28);
+    }
+  }
+}
+
+.buildingLayer {
+  position: absolute;
+  bottom: -12vh;
+  left: -12vw;
+  z-index: 0;
+  width: min(66vw, 72rem);
+  height: 92%;
+  opacity: calc(0.08 + (var(--progress) * 0.13));
+  pointer-events: none;
+  transform: translate3d(calc(var(--progress) * 18vw), calc((1 - var(--progress)) * 5vh), 0);
+  transform-origin: left bottom;
+  filter: saturate(0.35) contrast(1.05);
+  mask-image: linear-gradient(to right, transparent 0%, black 14%, black 82%, transparent 100%);
+  will-change: transform, opacity;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: left bottom;
+  }
+
+  &[data-variant="2"] {
+    bottom: -3vh;
+    left: -15vw;
+    width: min(61vw, 66rem);
+    height: 92%;
+    opacity: calc(0.11 + (var(--progress) * 0.15));
+    transform: translate3d(calc(var(--progress) * 20vw), calc((1 - var(--progress)) * 5vh), 0);
+
+    img {
+      object-position: left bottom;
+    }
+  }
+
+  &[data-variant="3"] {
+    bottom: -2vh;
+    left: -8vw;
+    width: min(43vw, 47rem);
+    height: 108%;
+    opacity: calc(0.13 + (var(--progress) * 0.18));
+    transform: translate3d(calc(var(--progress) * 16vw), calc((1 - var(--progress)) * 5vh), 0);
+
+    img {
+      object-position: center bottom;
+    }
+  }
+
+  &[data-variant="4"] {
+    bottom: -18vh;
+    left: -14vw;
+    width: min(68vw, 74rem);
+    transform: translate3d(calc(var(--progress) * 19vw), calc((1 - var(--progress)) * 6vh), 0);
+  }
+}
+
+.panel[data-tone="light"] .buildingLayer {
+  opacity: calc(0.11 + (var(--progress) * 0.12));
+  filter: grayscale(1) contrast(1.15) brightness(0.42);
+  mix-blend-mode: multiply;
+}
+
+.number {
+  @include eyebrow;
+  color: $color-accent;
+}
+
+.panel h2 {
+  max-width: 12ch;
+  align-self: center;
+  margin: 0;
+  font-size: clamp(4rem, 9vw, 9rem);
+  font-weight: 400;
+  letter-spacing: -0.075em;
+  line-height: 0.98;
+  opacity: calc(1 - (var(--progress) * 0.55));
+  transform: translateY(calc(var(--progress) * -9vh)) scale(calc(1 - (var(--progress) * 0.1)));
+  transform-origin: left center;
+  transition: opacity 80ms linear;
+}
+
+.copy {
+  grid-column: 2;
+  display: grid;
+  align-items: start;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: clamp(2rem, 7vw, 7rem);
+  padding-top: 3rem;
+  opacity: calc(0.25 + (var(--progress) * 0.75));
+  transform: translateY(calc((1 - var(--progress)) * 5rem));
+
+  p {
+    margin: 0;
+    color: $color-paper;
+    font-size: clamp(1.05rem, 1.55vw, 1.45rem);
+    line-height: 1.65;
+  }
+
+  aside {
+    border-left: 1px solid $color-accent;
+    padding-left: 1.5rem;
+    color: $color-muted;
+    font-size: 0.9rem;
+    line-height: 1.8;
+  }
+}
+
+.closing {
+  min-height: 75svh;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 3rem;
+  position: relative;
+  z-index: 10;
+  padding: $section-space $page-gutter;
+  background: $color-ink;
+  text-align: center;
+
+  h2 {
+    max-width: 16ch;
+    margin: 0;
+    font-size: clamp(3rem, 7vw, 7rem);
+    font-weight: 400;
+    letter-spacing: -0.065em;
+    line-height: 0.95;
+  }
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .panel {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+  }
+
+  .panel h2 {
+    align-self: center;
+    font-size: clamp(3.3rem, 13vw, 7rem);
+    line-height: 1;
+  }
+
+  .copy {
+    grid-column: 1;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .buildingLayer,
+  .buildingLayer[data-variant] {
+    right: auto;
+    bottom: -2vh;
+    left: -48vw;
+    width: 125vw;
+    height: 84%;
+    opacity: calc(0.055 + (var(--progress) * 0.075));
+    transform: translate3d(calc(var(--progress) * 44vw), calc((1 - var(--progress)) * 4vh), 0);
+    transform-origin: left bottom;
+  }
+
+  .buildingLayer[data-variant="2"] {
+    bottom: -2vh;
+    left: -42vw;
+    width: 120vw;
+    height: 78%;
+    opacity: calc(0.08 + (var(--progress) * 0.1));
+    transform: translate3d(calc(var(--progress) * 38vw), calc((1 - var(--progress)) * 4vh), 0);
+  }
+
+  .buildingLayer[data-variant="3"] {
+    bottom: -1vh;
+    left: -12vw;
+    width: 88vw;
+    height: 90%;
+    opacity: calc(0.1 + (var(--progress) * 0.12));
+    transform: translate3d(calc(var(--progress) * 26vw), calc((1 - var(--progress)) * 4vh), 0);
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .hero {
+    min-height: calc(100svh - 5.5rem);
+  }
+
+  .heroBottom {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .chapter {
+    min-height: 185svh;
+  }
+
+  .panel {
+    top: 5.5rem;
+    min-height: calc(100svh - 5.5rem);
+    padding-block: 2rem;
+  }
+
+  .copy p {
+    font-size: 0.94rem;
+    line-height: 1.6;
+  }
+
+  .copy aside {
+    font-size: 0.74rem;
+    line-height: 1.65;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel h2,
+  .copy {
+    opacity: 1;
+    transform: none;
+  }
+
+  .buildingLayer,
+  .buildingLayer[data-variant] {
+    transform: none;
+  }
+}

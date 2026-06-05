@@ -1,0 +1,53 @@
+{
+  "meta": { "title": "ProInvestment", "description": "Strategische Immobilienveranlagung und Finanzierung." },
+  "navigation": { "home": "Startseite", "investment": "Veranlagung", "financing": "Finanzierung", "realEstate": "Immobilien", "getInTouch": "Kontakt", "language": "EN", "openMenu": "Menü öffnen", "closeMenu": "Menü schließen" },
+  "home": {
+    "hero": { "titleLine1": "Werte schaffen.", "titleLine2": "Zukunft gestalten.", "description": "Strategische Immobilienveranlagung und Finanzierung mit Fokus auf langfristige Wertschöpfung und nachhaltiges Wachstum.", "primaryAction": "Möglichkeiten entdecken", "secondaryAction": "Kontakt" },
+    "metrics": [
+      { "value": "2B+", "label": "Verwaltetes Vermögen" },
+      { "value": "150+", "label": "Abgeschlossene Projekte" },
+      { "value": "25+", "label": "Jahre Erfahrung" },
+      { "value": "40+", "label": "Strategische Partner" }
+    ],
+    "focus": {
+      "title": "Unser Fokus",
+      "description": "Wir schaffen nachhaltige Werte durch strategische Veranlagung, maßgeschneiderte Finanzierung und umfassende Immobilienkompetenz.",
+      "items": [
+        { "title": "Veranlagung", "description": "Strategische Veranlagungen für widerstandsfähige und langfristige Wertschöpfung." },
+        { "title": "Finanzierung", "description": "Maßgeschneiderte Finanzierungsstrukturen für ambitionierte Immobilienprojekte." },
+        { "title": "Immobilien", "description": "Erstklassige Gewerbe- und Wohnimmobilien in Österreich und Zentraleuropa." }
+      ]
+    },
+    "projects": {
+      "title": "Ausgewählte Projekte",
+      "items": [
+        { "type": "Gewerbeimmobilie", "title": "Vienna City Center", "location": "Wien, Österreich", "value": "EUR 85M" },
+        { "type": "Wohnbauprojekt", "title": "Green Valley Residence", "location": "Salzburg, Österreich", "value": "EUR 42M" },
+        { "type": "Gemischt genutztes Projekt", "title": "Innovation Hub Prague", "location": "Prag, Tschechien", "value": "EUR 120M" }
+      ]
+    },
+    "philosophy": { "quote": "Wir investieren nicht nur in Gebäude. Wir investieren in Gemeinschaften, Zukunft und nachhaltigen Wohlstand.", "label": "PROINVESTMENT PHILOSOPHIE" },
+    "cta": { "title": "Bereit, Veranlagungsmöglichkeiten zu entdecken?", "description": "Sprechen Sie mit unserem Team darüber, wie wir Sie beim Erreichen Ihrer Ziele unterstützen können.", "action": "Beratung vereinbaren" }
+  },
+  "pages": {
+    "investment": { "eyebrow": "Veranlagung", "title": "Strategische Möglichkeiten.", "description": "Ausgewählte Veranlagungen für nachhaltige Wertschöpfung." },
+    "financing": { "eyebrow": "Finanzierung", "title": "Kapital mit Perspektive.", "description": "Maßgeschneiderte Finanzierungsstrukturen rund um das Potenzial jedes Projekts." },
+    "realEstate": { "eyebrow": "Immobilien", "title": "Immobilien von bleibendem Wert.", "description": "Gewerbe- und Wohnimmobilien in Österreich und Zentraleuropa." },
+    "getInTouch": { "eyebrow": "Kontakt", "title": "Beginnen wir ein Gespräch.", "description": "Erzählen Sie uns von Ihren Plänen. Unser Team meldet sich mit den nächsten Schritten." }
+  },
+  "investmentStory": {
+    "eyebrow": "Veranlagung",
+    "title": "Klarheit bei jeder Veranlagung.",
+    "intro": "Unser Investment-Angebot bietet individuelle, optimale Lösungen, maßgeschneidert auf Ihr Budget, Ihre Wünsche und Ziele.",
+    "scrollHint": "Scrollen zum Entdecken",
+    "chapters": [
+      { "number": "01", "title": "Ertragreich. Flexibel. Transparent.", "body": "Wir setzen ausschließlich auf ausgewählte Investments, die höchste Qualitätskriterien erfüllen. Der komplexe und sich laufend verändernde Finanzmarkt wird gemeinsam mit unseren nationalen und internationalen Partner-Experten kontinuierlich überwacht. Jede Strategie wird regelmäßig geprüft, hinterfragt und an neue wirtschaftliche Rahmenbedingungen angepasst. Dabei stehen nicht kurzfristige Trends, sondern nachvollziehbare Konzepte, solide Strukturen und die langfristigen Ziele unserer Kunden im Mittelpunkt. Unser Investment-Angebot wird individuell auf Budget, persönliche Wünsche, gewünschte Flexibilität und den jeweiligen Anlagehorizont abgestimmt.", "aside": "Gerade in einem Marktumfeld mit niedrigen oder schwankenden Zinsen bieten durchdachte Investmentlösungen die Chance auf regelmäßige, möglichst planbare Ertragsausschüttungen. Transparente Kosten, verständliche Entscheidungsgrundlagen und laufende Kommunikation bilden dabei die Basis." },
+      { "number": "02", "title": "Investmentfonds & Aktien", "body": "Das Angebot an Investmentfonds ist umfassend und reicht von konservativen Lösungen bis zu Produkten mit erheblichen Schwankungen und Risiken. Weil uns die Sicherheitsbedürfnisse unserer Kunden besonders wichtig sind, verfolgen wir aus Überzeugung eine konservative Grundeinstellung. Wir analysieren Anlagekonzepte, Managementqualität, Kosten, Risikostruktur und langfristige Perspektiven, bevor eine Lösung in Betracht gezogen wird. Im Mittelpunkt stehen solvente Investments mit nachvollziehbaren Geschäftsmodellen und realen Chancen auf nachhaltiges Einkommen. Aktien können zugleich große Ertragschancen eröffnen, verlangen aber eine sorgfältige Auswahl, laufende Beobachtung und klare Risikogrenzen.", "aside": "Ein kompetenter Berater mit langjähriger Erfahrung und umfassendem Wissen im jeweiligen Marktsegment ist unerlässlich. Gemeinsam definieren wir, welcher Anteil an Fonds und Aktien zur persönlichen Situation, zur Risikobereitschaft und zu den finanziellen Zielen passt." },
+      { "number": "03", "title": "Grundbuch statt Sparbuch.", "body": "Es gibt zahlreiche Formen der Veranlagung in Immobilien. Das Spektrum reicht von offenen und geschlossenen Immobilienfonds über Bauherrenmodelle und Anlegerwohnungen bis zum direkten Kauf eines Eigenheims oder eines gewerblich genutzten Objekts. Welche Form sinnvoll ist, hängt von mehreren Faktoren ab: dem verfügbaren Anlagebetrag, dem frei verfügbaren Einkommen, der steuerlichen Situation, dem gewünschten Anlagehorizont sowie dem persönlichen Bedürfnis nach Sicherheit und Flexibilität. Deshalb betrachten wir jede Immobilienveranlagung individuell und prüfen Chancen, laufende Erträge, Finanzierung, Kosten und mögliche Risiken im Zusammenhang.", "aside": "Beständigkeit und Werterhalt machen Immobilien besonders attraktiv. Sie können Schutz vor Inflation bieten und je nach Modell steuerliche Vorteile ermöglichen. Diese Potenziale müssen jedoch stets gemeinsam mit Standortqualität, Nutzungskonzept, Marktumfeld und langfristiger Verwertbarkeit beurteilt werden." },
+      { "number": "04", "title": "Gemeinsam zum Erfolg.", "body": "Wir sind laufend auf der Suche nach Investoren, die sich für national und international attraktive, renditestarke Projekte interessieren. Unsere Zusammenarbeit beginnt mit einem klaren Verständnis der persönlichen Erwartungen, des verfügbaren Kapitals und des gewünschten Risikoprofils. Auf dieser Grundlage identifizieren wir passende Projekte und schaffen transparente Entscheidungsgrundlagen. Gegenüber unseren Partnern verpflichten wir uns zu einer stetigen und nachvollziehbaren Kommunikationspolitik. Wir verstehen Offenheit, Verlässlichkeit und einen regelmäßigen Informationsaustausch als unverzichtbare Voraussetzungen für eine vertrauensvolle, effektive und langfristig erfolgreiche Zusammenarbeit.", "aside": "Bei konkretem Interesse stellen wir gerne eine aktuelle Projektliste sowie ein individuell zugeschnittenes Projektexposé bereit. Zum Schutz aller beteiligten Parteien werden detaillierte Unterlagen ausschließlich nach Zeichnung einer Vertraulichkeitsvereinbarung ausgehändigt." }
+    ],
+    "closingTitle": "Gestalten wir Ihre Veranlagungsstrategie.",
+    "closingAction": "Kontakt"
+  },
+  "footer": { "description": "Nachhaltige Wertschöpfung durch strategische Veranlagung, Finanzierung und Immobilienkompetenz.", "company": "Unternehmen", "contact": "Kontakt", "rights": "Alle Rechte vorbehalten.", "privacy": "Datenschutz", "terms": "Nutzungsbedingungen", "legal": "Impressum" }
+}

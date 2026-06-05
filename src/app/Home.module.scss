@@ -1,0 +1,281 @@
+@use "@/styles/mixins" as *;
+@use "@/styles/tokens" as *;
+
+.hero {
+  min-height: calc(100svh - 5.5rem);
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, $color-ink 0%, $color-surface-light 50%, $color-ink 100%);
+  text-align: center;
+}
+
+.heroBars {
+  position: absolute;
+  right: 15%;
+  bottom: 26%;
+  display: flex;
+  align-items: end;
+  gap: 1.4rem;
+  opacity: 0.18;
+
+  span {
+    width: 2.4rem;
+    background: linear-gradient($color-accent, transparent);
+  }
+}
+
+.heroContent {
+  @include container;
+  position: relative;
+  z-index: 1;
+  padding-block: 6rem;
+}
+
+.hero h1 {
+  margin-bottom: 2rem;
+  font-size: clamp(3.4rem, 7vw, 6rem);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+.hero p {
+  max-width: 45rem;
+  margin: 0 auto 3rem;
+  color: $color-muted;
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  line-height: 1.65;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
+}
+
+.metrics {
+  border-block: 1px solid $color-line;
+  background: $color-surface;
+}
+
+.metricsInner {
+  @include container;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  > div {
+    height: 100%;
+  }
+}
+
+.metric {
+  height: 100%;
+  padding: 3rem 1.5rem;
+  border-right: 1px solid $color-line;
+  text-align: center;
+
+  &:last-child {
+    border-right: 0;
+  }
+
+  strong {
+    display: block;
+    margin-bottom: 0.6rem;
+    color: $color-accent;
+    font-size: clamp(2rem, 4vw, 3.3rem);
+    font-weight: 500;
+  }
+
+  span {
+    @include eyebrow;
+    color: $color-muted;
+  }
+}
+
+.section {
+  padding-block: $section-space;
+}
+
+.sectionAlt {
+  background: $color-surface;
+}
+
+.container {
+  @include container;
+}
+
+.sectionHeader {
+  max-width: 50rem;
+  margin: 0 auto 5rem;
+  text-align: center;
+
+  h2 {
+    margin-bottom: 1.5rem;
+    font-size: clamp(2.2rem, 4vw, 3.3rem);
+    font-weight: 500;
+    letter-spacing: -0.04em;
+  }
+
+  p {
+    color: $color-muted;
+    line-height: 1.7;
+  }
+}
+
+.focusGrid,
+.projectGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+
+  > div,
+  article {
+    height: 100%;
+  }
+}
+
+.focusCard {
+  min-height: 16rem;
+  padding: 2rem;
+  border: 1px solid $color-line;
+  background: linear-gradient(135deg, rgba($color-accent, 0.05), transparent);
+
+  svg {
+    width: 2.8rem;
+    margin-bottom: 2rem;
+    color: $color-accent;
+  }
+
+  h3 {
+    margin-bottom: 1.2rem;
+    font-size: 1.15rem;
+    font-weight: 500;
+  }
+
+  p {
+    margin: 0;
+    color: $color-muted;
+    font-size: 0.88rem;
+    line-height: 1.8;
+  }
+}
+
+.projectGrid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.projectCard {
+  overflow: hidden;
+  border: 1px solid $color-line;
+  background: #17212c;
+}
+
+.projectVisual {
+  min-height: 20rem;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, $color-surface-light, #2a3440);
+
+  svg {
+    width: 5rem;
+    color: rgba($color-muted, 0.22);
+  }
+}
+
+.projectBody {
+  padding: 2rem;
+
+  small {
+    @include eyebrow;
+    color: $color-accent;
+  }
+
+  h3 {
+    margin: 1rem 0 0.5rem;
+    font-size: 1.3rem;
+    font-weight: 500;
+  }
+
+  p {
+    color: $color-muted;
+    font-size: 0.85rem;
+  }
+}
+
+.projectMeta {
+  display: flex;
+  justify-content: space-between;
+  color: $color-accent;
+}
+
+.philosophy {
+  padding-block: clamp(7rem, 12vw, 12rem);
+  text-align: center;
+
+  blockquote {
+    max-width: 58rem;
+    margin: 0 auto 2rem;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    letter-spacing: -0.04em;
+    line-height: 1.35;
+  }
+
+  p {
+    @include eyebrow;
+    color: $color-accent;
+  }
+}
+
+.cta {
+  padding-block: clamp(6rem, 10vw, 10rem);
+  border-top: 1px solid $color-line;
+  text-align: center;
+
+  h2 {
+    margin-bottom: 1.5rem;
+    font-size: clamp(2.2rem, 4vw, 3.3rem);
+    font-weight: 500;
+  }
+
+  p {
+    margin-bottom: 2.5rem;
+    color: $color-muted;
+  }
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .focusGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .projectGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .hero h1 {
+    font-size: 3.5rem;
+  }
+
+  .actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .metricsInner,
+  .focusGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .metric {
+    border-right: 0;
+    border-bottom: 1px solid $color-line;
+  }
+
+  .sectionHeader {
+    margin-bottom: 3rem;
+  }
+}

@@ -1,0 +1,34 @@
+@use "@/styles/mixins" as *;
+@use "@/styles/tokens" as *;
+
+.section {
+  padding-block: $section-space;
+}
+
+.inner {
+  @include container;
+}
+
+.eyebrow {
+  @include eyebrow;
+  margin: 0 0 2rem;
+  color: $color-accent;
+}
+
+.inner h1 {
+  max-width: 13ch;
+  margin: 0;
+  font-family: $font-serif;
+  font-size: clamp(3rem, 8vw, 8rem);
+  font-weight: 400;
+  letter-spacing: -0.065em;
+  line-height: 0.92;
+}
+
+.description {
+  max-width: 36rem;
+  margin: 2.5rem 0 0 auto;
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  line-height: 1.7;
+}
+
