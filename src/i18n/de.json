@@ -1,8 +1,26 @@
 {
-  "meta": { "title": "ProInvestment", "description": "Strategische Immobilienveranlagung und Finanzierung." },
-  "navigation": { "home": "Startseite", "investment": "Veranlagung", "financing": "Finanzierung", "realEstate": "Immobilien", "getInTouch": "Kontakt", "language": "EN", "openMenu": "Menü öffnen", "closeMenu": "Menü schließen" },
+  "meta": {
+    "title": "ProInvestment",
+    "description": "Strategische Immobilienveranlagung und Finanzierung."
+  },
+  "navigation": {
+    "home": "Startseite",
+    "investment": "Veranlagung",
+    "financing": "Finanzierung",
+    "realEstate": "Immobilien",
+    "getInTouch": "Kontakt",
+    "language": "EN",
+    "openMenu": "Menü öffnen",
+    "closeMenu": "Menü schließen"
+  },
   "home": {
-    "hero": { "titleLine1": "Werte schaffen.", "titleLine2": "Zukunft gestalten.", "description": "Strategische Immobilienveranlagung und Finanzierung mit Fokus auf langfristige Wertschöpfung und nachhaltiges Wachstum.", "primaryAction": "Möglichkeiten entdecken", "secondaryAction": "Kontakt" },
+    "hero": {
+      "titleLine1": "Werte schaffen.",
+      "titleLine2": "Zukunft gestalten.",
+      "description": "Strategische Immobilienveranlagung und Finanzierung mit Fokus auf langfristige Wertschöpfung und nachhaltiges Wachstum.",
+      "primaryAction": "Möglichkeiten entdecken",
+      "secondaryAction": "Kontakt"
+    },
     "metrics": [
       { "value": "2B+", "label": "Verwaltetes Vermögen" },
       { "value": "150+", "label": "Abgeschlossene Projekte" },
@@ -13,27 +31,74 @@
       "title": "Unser Fokus",
       "description": "Wir schaffen nachhaltige Werte durch strategische Veranlagung, maßgeschneiderte Finanzierung und umfassende Immobilienkompetenz.",
       "items": [
-        { "title": "Veranlagung", "description": "Strategische Veranlagungen für widerstandsfähige und langfristige Wertschöpfung." },
-        { "title": "Finanzierung", "description": "Maßgeschneiderte Finanzierungsstrukturen für ambitionierte Immobilienprojekte." },
-        { "title": "Immobilien", "description": "Erstklassige Gewerbe- und Wohnimmobilien in Österreich und Zentraleuropa." }
+        {
+          "title": "Veranlagung",
+          "description": "Strategische Veranlagungen für widerstandsfähige und langfristige Wertschöpfung."
+        },
+        {
+          "title": "Finanzierung",
+          "description": "Maßgeschneiderte Finanzierungsstrukturen für ambitionierte Immobilienprojekte."
+        },
+        {
+          "title": "Immobilien",
+          "description": "Erstklassige Gewerbe- und Wohnimmobilien in Österreich und Zentraleuropa."
+        }
       ]
     },
     "projects": {
       "title": "Ausgewählte Projekte",
       "items": [
-        { "type": "Gewerbeimmobilie", "title": "Vienna City Center", "location": "Wien, Österreich", "value": "EUR 85M" },
-        { "type": "Wohnbauprojekt", "title": "Green Valley Residence", "location": "Salzburg, Österreich", "value": "EUR 42M" },
-        { "type": "Gemischt genutztes Projekt", "title": "Innovation Hub Prague", "location": "Prag, Tschechien", "value": "EUR 120M" }
+        {
+          "type": "Gewerbeimmobilie",
+          "title": "Vienna City Center",
+          "location": "Wien, Österreich",
+          "value": "EUR 85M"
+        },
+        {
+          "type": "Wohnbauprojekt",
+          "title": "Green Valley Residence",
+          "location": "Salzburg, Österreich",
+          "value": "EUR 42M"
+        },
+        {
+          "type": "Gemischt genutztes Projekt",
+          "title": "Innovation Hub Prague",
+          "location": "Prag, Tschechien",
+          "value": "EUR 120M"
+        }
       ]
     },
-    "philosophy": { "quote": "Wir investieren nicht nur in Gebäude. Wir investieren in Gemeinschaften, Zukunft und nachhaltigen Wohlstand.", "label": "PROINVESTMENT PHILOSOPHIE" },
-    "cta": { "title": "Bereit, Veranlagungsmöglichkeiten zu entdecken?", "description": "Sprechen Sie mit unserem Team darüber, wie wir Sie beim Erreichen Ihrer Ziele unterstützen können.", "action": "Beratung vereinbaren" }
+    "philosophy": {
+      "quote": "Wir investieren nicht nur in Gebäude. Wir investieren in Gemeinschaften, Zukunft und nachhaltigen Wohlstand.",
+      "label": "PROINVESTMENT PHILOSOPHIE"
+    },
+    "cta": {
+      "title": "Bereit, Veranlagungsmöglichkeiten zu entdecken?",
+      "description": "Sprechen Sie mit unserem Team darüber, wie wir Sie beim Erreichen Ihrer Ziele unterstützen können.",
+      "action": "Beratung vereinbaren"
+    }
   },
   "pages": {
-    "investment": { "eyebrow": "Veranlagung", "title": "Strategische Möglichkeiten.", "description": "Ausgewählte Veranlagungen für nachhaltige Wertschöpfung." },
-    "financing": { "eyebrow": "Finanzierung", "title": "Kapital mit Perspektive.", "description": "Maßgeschneiderte Finanzierungsstrukturen rund um das Potenzial jedes Projekts." },
-    "realEstate": { "eyebrow": "Immobilien", "title": "Immobilien von bleibendem Wert.", "description": "Gewerbe- und Wohnimmobilien in Österreich und Zentraleuropa." },
-    "getInTouch": { "eyebrow": "Kontakt", "title": "Beginnen wir ein Gespräch.", "description": "Erzählen Sie uns von Ihren Plänen. Unser Team meldet sich mit den nächsten Schritten." }
+    "investment": {
+      "eyebrow": "Veranlagung",
+      "title": "Strategische Möglichkeiten.",
+      "description": "Ausgewählte Veranlagungen für nachhaltige Wertschöpfung."
+    },
+    "financing": {
+      "eyebrow": "Finanzierung",
+      "title": "Kapital mit Perspektive.",
+      "description": "Maßgeschneiderte Finanzierungsstrukturen rund um das Potenzial jedes Projekts."
+    },
+    "realEstate": {
+      "eyebrow": "Immobilien",
+      "title": "Immobilien von bleibendem Wert.",
+      "description": "Gewerbe- und Wohnimmobilien in Österreich und Zentraleuropa."
+    },
+    "getInTouch": {
+      "eyebrow": "Kontakt",
+      "title": "Beginnen wir ein Gespräch.",
+      "description": "Erzählen Sie uns von Ihren Plänen. Unser Team meldet sich mit den nächsten Schritten."
+    }
   },
   "investmentStory": {
     "eyebrow": "Veranlagung",
@@ -41,13 +106,312 @@
     "intro": "Unser Investment-Angebot bietet individuelle, optimale Lösungen, maßgeschneidert auf Ihr Budget, Ihre Wünsche und Ziele.",
     "scrollHint": "Scrollen zum Entdecken",
     "chapters": [
-      { "number": "01", "title": "Ertragreich. Flexibel. Transparent.", "body": "Wir setzen ausschließlich auf ausgewählte Investments, die höchste Qualitätskriterien erfüllen. Der komplexe und sich laufend verändernde Finanzmarkt wird gemeinsam mit unseren nationalen und internationalen Partner-Experten kontinuierlich überwacht. Jede Strategie wird regelmäßig geprüft, hinterfragt und an neue wirtschaftliche Rahmenbedingungen angepasst. Dabei stehen nicht kurzfristige Trends, sondern nachvollziehbare Konzepte, solide Strukturen und die langfristigen Ziele unserer Kunden im Mittelpunkt. Unser Investment-Angebot wird individuell auf Budget, persönliche Wünsche, gewünschte Flexibilität und den jeweiligen Anlagehorizont abgestimmt.", "aside": "Gerade in einem Marktumfeld mit niedrigen oder schwankenden Zinsen bieten durchdachte Investmentlösungen die Chance auf regelmäßige, möglichst planbare Ertragsausschüttungen. Transparente Kosten, verständliche Entscheidungsgrundlagen und laufende Kommunikation bilden dabei die Basis." },
-      { "number": "02", "title": "Investmentfonds & Aktien", "body": "Das Angebot an Investmentfonds ist umfassend und reicht von konservativen Lösungen bis zu Produkten mit erheblichen Schwankungen und Risiken. Weil uns die Sicherheitsbedürfnisse unserer Kunden besonders wichtig sind, verfolgen wir aus Überzeugung eine konservative Grundeinstellung. Wir analysieren Anlagekonzepte, Managementqualität, Kosten, Risikostruktur und langfristige Perspektiven, bevor eine Lösung in Betracht gezogen wird. Im Mittelpunkt stehen solvente Investments mit nachvollziehbaren Geschäftsmodellen und realen Chancen auf nachhaltiges Einkommen. Aktien können zugleich große Ertragschancen eröffnen, verlangen aber eine sorgfältige Auswahl, laufende Beobachtung und klare Risikogrenzen.", "aside": "Ein kompetenter Berater mit langjähriger Erfahrung und umfassendem Wissen im jeweiligen Marktsegment ist unerlässlich. Gemeinsam definieren wir, welcher Anteil an Fonds und Aktien zur persönlichen Situation, zur Risikobereitschaft und zu den finanziellen Zielen passt." },
-      { "number": "03", "title": "Grundbuch statt Sparbuch.", "body": "Es gibt zahlreiche Formen der Veranlagung in Immobilien. Das Spektrum reicht von offenen und geschlossenen Immobilienfonds über Bauherrenmodelle und Anlegerwohnungen bis zum direkten Kauf eines Eigenheims oder eines gewerblich genutzten Objekts. Welche Form sinnvoll ist, hängt von mehreren Faktoren ab: dem verfügbaren Anlagebetrag, dem frei verfügbaren Einkommen, der steuerlichen Situation, dem gewünschten Anlagehorizont sowie dem persönlichen Bedürfnis nach Sicherheit und Flexibilität. Deshalb betrachten wir jede Immobilienveranlagung individuell und prüfen Chancen, laufende Erträge, Finanzierung, Kosten und mögliche Risiken im Zusammenhang.", "aside": "Beständigkeit und Werterhalt machen Immobilien besonders attraktiv. Sie können Schutz vor Inflation bieten und je nach Modell steuerliche Vorteile ermöglichen. Diese Potenziale müssen jedoch stets gemeinsam mit Standortqualität, Nutzungskonzept, Marktumfeld und langfristiger Verwertbarkeit beurteilt werden." },
-      { "number": "04", "title": "Gemeinsam zum Erfolg.", "body": "Wir sind laufend auf der Suche nach Investoren, die sich für national und international attraktive, renditestarke Projekte interessieren. Unsere Zusammenarbeit beginnt mit einem klaren Verständnis der persönlichen Erwartungen, des verfügbaren Kapitals und des gewünschten Risikoprofils. Auf dieser Grundlage identifizieren wir passende Projekte und schaffen transparente Entscheidungsgrundlagen. Gegenüber unseren Partnern verpflichten wir uns zu einer stetigen und nachvollziehbaren Kommunikationspolitik. Wir verstehen Offenheit, Verlässlichkeit und einen regelmäßigen Informationsaustausch als unverzichtbare Voraussetzungen für eine vertrauensvolle, effektive und langfristig erfolgreiche Zusammenarbeit.", "aside": "Bei konkretem Interesse stellen wir gerne eine aktuelle Projektliste sowie ein individuell zugeschnittenes Projektexposé bereit. Zum Schutz aller beteiligten Parteien werden detaillierte Unterlagen ausschließlich nach Zeichnung einer Vertraulichkeitsvereinbarung ausgehändigt." }
+      {
+        "number": "01",
+        "title": "Ertragreich. Flexibel. Transparent.",
+        "body": "Wir setzen ausschließlich auf ausgewählte Investments, die höchste Qualitätskriterien erfüllen. Der komplexe und sich laufend verändernde Finanzmarkt wird gemeinsam mit unseren nationalen und internationalen Partner-Experten kontinuierlich überwacht. Jede Strategie wird regelmäßig geprüft, hinterfragt und an neue wirtschaftliche Rahmenbedingungen angepasst. Dabei stehen nicht kurzfristige Trends, sondern nachvollziehbare Konzepte, solide Strukturen und die langfristigen Ziele unserer Kunden im Mittelpunkt. Unser Investment-Angebot wird individuell auf Budget, persönliche Wünsche, gewünschte Flexibilität und den jeweiligen Anlagehorizont abgestimmt.",
+        "aside": "Gerade in einem Marktumfeld mit niedrigen oder schwankenden Zinsen bieten durchdachte Investmentlösungen die Chance auf regelmäßige, möglichst planbare Ertragsausschüttungen. Transparente Kosten, verständliche Entscheidungsgrundlagen und laufende Kommunikation bilden dabei die Basis."
+      },
+      {
+        "number": "02",
+        "title": "Investmentfonds & Aktien",
+        "body": "Das Angebot an Investmentfonds ist umfassend und reicht von konservativen Lösungen bis zu Produkten mit erheblichen Schwankungen und Risiken. Weil uns die Sicherheitsbedürfnisse unserer Kunden besonders wichtig sind, verfolgen wir aus Überzeugung eine konservative Grundeinstellung. Wir analysieren Anlagekonzepte, Managementqualität, Kosten, Risikostruktur und langfristige Perspektiven, bevor eine Lösung in Betracht gezogen wird. Im Mittelpunkt stehen solvente Investments mit nachvollziehbaren Geschäftsmodellen und realen Chancen auf nachhaltiges Einkommen. Aktien können zugleich große Ertragschancen eröffnen, verlangen aber eine sorgfältige Auswahl, laufende Beobachtung und klare Risikogrenzen.",
+        "aside": "Ein kompetenter Berater mit langjähriger Erfahrung und umfassendem Wissen im jeweiligen Marktsegment ist unerlässlich. Gemeinsam definieren wir, welcher Anteil an Fonds und Aktien zur persönlichen Situation, zur Risikobereitschaft und zu den finanziellen Zielen passt."
+      },
+      {
+        "number": "03",
+        "title": "Grundbuch statt Sparbuch.",
+        "body": "Es gibt zahlreiche Formen der Veranlagung in Immobilien. Das Spektrum reicht von offenen und geschlossenen Immobilienfonds über Bauherrenmodelle und Anlegerwohnungen bis zum direkten Kauf eines Eigenheims oder eines gewerblich genutzten Objekts. Welche Form sinnvoll ist, hängt von mehreren Faktoren ab: dem verfügbaren Anlagebetrag, dem frei verfügbaren Einkommen, der steuerlichen Situation, dem gewünschten Anlagehorizont sowie dem persönlichen Bedürfnis nach Sicherheit und Flexibilität. Deshalb betrachten wir jede Immobilienveranlagung individuell und prüfen Chancen, laufende Erträge, Finanzierung, Kosten und mögliche Risiken im Zusammenhang.",
+        "aside": "Beständigkeit und Werterhalt machen Immobilien besonders attraktiv. Sie können Schutz vor Inflation bieten und je nach Modell steuerliche Vorteile ermöglichen. Diese Potenziale müssen jedoch stets gemeinsam mit Standortqualität, Nutzungskonzept, Marktumfeld und langfristiger Verwertbarkeit beurteilt werden."
+      },
+      {
+        "number": "04",
+        "title": "Gemeinsam zum Erfolg.",
+        "body": "Wir sind laufend auf der Suche nach Investoren, die sich für national und international attraktive, renditestarke Projekte interessieren. Unsere Zusammenarbeit beginnt mit einem klaren Verständnis der persönlichen Erwartungen, des verfügbaren Kapitals und des gewünschten Risikoprofils. Auf dieser Grundlage identifizieren wir passende Projekte und schaffen transparente Entscheidungsgrundlagen. Gegenüber unseren Partnern verpflichten wir uns zu einer stetigen und nachvollziehbaren Kommunikationspolitik. Wir verstehen Offenheit, Verlässlichkeit und einen regelmäßigen Informationsaustausch als unverzichtbare Voraussetzungen für eine vertrauensvolle, effektive und langfristig erfolgreiche Zusammenarbeit.",
+        "aside": "Bei konkretem Interesse stellen wir gerne eine aktuelle Projektliste sowie ein individuell zugeschnittenes Projektexposé bereit. Zum Schutz aller beteiligten Parteien werden detaillierte Unterlagen ausschließlich nach Zeichnung einer Vertraulichkeitsvereinbarung ausgehändigt."
+      }
     ],
     "closingTitle": "Gestalten wir Ihre Veranlagungsstrategie.",
     "closingAction": "Kontakt"
   },
-  "footer": { "description": "Nachhaltige Wertschöpfung durch strategische Veranlagung, Finanzierung und Immobilienkompetenz.", "company": "Unternehmen", "contact": "Kontakt", "rights": "Alle Rechte vorbehalten.", "privacy": "Datenschutz", "terms": "Nutzungsbedingungen", "legal": "Impressum" }
+  "financingStory": {
+    "eyebrow": "Finanzierung",
+    "title": "Kapital, präzise orchestriert.",
+    "intro": "Eine starke Finanzierungsstruktur sichert nicht nur Kapital. Sie schützt Liquidität, schafft Flexibilität und macht ambitionierte Vorhaben realisierbar.",
+    "scrollHint": "Dem Kapitalfluss folgen",
+    "blueprint": {
+      "project": "Ihr Projekt",
+      "bank": "Bankpartner",
+      "capital": "Kapital",
+      "security": "Sicherheit",
+      "liquidity": "Liquidität",
+      "return": "Künftige Erträge"
+    },
+    "principlesEyebrow": "Mehr als ein Zinssatz",
+    "principlesTitle": "Jedes Element muss zusammenspielen.",
+    "principles": [
+      {
+        "number": "01",
+        "title": "Flexibel ab dem ersten Tag",
+        "description": "Die richtige Struktur passt sich Baufortschritt, veränderten Anforderungen und langfristigen Zielen an, statt Sie in starren Konditionen festzuhalten."
+      },
+      {
+        "number": "02",
+        "title": "Liquidität im richtigen Moment",
+        "description": "Eine übersichtliche Liquiditätsplanung stellt Kapital bedarfsgerecht bereit und bewahrt gleichzeitig einen finanziellen Polster für ungeplante Ereignisse."
+      },
+      {
+        "number": "03",
+        "title": "Konditionen, die Verhandlung wert sind",
+        "description": "Als erfahrener Premium-Bankpartner vergleichen wir Strukturen, verhandeln selbstbewusst und erkennen Chancen für erfolgreiche Umschuldungen."
+      }
+    ],
+    "flowEyebrow": "Projektfinanzierung",
+    "flowTitle": "Von der Idee zur nachhaltigen Rückzahlung.",
+    "flowDescription": "Bei Investitionsvorhaben kann die Rückzahlung auf den künftig erwirtschafteten Erträgen des Projekts selbst aufbauen. Kapital wird entlang erreichter Meilensteine bereitgestellt, während Risiken und Beteiligte klar koordiniert bleiben.",
+    "flowSteps": [
+      { "label": "Konzept", "value": "Strategie und Machbarkeit" },
+      { "label": "Struktur", "value": "Kapital und Sicherheiten" },
+      { "label": "Umsetzung", "value": "Liquidität nach Meilensteinen" },
+      { "label": "Betrieb", "value": "Rückzahlung aus Erträgen" }
+    ],
+    "optionsEyebrow": "Finanzierungsinstrumente",
+    "optionsTitle": "Der richtige Mix schafft Handlungsspielraum.",
+    "options": [
+      {
+        "title": "Immobilienfinanzierung",
+        "description": "Maßgeschneiderte private und gewerbliche Immobilienfinanzierungen mit attraktiven Fixzinsvarianten und flexiblen Rückzahlungsstrukturen."
+      },
+      {
+        "title": "Umschuldung",
+        "description": "Bestehende Finanzierungen werden geprüft und neu verhandelt, um Unternehmen aus ungünstigen langfristigen Konditionen zu lösen."
+      },
+      {
+        "title": "Projektfinanzierung",
+        "description": "Komplexe nationale und internationale Vorhaben werden rund um die künftig erwarteten Projekterträge strukturiert."
+      },
+      {
+        "title": "Alternatives Kapital",
+        "description": "Mitarbeiterbeteiligungen, Unternehmensanleihen, Asset Backed Securities, private Darlehen und Crowdfunding können klassische Finanzierung ergänzen."
+      }
+    ],
+    "closingTitle": "Strukturieren wir, was als Nächstes kommt.",
+    "closingAction": "Finanzierung besprechen"
+  },
+  "legalPages": {
+    "imprint": {
+      "eyebrow": "Rechtliches",
+      "title": "Impressum",
+      "intro": "Angaben zum verantwortlichen Unternehmen sowie Haftungs- und Urheberrechtshinweise.",
+      "notice": "",
+      "sections": [
+        {
+          "title": "Für den Inhalt verantwortlich",
+          "paragraphs": [
+            "ProInvestment VermögenstreuhandgesmbH, Geschäftsführer Wolfram Ruck, Ruckburg – Allgäustraße 5, 6912 Hörbranz, Austria.",
+            "Telefon: +43 (0)5573/84777-0. Fax: +43 (0)5573/84777-77. E-Mail: office@proinvestment.at."
+          ]
+        },
+        {
+          "title": "Legal Entity Identifier",
+          "paragraphs": [
+            "Durch die OeKB – Oesterreichische Kontrollbank AG geprüfte und veröffentlichte Legal Entity Identifier (LEI) Nummer: 529900UJOIYTJZOPJ108."
+          ]
+        },
+        {
+          "title": "§ 1 Haftung für Inhalte dieser Website",
+          "paragraphs": [
+            "Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.",
+            "Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben unberührt. Eine Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden entsprechender Rechtsverletzungen werden wir diese Inhalte umgehend entfernen."
+          ]
+        },
+        {
+          "title": "§ 2 Haftung für Links",
+          "paragraphs": [
+            "Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Für diese fremden Inhalte kann daher keine Gewähr übernommen werden. Verantwortlich ist stets der jeweilige Anbieter oder Betreiber der verlinkten Seiten.",
+            "Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße geprüft. Eine permanente inhaltliche Kontrolle ist ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden entsprechende Links umgehend entfernt."
+          ]
+        },
+        {
+          "title": "§ 3 Urheberrecht",
+          "paragraphs": [
+            "Die durch die Seitenbetreiber erstellten Inhalte und Werke unterliegen dem deutschen Urheberrecht. Vervielfältigung, Bearbeitung, Verbreitung und jede Verwertung außerhalb der Grenzen des Urheberrechts bedürfen der schriftlichen Zustimmung des jeweiligen Autors oder Erstellers. Downloads und Kopien sind nur für den privaten, nicht kommerziellen Gebrauch gestattet.",
+            "Soweit Inhalte nicht vom Betreiber erstellt wurden, werden Urheberrechte Dritter beachtet und entsprechende Inhalte gekennzeichnet. Hinweise auf mögliche Urheberrechtsverletzungen richten Sie bitte an uns. Bei Bekanntwerden werden solche Inhalte umgehend entfernt."
+          ]
+        },
+        {
+          "title": "§ 4 Rechtswirksamkeit",
+          "paragraphs": [
+            "Dieser Haftungsausschluss ist als Teil des Internetangebotes zu betrachten. Sollten einzelne Teile oder Formulierungen der geltenden Rechtslage nicht, nicht mehr oder nicht vollständig entsprechen, bleiben die übrigen Teile des Dokuments in Inhalt und Gültigkeit unberührt."
+          ]
+        },
+        {
+          "title": "Web-Konzept, Gestaltung und Realisierung",
+          "paragraphs": ["ProInvestment Vermögenstreuhandgesellschaft mbH."]
+        }
+      ]
+    },
+    "privacy": {
+      "eyebrow": "Rechtliches",
+      "title": "Datenschutz",
+      "intro": "Die folgenden Hinweise geben einen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie unsere Website besuchen.",
+      "notice": "",
+      "sections": [
+        {
+          "title": "Datenschutz auf einen Blick",
+          "paragraphs": [
+            "Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können. Ihre Daten werden einerseits dadurch erhoben, dass Sie uns diese mitteilen, beispielsweise über ein Kontaktformular. Andere Daten werden beim Besuch der Website automatisch durch die IT-Systeme erfasst. Dabei handelt es sich vor allem um technische Daten wie Internetbrowser, Betriebssystem oder Uhrzeit des Seitenaufrufs.",
+            "Ein Teil der Daten wird erhoben, um eine fehlerfreie und sichere Bereitstellung der Website zu gewährleisten."
+          ]
+        },
+        {
+          "title": "Verantwortliche Stelle",
+          "paragraphs": [
+            "Verantwortlich für die Datenverarbeitung auf dieser Website ist die ProInvestment VermögenstreuhandgesmbH, Geschäftsführer Wolfram Ruck, Ruckburg – Allgäustraße 5, 6912 Hörbranz, Austria.",
+            "Telefon: +43 (0)5573/84777-0. Fax: +43 (0)5573/84777-77. E-Mail: office@proinvestment.at."
+          ]
+        },
+        {
+          "title": "Allgemeine Hinweise",
+          "paragraphs": [
+            "Wir nehmen den Schutz Ihrer persönlichen Daten sehr ernst und behandeln personenbezogene Daten vertraulich sowie entsprechend den gesetzlichen Datenschutzvorschriften und dieser Datenschutzerklärung.",
+            "Die Datenübertragung im Internet, beispielsweise bei der Kommunikation per E-Mail, kann Sicherheitslücken aufweisen. Ein lückenloser Schutz vor dem Zugriff durch Dritte ist nicht möglich."
+          ]
+        },
+        {
+          "title": "Ihre Rechte",
+          "paragraphs": [
+            "Sie haben im Rahmen der geltenden gesetzlichen Bestimmungen das Recht auf unentgeltliche Auskunft über Ihre gespeicherten personenbezogenen Daten, deren Herkunft, Empfänger und Zweck der Verarbeitung sowie gegebenenfalls Rechte auf Berichtigung, Einschränkung oder Löschung.",
+            "Eine bereits erteilte Einwilligung können Sie jederzeit formlos per E-Mail widerrufen. Sie haben außerdem ein Recht auf Datenübertragbarkeit und ein Beschwerderecht bei der Österreichischen Datenschutzbehörde unter dsb.gv.at."
+          ]
+        },
+        {
+          "title": "SSL- beziehungsweise TLS-Verschlüsselung",
+          "paragraphs": [
+            "Diese Website nutzt aus Sicherheitsgründen und zum Schutz der Übertragung vertraulicher Inhalte eine SSL- beziehungsweise TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie am Wechsel von „http://“ zu „https://“ und am Schloss-Symbol des Browsers."
+          ]
+        },
+        {
+          "title": "Cookies",
+          "paragraphs": [
+            "Diese Website kann technisch notwendige Cookies verwenden. Cookies sind kleine Textdateien, die auf Ihrem Endgerät gespeichert werden und keinen Schaden anrichten. Session-Cookies werden nach Ende Ihres Besuchs automatisch gelöscht.",
+            "Sie können Ihren Browser so einstellen, dass Sie über das Setzen von Cookies informiert werden, Cookies nur im Einzelfall erlauben oder generell ausschließen sowie das automatische Löschen beim Schließen des Browsers aktivieren."
+          ]
+        },
+        {
+          "title": "Server-Log-Dateien",
+          "paragraphs": [
+            "Der Provider der Website kann automatisch Informationen in Server-Log-Dateien erfassen, die Ihr Browser übermittelt. Dazu gehören Browsertyp und Browserversion, Betriebssystem, Referrer-URL, Hostname, Uhrzeit der Serveranfrage und IP-Adresse.",
+            "Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Es besteht ein berechtigtes Interesse an der technisch fehlerfreien Darstellung, Sicherheit und Optimierung der Website. Eine Zusammenführung mit anderen Datenquellen erfolgt nicht."
+          ]
+        },
+        {
+          "title": "Kontaktformular und Anfragen",
+          "paragraphs": [
+            "Wenn Sie uns über ein Kontaktformular oder per E-Mail kontaktieren, werden Ihre Angaben einschließlich der übermittelten Kontaktdaten zur Bearbeitung Ihrer Anfrage und für mögliche Anschlussfragen gespeichert. Diese Daten werden nicht ohne Ihre Einwilligung weitergegeben.",
+            "Die Verarbeitung erfolgt auf Grundlage Ihrer Einwilligung gemäß Art. 6 Abs. 1 lit. a DSGVO. Die Daten verbleiben bei uns, bis Sie die Löschung verlangen, Ihre Einwilligung widerrufen oder der Zweck der Speicherung entfällt. Gesetzliche Aufbewahrungsfristen bleiben unberührt."
+          ]
+        },
+        {
+          "title": "Widerspruch gegen Werbe-E-Mails",
+          "paragraphs": [
+            "Der Nutzung der im Rahmen der Impressumspflicht veröffentlichten Kontaktdaten zur Übersendung nicht ausdrücklich angeforderter Werbung und Informationsmaterialien wird widersprochen. Rechtliche Schritte im Falle unverlangter Werbeinformationen bleiben vorbehalten."
+          ]
+        }
+      ]
+    },
+    "terms": {
+      "eyebrow": "Rechtliches",
+      "title": "Nutzungsbedingungen",
+      "intro": "Bedingungen für die Nutzung der Website und der bereitgestellten Informationen.",
+      "notice": "",
+      "sections": [
+        {
+          "title": "Geltungsbereich",
+          "paragraphs": [
+            "Mit der Nutzung dieser Website akzeptieren Sie diese Nutzungsbedingungen. Die Inhalte richten sich an Personen, für die der Zugriff nach der jeweils anwendbaren Rechtsordnung zulässig ist."
+          ]
+        },
+        {
+          "title": "Keine Beratung oder Empfehlung",
+          "paragraphs": [
+            "Die auf dieser Website bereitgestellten Informationen dienen ausschließlich allgemeinen Informationszwecken. Sie stellen weder eine Anlage-, Finanzierungs-, Steuer- oder Rechtsberatung noch ein Angebot oder eine Empfehlung zum Erwerb oder Verkauf eines Finanzinstruments dar."
+          ]
+        },
+        {
+          "title": "Richtigkeit und Verfügbarkeit",
+          "paragraphs": [
+            "Wir bemühen uns um aktuelle und korrekte Informationen, übernehmen jedoch keine Garantie für Vollständigkeit, Richtigkeit oder dauerhafte Verfügbarkeit. Inhalte können jederzeit geändert oder entfernt werden."
+          ]
+        },
+        {
+          "title": "Risiken und Eigenverantwortung",
+          "paragraphs": [
+            "Veranlagungen und Finanzierungen sind mit Risiken verbunden. Frühere Entwicklungen erlauben keine verlässlichen Rückschlüsse auf zukünftige Ergebnisse. Entscheidungen sind eigenverantwortlich und nach persönlicher Beratung zu treffen."
+          ]
+        },
+        {
+          "title": "Links und Schutzrechte",
+          "paragraphs": [
+            "Für Inhalte externer Websites wird keine Verantwortung übernommen. Sämtliche Marken, Texte, Bilder und sonstigen Inhalte bleiben ihren jeweiligen Rechteinhabern vorbehalten."
+          ]
+        }
+      ]
+    },
+    "legal-foundations": {
+      "eyebrow": "Rechtliches",
+      "title": "Rechtliche Grundlagen",
+      "intro": "Gewerbeberechtigungen, Registrierungen und konzessionierte Partner der ProInvestment.",
+      "notice": "",
+      "sections": [
+        {
+          "title": "Gewerbliche Vermögensberatung",
+          "paragraphs": [
+            "Gewerbliche Vermögensberatung laut Gewerbeberechtigung GZ: Vlb-211/2589-1999."
+          ]
+        },
+        {
+          "title": "Vermögensverwaltung",
+          "paragraphs": [
+            "Vermögensverwalter laut Gewerbeschein II-925/1993 und II-1101-0695/2002 „Verwaltung von beweglichen Vermögen“."
+          ]
+        },
+        {
+          "title": "Immobilientreuhänder in Österreich",
+          "paragraphs": [
+            "Die Ausübung erfolgt durch ProInvestment German Division – Wolfram Ruck – 88450 Berkheim, registriert im DLR Österreich unter GZ: 2026-0.000.269."
+          ]
+        },
+        {
+          "title": "Immobilientreuhänder in Deutschland",
+          "paragraphs": [
+            "Immobilientreuhänder, Bauträger, Darlehens- und Anlagenvermittler in Deutschland durch die PIV ProInvestment Vermögenstreuhand German Division – Wolfram Ruck – 88450 Berkheim, laut Gewerbeberechtigung nach § 34c GewO, GZ 24-826/2000 LRA Lindau."
+          ]
+        },
+        {
+          "title": "Legal Entity Identifier",
+          "paragraphs": [
+            "Durch die OeKB – Oesterreichische Kontrollbank AG geprüfte und veröffentlichte Legal Entity Identifier (LEI) Nummer: 529900UJOIYTJZOPJ108."
+          ]
+        },
+        {
+          "title": "Konzessionierter Partner",
+          "paragraphs": [
+            "Die FinanzAdmin ist gemäß WAG 2018 unser konzessionierter Partner im Rahmen der Beratung und Vermittlung von Finanzinstrumenten.",
+            "In diesem Tätigkeitsbereich ist die ProInvestment Vermögenstreuhandgesellschaft mbH ein Erfüllungsgehilfe der FinanzAdmin gemäß § 1313a ABGB und wird im Namen und Auftrag sowie auf Rechnung der FinanzAdmin tätig."
+          ]
+        }
+      ]
+    }
+  },
+  "footer": {
+    "description": "Nachhaltige Wertschöpfung durch strategische Veranlagung, Finanzierung und Immobilienkompetenz.",
+    "company": "Unternehmen",
+    "contact": "Kontakt",
+    "rights": "Alle Rechte vorbehalten.",
+    "privacy": "Datenschutz",
+    "terms": "Nutzungsbedingungen",
+    "legal": "Impressum",
+    "foundations": "Rechtliche Grundlagen"
+  }
 }

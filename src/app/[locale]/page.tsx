@@ -1,8 +1,16 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArrowLink } from "@/components/ui/ArrowLink/ArrowLink";
 import { Reveal } from "@/components/ui/Reveal/Reveal";
 import { getDictionary, isLocale, localizedPath } from "@/i18n/config";
 import styles from "../Home.module.scss";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  const t = getDictionary(locale).home.hero;
+  return { title: locale === "de" ? "Werte schaffen. Zukunft gestalten." : "Creating Value. Shaping the Future.", description: t.description };
+}
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;

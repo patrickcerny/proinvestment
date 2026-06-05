@@ -2,6 +2,8 @@
 @use "@/styles/tokens" as *;
 
 .story {
+  max-width: 100%;
+  overflow: clip;
   background: $color-ink;
 }
 
@@ -22,7 +24,7 @@
     margin: auto 0;
     font-size: clamp(4rem, 11vw, 11rem);
     font-weight: 400;
-    letter-spacing: -0.075em;
+    letter-spacing: -0.035em;
     line-height: 0.98;
   }
 }
@@ -202,18 +204,20 @@
   align-content: center;
   gap: 3rem;
   position: relative;
-  z-index: 10;
+  z-index: 1;
   padding: $section-space $page-gutter;
   background: $color-ink;
   text-align: center;
 
   h2 {
-    max-width: 16ch;
+    max-width: min(16ch, 100%);
     margin: 0;
     font-size: clamp(3rem, 7vw, 7rem);
     font-weight: 400;
     letter-spacing: -0.065em;
     line-height: 0.95;
+    hyphens: auto;
+    overflow-wrap: normal;
   }
 }
 
@@ -284,6 +288,30 @@
     top: 5.5rem;
     min-height: calc(100svh - 5.5rem);
     padding-block: 2rem;
+  }
+
+  .hero h1,
+  .panel h2,
+  .closing h2 {
+    max-width: 100%;
+    hyphens: auto;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+
+  .hero h1 {
+    font-size: clamp(3rem, 16vw, 5rem);
+  }
+
+  .panel h2 {
+    font-size: clamp(2.8rem, 14vw, 4.5rem);
+    letter-spacing: -0.045em;
+  }
+
+  .closing h2 {
+    font-size: clamp(2rem, 10.5vw, 3.7rem);
+    letter-spacing: -0.04em;
+    line-height: 1;
   }
 
   .copy p {

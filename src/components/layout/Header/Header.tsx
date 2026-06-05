@@ -23,6 +23,12 @@ export function Header({ dictionary, locale }: { dictionary: Dictionary; locale:
     ...navigation,
     { href: "/get-in-touch", label: dictionary.navigation.getInTouch },
   ];
+  const mobileLegalNavigation = [
+    { href: "/legal/privacy", label: dictionary.footer.privacy },
+    { href: "/legal/terms", label: dictionary.footer.terms },
+    { href: "/legal/legal-foundations", label: dictionary.footer.foundations },
+    { href: "/legal/imprint", label: dictionary.footer.legal },
+  ];
 
   function closeMenu() {
     setIsMenuOpen(false);
@@ -77,7 +83,9 @@ export function Header({ dictionary, locale }: { dictionary: Dictionary; locale:
             })}
           </ul>
         </nav>
-        <div className={styles.mobileMenuFooter}><span>{dictionary.footer.privacy}</span><span>{dictionary.footer.legal}</span></div>
+        <div className={styles.mobileMenuFooter}>
+          {mobileLegalNavigation.map((item) => <Link href={localizedPath(locale, item.href)} key={item.href} onClick={closeMenu}>{item.label}</Link>)}
+        </div>
       </div>
       <button className={styles.backdrop} type="button" aria-hidden={!isMenuOpen} data-open={isMenuOpen} tabIndex={isMenuOpen ? 0 : -1} onClick={closeMenu} />
     </header>

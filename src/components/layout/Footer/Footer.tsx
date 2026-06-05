@@ -20,14 +20,19 @@ export function Footer({ dictionary, locale }: { dictionary: Dictionary; locale:
         </div>
         <div className={styles.links}>
           <h4>{dictionary.footer.contact}</h4>
-          <Link href={localizedPath(locale, "/get-in-touch")}>{dictionary.navigation.getInTouch}</Link>
-        </div>
-        <div className={styles.links}>
-          <h4>{dictionary.footer.contact}</h4>
-          <span>Vienna, Austria</span><span>office@proinvestment.at</span><span>+43 1 234 5678</span>
+          <span>ProInvestment VermögenstreuhandgesmbH</span>
+          <span>Ruckburg – Allgäustraße 5<br />6912 Hörbranz<br />Austria</span>
+          <a href="tel:+435573847770">+43 (0)5573/84777-0</a>
+          <span>Fax: +43 (0)5573/84777-77</span>
+          <a href="mailto:office@proinvestment.at">office@proinvestment.at</a>
         </div>
         <p className={styles.copyright}>© {new Date().getFullYear()} PROINVESTMENT. {dictionary.footer.rights}</p>
-        <div className={styles.legal}><span>{dictionary.footer.privacy}</span><span>{dictionary.footer.terms}</span><span>{dictionary.footer.legal}</span></div>
+        <div className={styles.legal}>
+          <Link href={localizedPath(locale, "/legal/privacy")}>{dictionary.footer.privacy}</Link>
+          <Link href={localizedPath(locale, "/legal/terms")}>{dictionary.footer.terms}</Link>
+          <Link href={localizedPath(locale, "/legal/legal-foundations")}>{dictionary.footer.foundations}</Link>
+          <Link href={localizedPath(locale, "/legal/imprint")}>{dictionary.footer.legal}</Link>
+        </div>
       </Reveal>
     </footer>
   );

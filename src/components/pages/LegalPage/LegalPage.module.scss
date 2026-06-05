@@ -1,0 +1,84 @@
+@use "@/styles/mixins" as *;
+@use "@/styles/tokens" as *;
+
+.page {
+  overflow: clip;
+  background: $color-ink;
+}
+
+.hero {
+  @include container;
+  padding-block: clamp(5rem, 10vw, 10rem);
+
+  > p {
+    @include eyebrow;
+    color: $color-accent;
+  }
+
+  h1 {
+    max-width: 12ch;
+    margin: 2rem 0;
+    font-size: clamp(3.5rem, 8vw, 8rem);
+    font-weight: 400;
+    letter-spacing: -0.06em;
+    line-height: 0.95;
+    hyphens: auto;
+  }
+
+  > span {
+    display: block;
+    max-width: 44rem;
+    color: $color-muted;
+    line-height: 1.75;
+  }
+}
+
+.content {
+  @include container;
+  padding-bottom: $section-space;
+}
+
+.notice {
+  max-width: 55rem;
+  margin-bottom: 3rem;
+  padding: 1.5rem;
+  border: 1px solid $color-line;
+  color: $color-muted;
+  font-size: 0.85rem;
+  line-height: 1.7;
+
+  p { margin: 0; }
+}
+
+.section {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 48rem);
+  gap: clamp(1.5rem, 5vw, 5rem);
+  padding-block: clamp(2.5rem, 5vw, 5rem);
+  border-top: 1px solid $color-line;
+
+  > span {
+    @include eyebrow;
+    color: $color-accent;
+  }
+
+  h2 {
+    margin: 0 0 2rem;
+    font-size: clamp(1.8rem, 3vw, 3rem);
+    font-weight: 400;
+    letter-spacing: -0.045em;
+    line-height: 1.05;
+    hyphens: auto;
+  }
+
+  p {
+    color: $color-muted;
+    line-height: 1.8;
+    overflow-wrap: break-word;
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .hero h1 { font-size: clamp(3rem, 15vw, 4.5rem); }
+  .section { grid-template-columns: 1fr; gap: 1rem; }
+}

@@ -7,7 +7,9 @@
   place-items: center;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, $color-ink 0%, $color-surface-light 50%, $color-ink 100%);
+  background:
+    radial-gradient(circle at 65% 45%, rgba($color-blue-deep, 0.55), transparent 42%),
+    linear-gradient(135deg, $color-ink, $color-surface);
   text-align: center;
 }
 
@@ -35,6 +37,7 @@
 
 .hero h1 {
   margin-bottom: 2rem;
+  color: $color-paper;
   font-size: clamp(3.4rem, 7vw, 6rem);
   font-weight: 500;
   letter-spacing: -0.045em;
@@ -44,7 +47,7 @@
 .hero p {
   max-width: 45rem;
   margin: 0 auto 3rem;
-  color: $color-muted;
+  color: $color-paper;
   font-size: clamp(1rem, 1.5vw, 1.2rem);
   line-height: 1.65;
 }
@@ -53,6 +56,18 @@
   display: flex;
   justify-content: center;
   gap: 1.25rem;
+
+  a {
+    border-color: $color-paper;
+    background: $color-paper;
+    color: $color-ink;
+  }
+
+  a:last-child {
+    border-color: rgba($color-paper, 0.72);
+    background: rgba($color-ink, 0.72);
+    color: $color-paper;
+  }
 }
 
 .metrics {
@@ -176,7 +191,7 @@
   min-height: 20rem;
   display: grid;
   place-items: center;
-  background: linear-gradient(135deg, $color-surface-light, #2a3440);
+  background: linear-gradient(135deg, $color-surface-light, $color-blue-deep);
 
   svg {
     width: 5rem;
