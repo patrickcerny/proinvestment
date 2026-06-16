@@ -1,0 +1,190 @@
+@use "@/styles/mixins" as *;
+@use "@/styles/tokens" as *;
+
+.showcase {
+  padding: $section-space $page-gutter;
+  overflow: clip;
+}
+
+.heading {
+  @include container;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: end;
+  margin-bottom: 4rem;
+
+  p,
+  a {
+    @include eyebrow;
+    color: $color-accent;
+  }
+
+  h2 {
+    max-width: 12ch;
+    margin: 1rem 0 0;
+    font-size: clamp(2.8rem, 6vw, 6rem);
+    font-weight: 400;
+    letter-spacing: -0.06em;
+    line-height: 0.95;
+  }
+}
+
+.grid {
+  @include container;
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 3rem);
+}
+
+.full .grid {
+  grid-template-columns: 1fr;
+}
+
+.featured .grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.card {
+  min-width: 0;
+
+  article {
+    height: 100%;
+    display: grid;
+    overflow: hidden;
+    border: 1px solid $color-line;
+    background: $color-surface;
+  }
+}
+
+.full .card article {
+  grid-template-columns: minmax(18rem, 1.05fr) minmax(0, 0.95fr);
+  min-height: 35rem;
+}
+
+.media {
+  min-height: 23rem;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba($color-accent, 0.18), transparent),
+    $color-ink;
+
+  img {
+    object-fit: cover;
+    filter: saturate(0.85) contrast(1.05);
+    transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  span {
+    @include eyebrow;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    padding: 0.7rem 0.9rem;
+    background: rgba($color-ink, 0.72);
+    color: $color-paper;
+    backdrop-filter: blur(0.5rem);
+  }
+}
+
+.card:hover img {
+  transform: scale(1.04);
+}
+
+.placeholder {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba($color-paper, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba($color-paper, 0.055) 1px, transparent 1px),
+    radial-gradient(circle, rgba($color-accent, 0.18), transparent 45%),
+    $color-ink;
+  background-size: 3rem 3rem, 3rem 3rem, auto, auto;
+}
+
+.body {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(2rem, 5vw, 5rem);
+
+  small {
+    @include eyebrow;
+    color: $color-accent;
+  }
+
+  h3 {
+    margin: 2rem 0 1.5rem;
+    font-size: clamp(2rem, 4vw, 4.5rem);
+    font-weight: 400;
+    letter-spacing: -0.06em;
+    line-height: 0.96;
+    hyphens: auto;
+  }
+
+  p {
+    color: $color-muted;
+    line-height: 1.75;
+  }
+
+  b {
+    margin-top: auto;
+    padding-top: 2rem;
+    color: $color-paper;
+    font-weight: 500;
+  }
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 2rem;
+
+  a {
+    @include eyebrow;
+    border: 1px solid $color-line;
+    padding: 0.9rem 1.1rem;
+    color: $color-paper;
+    transition: border-color 180ms ease, color 180ms ease;
+
+    &:hover {
+      border-color: $color-accent;
+      color: $color-accent;
+    }
+  }
+}
+
+.featured {
+  background: $color-ink;
+
+  .card article {
+    grid-template-rows: auto 1fr;
+  }
+
+  .body {
+    padding: 2rem;
+  }
+
+  .body h3 {
+    font-size: clamp(1.7rem, 3vw, 2.6rem);
+  }
+}
+
+.empty {
+  @include container;
+  padding-block: $section-space;
+  color: $color-muted;
+  text-align: center;
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .featured .grid,
+  .full .card article {
+    grid-template-columns: 1fr;
+  }
+
+  .heading {
+    grid-template-columns: 1fr;
+  }
+}

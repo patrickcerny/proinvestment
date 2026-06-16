@@ -1,0 +1,197 @@
+@use "@/styles/mixins" as *;
+@use "@/styles/tokens" as *;
+
+.page {
+  min-height: 100svh;
+  padding: clamp(2rem, 5vw, 5rem) $page-gutter;
+  background:
+    radial-gradient(circle at 85% 12%, rgba($color-accent, 0.18), transparent 30%),
+    $color-ink;
+}
+
+.shell {
+  @include container;
+}
+
+.top {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 3rem;
+
+  p {
+    @include eyebrow;
+    color: $color-accent;
+  }
+
+  h1 {
+    max-width: 12ch;
+    margin: 0;
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 400;
+    letter-spacing: -0.06em;
+    line-height: 0.95;
+  }
+}
+
+.logout {
+  @include eyebrow;
+  border: 1px solid $color-line;
+  padding: 0.9rem 1.2rem;
+  background: transparent;
+  color: $color-muted;
+  cursor: pointer;
+}
+
+.login {
+  max-width: 34rem;
+  margin: 15vh auto;
+  padding: clamp(2rem, 5vw, 4rem);
+  border: 1px solid $color-line;
+  background: $color-surface;
+
+  h1 {
+    margin: 0 0 1.5rem;
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    font-weight: 400;
+    letter-spacing: -0.06em;
+  }
+
+  p {
+    color: $color-muted;
+  }
+}
+
+.error,
+.success {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  border: 1px solid $color-line;
+  color: $color-paper;
+}
+
+.error { background: rgba(150, 40, 40, 0.22); }
+.success { background: rgba($color-accent, 0.12); }
+
+.form {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.panel {
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem;
+  border: 1px solid $color-line;
+  background: rgba($color-surface, 0.7);
+
+  h2,
+  h3 {
+    margin: 0;
+    font-weight: 400;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+}
+
+.field {
+  display: grid;
+  gap: 0.45rem;
+
+  span {
+    @include eyebrow;
+    color: $color-muted;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    border: 1px solid $color-line;
+    border-radius: 0;
+    padding: 0.9rem 1rem;
+    background: rgba($color-ink, 0.72);
+    color: $color-paper;
+  }
+
+  textarea {
+    min-height: 9rem;
+    resize: vertical;
+  }
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: $color-muted;
+}
+
+.button {
+  @include eyebrow;
+  width: fit-content;
+  border: 1px solid $color-paper;
+  padding: 1rem 1.4rem;
+  background: $color-paper;
+  color: $color-ink;
+  cursor: pointer;
+}
+
+.list {
+  display: grid;
+  gap: 1rem;
+  margin-top: 4rem;
+}
+
+.property {
+  display: grid;
+  grid-template-columns: 9rem 1fr auto;
+  gap: 1.2rem;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid $color-line;
+  background: rgba($color-surface, 0.6);
+
+  img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    background: $color-surface-light;
+  }
+
+  h3 {
+    margin: 0 0 0.4rem;
+  }
+
+  p {
+    margin: 0;
+    color: $color-muted;
+  }
+}
+
+.delete {
+  border: 1px solid rgba($color-paper, 0.35);
+  padding: 0.8rem 1rem;
+  background: transparent;
+  color: $color-paper;
+  cursor: pointer;
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .grid,
+  .property {
+    grid-template-columns: 1fr;
+  }
+
+  .top {
+    flex-direction: column;
+  }
+}
