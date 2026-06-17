@@ -6,20 +6,23 @@ APP_NAME="proinvestment-page"
 SERVICE_NAME="${APP_NAME}.service"
 SERVICE_PATH="/etc/systemd/system/${SERVICE_NAME}"
 PORT="1204"
+
 DATA_DIR="$APP_DIR/data"
 UPLOADS_DIR="$APP_DIR/public/uploads/real-estate"
+
 APP_USER="$(id -un)"
 APP_GROUP="$(id -gn)"
+
 NODE_BIN="$(command -v node || true)"
 NPM_BIN="$(command -v npm || true)"
 
 if ! command -v systemctl >/dev/null 2>&1; then
-  echo "systemctl not found. This deploy script requires systemd on the target host." >&2
+  echo "systemctl not found. This deploy script requires systemd." >&2
   exit 1
 fi
 
 if [ -z "$NODE_BIN" ] || [ -z "$NPM_BIN" ]; then
-  echo "node/npm not found in PATH for the current user. Load the correct Node environment first, then re-run deploy." >&2
+  echo "node/npm not found in PATH." >&2
   exit 1
 fi
 
@@ -28,12 +31,10 @@ cd "$APP_DIR"
 mkdir -p "$DATA_DIR"
 mkdir -p "$UPLOADS_DIR/documents"
 
-sudo chown -R "$APP_USER:$APP_GROUP" "$DATA_DIR"
-sudo chown -R "$APP_USER:$APP_GROUP" "$UPLOADS_DIR"
-sudo find "$DATA_DIR" -type d -exec chmod 755 {} \;
-sudo find "$DATA_DIR" -type f -exec chmod 644 {} \;
-sudo find "$UPLOADS_DIR" -type d -exec chmod 755 {} \;
-sudo find "$UPLOADS_DIR" -type f -exec chmod 644 {} \;
+sudo chown -R "$APP_USER:$APP_GROUP" "$DATA_DIR" "$UPLOADS_DIR"
+
+sudo find "$DATA_DIR" "$UPLOADS_DIR" -type d -exec chmod 755 {} \;
+sudo find "$DATA_DIR" "$UPLOADS_DIR" -type f -exec chmod 644 {} \;
 
 if command -v docker >/dev/null 2>&1; then
   docker stop "$APP_NAME" 2>/dev/null || true
@@ -50,6 +51,7 @@ git pull --ff-only
 "$NPM_BIN" run build
 
 TMP_SERVICE_FILE="$(mktemp)"
+
 cat > "$TMP_SERVICE_FILE" <<EOF
 [Unit]
 Description=ProInvestment Next.js application
@@ -63,6 +65,7 @@ WorkingDirectory=$APP_DIR
 Environment=NODE_ENV=production
 Environment=PORT=$PORT
 Environment=PATH=$(dirname "$NODE_BIN"):/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+UMask=0022
 ExecStart=$NODE_BIN $APP_DIR/node_modules/next/dist/bin/next start -p $PORT
 Restart=always
 RestartSec=5
@@ -76,6 +79,6 @@ sudo chmod 644 "$SERVICE_PATH"
 
 sudo systemctl daemon-reload
 sudo systemctl enable "$SERVICE_NAME"
-sudo systemctl start "$SERVICE_NAME"
+sudo systemctl restart "$SERVICE_NAME"
 
 sudo systemctl --no-pager --full status "$SERVICE_NAME"
