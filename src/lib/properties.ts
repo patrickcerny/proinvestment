@@ -9,6 +9,7 @@ export type PropertyButton = {
   kind?: "link" | "document";
   href?: string;
   document?: string;
+  documentName?: string;
 };
 
 export type PropertyEntry = {

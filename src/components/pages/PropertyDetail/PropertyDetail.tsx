@@ -62,7 +62,7 @@ export function PropertyDetail({ locale, property }: { locale: Locale; property:
             const target = getPropertyButtonTarget(button);
             if (!target) return null;
             return (
-              <a download={button.kind === "document" ? button.label[locale] || button.label.de || button.label.en : undefined} href={target} key={`${target}-${button.label[locale]}`}>
+              <a download={button.kind === "document" ? (button.documentName || button.label[locale] || button.label.de || button.label.en) : undefined} href={target} key={`${target}-${button.label[locale]}`}>
                 {button.label[locale] || button.label.de || button.label.en}
               </a>
             );

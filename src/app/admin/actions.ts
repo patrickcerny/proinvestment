@@ -31,6 +31,7 @@ async function collectButtons(formData: FormData): Promise<PropertyButton[]> {
   const kinds = formData.getAll("buttonKind").map((item) => String(item) as PropertyButton["kind"]);
   const hrefs = formData.getAll("buttonHref").map(String);
   const existingDocuments = formData.getAll("existingButtonDocument").map(String);
+  const documentNames = formData.getAll("buttonDocumentName").map(String);
   const documents = formData.getAll("buttonDocument");
   const buttons: PropertyButton[] = [];
 
@@ -43,7 +44,8 @@ async function collectButtons(formData: FormData): Promise<PropertyButton[]> {
       const file = documents[index];
       const document = file instanceof File && file.size > 0 ? await savePropertyDocument(file) : existingDocuments[index]?.trim() || "";
       if (!document) continue;
-      buttons.push({ kind, label, document });
+      const documentName = documentNames[index]?.trim() || "";
+      buttons.push({ kind, label, document, ...(documentName ? { documentName } : {}) });
       continue;
     }
 

@@ -202,6 +202,7 @@ type ButtonItem = {
   labelEn: string;
   href: string;
   document: string;
+  documentName: string;
 };
 
 function DynamicButtons({ initial }: { initial: PropertyEntry["buttons"] }) {
@@ -212,6 +213,7 @@ function DynamicButtons({ initial }: { initial: PropertyEntry["buttons"] }) {
       labelEn: button.label.en,
       href: button.href || "",
       document: button.document || "",
+      documentName: button.documentName || "",
     }))
   );
 
@@ -246,6 +248,7 @@ function DynamicButtons({ initial }: { initial: PropertyEntry["buttons"] }) {
             <>
               <label className={styles.field}><span>Link URL</span><input name="buttonHref" defaultValue={button.href} /></label>
               {/* Hidden doc fields to keep FormData index alignment */}
+              <input name="buttonDocumentName" type="hidden" value="" />
               <input name="existingButtonDocument" type="hidden" value="" />
               <input name="buttonDocument" type="file" style={{ display: "none" }} tabIndex={-1} />
             </>
@@ -255,17 +258,17 @@ function DynamicButtons({ initial }: { initial: PropertyEntry["buttons"] }) {
               <input name="buttonHref" type="hidden" value="" />
               <DocumentUpload
                 existingDoc={button.document}
-                onDocumentChange={(doc) => updateItem(index, { document: doc })}
+                existingDocumentName={button.documentName}
               />
             </>
           )}
 
-          <button type="button" className={styles.removeButton} onClick={() => removeItem(index)}>✕</button>
+          <button type="button" className={styles.removeButton} onClick={() => removeItem(index)} style={{ alignSelf: "end" }}>✕</button>
         </div>
       ))}
       <button
         type="button"
-        onClick={() => setItems((current) => [...current, { kind: "link", labelDe: "", labelEn: "", href: "", document: "" }])}
+        onClick={() => setItems((current) => [...current, { kind: "link", labelDe: "", labelEn: "", href: "", document: "", documentName: "" }])}
       >
         + Button hinzufügen
       </button>
@@ -273,11 +276,10 @@ function DynamicButtons({ initial }: { initial: PropertyEntry["buttons"] }) {
   );
 }
 
-function DocumentUpload({ existingDoc, onDocumentChange }: { existingDoc: string; onDocumentChange: (doc: string) => void }) {
+function DocumentUpload({ existingDoc, existingDocumentName }: { existingDoc: string; existingDocumentName: string }) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [pendingName, setPendingName] = useState<string>("");
-  const existingName = existingDoc ? existingDoc.split("/").pop() || existingDoc : "";
-  const displayName = pendingName || existingName;
+  const [pendingFileName, setPendingFileName] = useState<string>("");
+  const hasFile = !!existingDoc || !!pendingFileName;
 
   return (
     <div className={styles.documentUpload}>
@@ -289,20 +291,31 @@ function DocumentUpload({ existingDoc, onDocumentChange }: { existingDoc: string
         style={{ display: "none" }}
         onChange={(e) => {
           const file = e.target.files?.[0];
-          setPendingName(file ? file.name : "");
+          setPendingFileName(file ? file.name : "");
         }}
       />
       <input name="existingButtonDocument" type="hidden" value={existingDoc} />
+
+      <label className={styles.field}>
+        <span>Dateiname (für Download)</span>
+        <input
+          name="buttonDocumentName"
+          defaultValue={existingDocumentName}
+          placeholder="z.B. Exposé_Villa_Vista.pdf"
+        />
+      </label>
+
       <label className={styles.field}>
         <span>Dokument</span>
         <button type="button" className={styles.documentPickButton} onClick={() => inputRef.current?.click()}>
-          {displayName ? "↑ Datei ersetzen" : "+ PDF hochladen"}
+          {hasFile ? "↑ Datei ersetzen" : "+ PDF hochladen"}
         </button>
       </label>
-      {displayName && (
+
+      {(pendingFileName || existingDoc) && (
         <div className={styles.documentName}>
           <span>📄</span>
-          <span>{displayName}</span>
+          <span>{pendingFileName || existingDoc.split("/").pop()}</span>
         </div>
       )}
     </div>
