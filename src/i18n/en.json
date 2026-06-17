@@ -1,39 +1,119 @@
 {
-  "meta": { "title": "ProInvestment", "description": "Strategic real estate investments and financing." },
-  "navigation": { "home": "Home", "investment": "Investment", "financing": "Financing", "realEstate": "Real Estate", "getInTouch": "Get in Touch", "language": "DE", "openMenu": "Open menu", "closeMenu": "Close menu" },
+  "meta": {
+    "title": "ProInvestment",
+    "description": "Strategic real estate investments and financing."
+  },
+  "navigation": {
+    "home": "Home",
+    "investment": "Investment",
+    "financing": "Financing",
+    "realEstate": "Real Estate",
+    "getInTouch": "Get in Touch",
+    "language": "DE",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
   "home": {
-    "hero": { "titleLine1": "Creating value.", "titleLine2": "Shaping the future.", "description": "Strategic real estate investments and financing focused on long-term value creation and sustainable growth.", "primaryAction": "Explore opportunities", "secondaryAction": "Get in touch" },
+    "hero": {
+      "titleLine1": "Creating value.",
+      "titleLine2": "Shaping the future.",
+      "description": "Strategic real estate investments and financing focused on long-term value creation and sustainable growth.",
+      "primaryAction": "Explore opportunities",
+      "secondaryAction": "Get in touch"
+    },
     "metrics": [
-      { "value": "2B+", "label": "Assets Under Management" },
-      { "value": "150+", "label": "Completed Projects" },
-      { "value": "25+", "label": "Years of Experience" },
-      { "value": "40+", "label": "Strategic Partners" }
+      {
+        "value": "2B+",
+        "label": "Assets Under Management"
+      },
+      {
+        "value": "150+",
+        "label": "Completed Projects"
+      },
+      {
+        "value": "25+",
+        "label": "Years of Experience"
+      },
+      {
+        "value": "40+",
+        "label": "Strategic Partners"
+      }
     ],
     "focus": {
       "title": "Our Focus",
       "description": "We create sustainable value through strategic investments, tailored financing, and comprehensive real estate expertise.",
       "items": [
-        { "icon": "growth", "title": "Investment", "description": "Strategic investments designed for resilient, long-term value creation." },
-        { "icon": "finance", "title": "Financing", "description": "Tailored financing structures for ambitious real estate projects." },
-        { "icon": "property", "title": "Real Estate", "description": "Prime commercial and residential properties across Austria and Central Europe." }
+        {
+          "icon": "growth",
+          "title": "Investment",
+          "description": "Strategic investments designed for resilient, long-term value creation."
+        },
+        {
+          "icon": "finance",
+          "title": "Financing",
+          "description": "Tailored financing structures for ambitious real estate projects."
+        },
+        {
+          "icon": "property",
+          "title": "Real Estate",
+          "description": "Prime commercial and residential properties across Austria and Central Europe."
+        }
       ]
     },
     "projects": {
       "title": "Featured Projects",
       "items": [
-        { "type": "Commercial Real Estate", "title": "Vienna City Center", "location": "Vienna, Austria", "value": "EUR 85M" },
-        { "type": "Residential Development", "title": "Green Valley Residence", "location": "Salzburg, Austria", "value": "EUR 42M" },
-        { "type": "Mixed-Use Development", "title": "Innovation Hub Prague", "location": "Prague, Czech Republic", "value": "EUR 120M" }
+        {
+          "type": "Commercial Real Estate",
+          "title": "Vienna City Center",
+          "location": "Vienna, Austria",
+          "value": "EUR 85M"
+        },
+        {
+          "type": "Residential Development",
+          "title": "Green Valley Residence",
+          "location": "Salzburg, Austria",
+          "value": "EUR 42M"
+        },
+        {
+          "type": "Mixed-Use Development",
+          "title": "Innovation Hub Prague",
+          "location": "Prague, Czech Republic",
+          "value": "EUR 120M"
+        }
       ]
     },
-    "philosophy": { "quote": "We don't just invest in buildings. We invest in communities, futures, and sustainable prosperity.", "label": "PROINVESTMENT PHILOSOPHY" },
-    "cta": { "title": "Ready to Explore Investment Opportunities?", "description": "Connect with our team to discuss how we can help you achieve your investment goals.", "action": "Schedule a consultation" }
+    "philosophy": {
+      "quote": "We don't just invest in buildings. We invest in communities, futures, and sustainable prosperity.",
+      "label": "PROINVESTMENT PHILOSOPHY"
+    },
+    "cta": {
+      "title": "Ready to Explore Investment Opportunities?",
+      "description": "Connect with our team to discuss how we can help you achieve your investment goals.",
+      "action": "Schedule a consultation"
+    }
   },
   "pages": {
-    "investment": { "eyebrow": "Investment", "title": "Strategic opportunities.", "description": "Selected investments designed for lasting value." },
-    "financing": { "eyebrow": "Financing", "title": "Capital with perspective.", "description": "Tailored financing structures built around every project's potential." },
-    "realEstate": { "eyebrow": "Real Estate", "title": "Properties of lasting value.", "description": "Commercial and residential real estate across Austria and Central Europe." },
-    "getInTouch": { "eyebrow": "Get in Touch", "title": "Start a conversation.", "description": "Tell us about your plans and our team will respond with a considered next step." }
+    "investment": {
+      "eyebrow": "Investment",
+      "title": "Strategic opportunities.",
+      "description": "Selected investments designed for lasting value."
+    },
+    "financing": {
+      "eyebrow": "Financing",
+      "title": "Capital with perspective.",
+      "description": "Tailored financing structures built around every project's potential."
+    },
+    "realEstate": {
+      "eyebrow": "Real Estate",
+      "title": "Properties of lasting value.",
+      "description": "Commercial and residential real estate across Austria and Central Europe."
+    },
+    "getInTouch": {
+      "eyebrow": "Get in Touch",
+      "title": "Start a conversation.",
+      "description": "Tell us about your plans and our team will respond with a considered next step."
+    }
   },
   "investmentStory": {
     "eyebrow": "Investment",
@@ -41,72 +121,363 @@
     "intro": "Our investment offering provides individual, optimal solutions tailored to your budget, wishes, and goals.",
     "scrollHint": "Scroll to explore",
     "chapters": [
-      { "number": "01", "title": "Profitable. Flexible. Transparent.", "body": "We rely exclusively on selected investments that meet the highest quality criteria. Together with our national and international partner experts, we continuously monitor the complex and constantly changing financial market. Every strategy is regularly reviewed, challenged, and adapted to changing economic conditions. Our focus is not on short-lived trends, but on understandable concepts, solid structures, and the long-term objectives of our clients. Each investment solution is tailored to the available budget, personal expectations, desired flexibility, and individual investment horizon.", "aside": "Especially in an environment of low or volatile interest rates, well-designed investment solutions can create opportunities for regular and reasonably predictable distributions. Transparent costs, understandable decision-making foundations, and continuous communication remain essential." },
-      { "number": "02", "title": "Funds & Equities", "body": "The range of investment funds is extensive, spanning conservative solutions as well as products exposed to considerable volatility and risk. Because the security needs of our clients matter deeply, we maintain a deliberately conservative foundation. Before considering a solution, we analyze the investment concept, management quality, costs, risk structure, and long-term prospects. Our attention is directed toward solvent investments with understandable business models and realistic opportunities for sustainable income. Equities can provide substantial return potential, but they also require careful selection, continuous monitoring, and clearly defined risk limits.", "aside": "An experienced advisor with comprehensive knowledge of the relevant market segment is indispensable. Together, we determine which allocation to funds and equities fits the client's circumstances, risk tolerance, and financial objectives." },
-      { "number": "03", "title": "Land register, not savings book.", "body": "There are numerous ways to invest in real estate. The spectrum extends from open and closed real estate funds to developer models, investment apartments, private homes, and directly owned commercial properties. The appropriate form depends on several factors: available capital, disposable income, taxation, the intended investment horizon, and the personal need for security and flexibility. For this reason, every real estate investment is assessed individually, considering its opportunities, recurring income, financing structure, costs, and potential risks as one connected picture.", "aside": "Durability and value preservation make real estate particularly attractive. Property can offer inflation protection and, depending on the structure, potential tax benefits. These opportunities must always be assessed alongside location quality, intended use, market conditions, and long-term marketability." },
-      { "number": "04", "title": "Success, together.", "body": "We continuously seek investors interested in attractive, high-yield projects in national and international markets. Our collaboration begins with a clear understanding of personal expectations, available capital, and the desired risk profile. On this basis, we identify suitable projects and create transparent foundations for decision-making. We are committed to continuous and understandable communication with our partners. Openness, reliability, and regular information exchange are indispensable requirements for a trusted, effective, and successful long-term partnership.", "aside": "For concrete opportunities, we are pleased to provide a current project list and a tailored project exposé. To protect every involved party, detailed documentation is provided only after a confidentiality agreement has been signed." }
+      {
+        "number": "01",
+        "title": "Profitable. Flexible. Transparent.",
+        "body": "We rely exclusively on selected investments that meet the highest quality criteria. Together with our national and international partner experts, we continuously monitor the complex and constantly changing financial market. Every strategy is regularly reviewed, challenged, and adapted to changing economic conditions. Our focus is not on short-lived trends, but on understandable concepts, solid structures, and the long-term objectives of our clients. Each investment solution is tailored to the available budget, personal expectations, desired flexibility, and individual investment horizon.",
+        "aside": "Especially in an environment of low or volatile interest rates, well-designed investment solutions can create opportunities for regular and reasonably predictable distributions. Transparent costs, understandable decision-making foundations, and continuous communication remain essential."
+      },
+      {
+        "number": "02",
+        "title": "Funds & Equities",
+        "body": "The range of investment funds is extensive, spanning conservative solutions as well as products exposed to considerable volatility and risk. Because the security needs of our clients matter deeply, we maintain a deliberately conservative foundation. Before considering a solution, we analyze the investment concept, management quality, costs, risk structure, and long-term prospects. Our attention is directed toward solvent investments with understandable business models and realistic opportunities for sustainable income. Equities can provide substantial return potential, but they also require careful selection, continuous monitoring, and clearly defined risk limits.",
+        "aside": "An experienced advisor with comprehensive knowledge of the relevant market segment is indispensable. Together, we determine which allocation to funds and equities fits the client's circumstances, risk tolerance, and financial objectives."
+      },
+      {
+        "number": "03",
+        "title": "Land register, not savings book.",
+        "body": "There are numerous ways to invest in real estate. The spectrum extends from open and closed real estate funds to developer models, investment apartments, private homes, and directly owned commercial properties. The appropriate form depends on several factors: available capital, disposable income, taxation, the intended investment horizon, and the personal need for security and flexibility. For this reason, every real estate investment is assessed individually, considering its opportunities, recurring income, financing structure, costs, and potential risks as one connected picture.",
+        "aside": "Durability and value preservation make real estate particularly attractive. Property can offer inflation protection and, depending on the structure, potential tax benefits. These opportunities must always be assessed alongside location quality, intended use, market conditions, and long-term marketability."
+      },
+      {
+        "number": "04",
+        "title": "Success, together.",
+        "body": "We continuously seek investors interested in attractive, high-yield projects in national and international markets. Our collaboration begins with a clear understanding of personal expectations, available capital, and the desired risk profile. On this basis, we identify suitable projects and create transparent foundations for decision-making. We are committed to continuous and understandable communication with our partners. Openness, reliability, and regular information exchange are indispensable requirements for a trusted, effective, and successful long-term partnership.",
+        "aside": "For concrete opportunities, we are pleased to provide a current project list and a tailored project exposé. To protect every involved party, detailed documentation is provided only after a confidentiality agreement has been signed."
+      }
     ],
     "closingTitle": "Let us shape your investment strategy.",
     "closingAction": "Contact"
   },
   "financingStory": {
-    "eyebrow": "Financing", "title": "Capital, precisely orchestrated.", "intro": "A strong financing structure does more than secure capital. It protects liquidity, creates flexibility, and turns ambitious plans into achievable projects.", "scrollHint": "Follow the capital flow",
-    "blueprint": { "project": "Your project", "bank": "Bank partners", "capital": "Capital", "security": "Security", "liquidity": "Liquidity", "return": "Future earnings" },
-    "principlesEyebrow": "More than an interest rate", "principlesTitle": "Every element must work together.",
+    "eyebrow": "Financing",
+    "title": "Capital, precisely orchestrated.",
+    "intro": "A strong financing structure does more than secure capital. It protects liquidity, creates flexibility, and turns ambitious plans into achievable projects.",
+    "scrollHint": "Follow the capital flow",
+    "blueprint": {
+      "project": "Your project",
+      "bank": "Bank partners",
+      "capital": "Capital",
+      "security": "Security",
+      "liquidity": "Liquidity",
+      "return": "Future earnings"
+    },
+    "principlesEyebrow": "More than an interest rate",
+    "principlesTitle": "Every element must work together.",
     "principles": [
-      { "number": "01", "title": "Flexible from day one", "description": "The right structure adapts to construction progress, changing needs, and long-term objectives instead of locking you into rigid conditions." },
-      { "number": "02", "title": "Liquidity when it matters", "description": "A clear liquidity plan makes capital available according to actual requirements while preserving a financial reserve for the unexpected." },
-      { "number": "03", "title": "Conditions worth negotiating", "description": "As an experienced premium banking partner, we compare structures, negotiate confidently, and identify opportunities for refinancing." }
+      {
+        "number": "01",
+        "title": "Flexible from day one",
+        "description": "The right structure adapts to construction progress, changing needs, and long-term objectives instead of locking you into rigid conditions."
+      },
+      {
+        "number": "02",
+        "title": "Liquidity when it matters",
+        "description": "A clear liquidity plan makes capital available according to actual requirements while preserving a financial reserve for the unexpected."
+      },
+      {
+        "number": "03",
+        "title": "Conditions worth negotiating",
+        "description": "As an experienced premium banking partner, we compare structures, negotiate confidently, and identify opportunities for refinancing."
+      }
     ],
-    "flowEyebrow": "Project financing", "flowTitle": "From idea to sustainable repayment.", "flowDescription": "For investment projects, repayment can be structured around the future earnings generated by the project itself. Capital is released as milestones are reached, while risks and participants remain clearly coordinated.",
+    "flowEyebrow": "Project financing",
+    "flowTitle": "From idea to sustainable repayment.",
+    "flowDescription": "For investment projects, repayment can be structured around the future earnings generated by the project itself. Capital is released as milestones are reached, while risks and participants remain clearly coordinated.",
     "flowSteps": [
-      { "label": "Concept", "value": "Strategy and viability" }, { "label": "Structure", "value": "Capital and securities" }, { "label": "Delivery", "value": "Milestone-based liquidity" }, { "label": "Operation", "value": "Repayment from earnings" }
+      {
+        "label": "Concept",
+        "value": "Strategy and viability"
+      },
+      {
+        "label": "Structure",
+        "value": "Capital and securities"
+      },
+      {
+        "label": "Delivery",
+        "value": "Milestone-based liquidity"
+      },
+      {
+        "label": "Operation",
+        "value": "Repayment from earnings"
+      }
     ],
-    "optionsEyebrow": "Financing instruments", "optionsTitle": "The right mix creates room to move.",
+    "optionsEyebrow": "Financing instruments",
+    "optionsTitle": "The right mix creates room to move.",
     "options": [
-      { "title": "Property financing", "description": "Tailored private and commercial property financing with attractive fixed-rate options and flexible repayment structures." },
-      { "title": "Refinancing", "description": "Existing financing is reviewed and renegotiated to release businesses from unfavorable long-term conditions." },
-      { "title": "Project financing", "description": "Complex national and international projects structured around expected future project earnings." },
-      { "title": "Alternative capital", "description": "Employee participation, corporate bonds, asset-backed securities, private loans, and crowdfunding can complement conventional financing." }
+      {
+        "title": "Property financing",
+        "description": "Tailored private and commercial property financing with attractive fixed-rate options and flexible repayment structures."
+      },
+      {
+        "title": "Refinancing",
+        "description": "Existing financing is reviewed and renegotiated to release businesses from unfavorable long-term conditions."
+      },
+      {
+        "title": "Project financing",
+        "description": "Complex national and international projects structured around expected future project earnings."
+      },
+      {
+        "title": "Alternative capital",
+        "description": "Employee participation, corporate bonds, asset-backed securities, private loans, and crowdfunding can complement conventional financing."
+      }
     ],
-    "closingTitle": "Let us structure what comes next.", "closingAction": "Discuss your financing"
+    "closingTitle": "Let us structure what comes next.",
+    "closingAction": "Discuss your financing"
   },
   "legalPages": {
-    "imprint": { "eyebrow": "Legal", "title": "Legal Notice", "intro": "Information about the responsible company together with liability and copyright notices.", "notice": "This English translation is provided for convenience. The German version governs.", "sections": [
-      { "title": "Responsible for content", "paragraphs": ["ProInvestment VermögenstreuhandgesmbH, Managing Director Wolfram Ruck, Ruckburg – Allgäustraße 5, 6912 Hörbranz, Austria.", "Telephone: +43 (0)5573/84777-0. Fax: +43 (0)5573/84777-77. Email: office@proinvestment.at."] },
-      { "title": "Legal Entity Identifier", "paragraphs": ["Legal Entity Identifier (LEI) number verified and published by OeKB – Oesterreichische Kontrollbank AG: 529900UJOIYTJZOPJ108."] },
-      { "title": "Section 1: Liability for website content", "paragraphs": ["As a service provider, we are responsible for our own content on these pages under the general laws pursuant to Section 7(1) of the German Telemedia Act. Under Sections 8 to 10, however, we are not required to monitor transmitted or stored third-party information or investigate circumstances indicating unlawful activity.", "Obligations to remove or block information under general law remain unaffected. Liability is only possible from the time a specific infringement becomes known. Upon becoming aware of an infringement, we will remove the relevant content immediately."] },
-      { "title": "Section 2: Liability for links", "paragraphs": ["Our website contains links to external third-party websites whose content is outside our control. We therefore cannot accept responsibility for third-party content. The respective provider or operator is always responsible for linked pages.", "Linked pages were checked for possible legal violations when linked. Permanent monitoring is not reasonable without specific indications of an infringement. Upon becoming aware of an infringement, we will remove the relevant links immediately."] },
-      { "title": "Section 3: Copyright", "paragraphs": ["Content and works created by the website operators are subject to German copyright law. Reproduction, editing, distribution, or any exploitation outside copyright limits requires written consent from the relevant author or creator. Downloads and copies are permitted only for private, non-commercial use.", "Where content was not created by the operator, third-party copyrights are respected and such content is identified. Please notify us of possible copyright infringements. Upon becoming aware of an infringement, we will remove the relevant content immediately."] },
-      { "title": "Section 4: Legal validity", "paragraphs": ["This disclaimer is considered part of the website. If individual parts or formulations do not, no longer, or do not fully comply with applicable law, the remaining parts remain unaffected in content and validity."] },
-      { "title": "Web concept, design, and implementation", "paragraphs": ["ProInvestment Vermögenstreuhandgesellschaft mbH."] }
-    ] },
-    "privacy": { "eyebrow": "Legal", "title": "Privacy Policy", "intro": "The following information provides an overview of what happens to your personal data when you visit our website.", "notice": "This English translation is provided for convenience. The German version governs.", "sections": [
-      { "title": "Data protection at a glance", "paragraphs": ["Personal data is any data that can identify you personally. Some data is collected when you provide it to us, for example through a contact form. Other data is automatically collected by IT systems when you visit the website. This mainly includes technical data such as browser, operating system, and time of access.", "Some data is collected to ensure the website is provided securely and without technical errors."] },
-      { "title": "Controller", "paragraphs": ["The controller responsible for data processing on this website is ProInvestment VermögenstreuhandgesmbH, Managing Director Wolfram Ruck, Ruckburg – Allgäustraße 5, 6912 Hörbranz, Austria.", "Telephone: +43 (0)5573/84777-0. Fax: +43 (0)5573/84777-77. Email: office@proinvestment.at."] },
-      { "title": "General information", "paragraphs": ["We take the protection of your personal data seriously and treat it confidentially and in accordance with applicable data protection regulations and this privacy policy.", "Data transmitted over the internet, for example by email, may be subject to security vulnerabilities. Complete protection against third-party access is not possible."] },
-      { "title": "Your rights", "paragraphs": ["Under applicable law, you have the right to receive information free of charge regarding your stored personal data, its origin, recipients, and processing purpose, as well as rights to rectification, restriction, or erasure where applicable.", "You may withdraw consent at any time by sending an informal email. You also have a right to data portability and the right to lodge a complaint with the Austrian Data Protection Authority at dsb.gv.at."] },
-      { "title": "SSL or TLS encryption", "paragraphs": ["For security and to protect confidential content, this website uses SSL or TLS encryption. An encrypted connection is indicated by the change from “http://” to “https://” and the browser's lock symbol."] },
-      { "title": "Cookies", "paragraphs": ["This website may use technically necessary cookies. Cookies are small text files stored on your device and do not cause damage. Session cookies are automatically deleted after your visit.", "You can configure your browser to notify you when cookies are set, allow cookies only in individual cases, reject them generally, or automatically delete them when closing the browser."] },
-      { "title": "Server log files", "paragraphs": ["The website provider may automatically collect information in server log files transmitted by your browser. This includes browser type and version, operating system, referrer URL, hostname, server-request time, and IP address.", "Processing is based on Article 6(1)(f) GDPR. There is a legitimate interest in the technically correct presentation, security, and optimisation of the website. This data is not combined with other data sources."] },
-      { "title": "Contact forms and enquiries", "paragraphs": ["If you contact us through a contact form or by email, the information you provide, including your contact details, is stored to process your enquiry and possible follow-up questions. This data is not shared without your consent.", "Processing is based on your consent under Article 6(1)(a) GDPR. The data remains with us until you request deletion, withdraw consent, or the purpose for storage ceases. Statutory retention obligations remain unaffected."] },
-      { "title": "Objection to promotional emails", "paragraphs": ["The use of contact details published as part of legal-notice obligations for sending unsolicited advertising and informational materials is prohibited. We reserve the right to take legal action in the event of unsolicited promotional information."] }
-    ] },
-    "terms": { "eyebrow": "Legal", "title": "Terms of Use", "intro": "Conditions governing the use of this website and the information it provides.", "notice": "This English translation is provided for convenience. The German version governs.", "sections": [
-      { "title": "Scope", "paragraphs": ["By using this website, you accept these terms of use. The content is intended only for persons whose access is permitted under the applicable legal system."] },
-      { "title": "No advice or recommendation", "paragraphs": ["Information provided on this website is for general information only. It does not constitute investment, financing, tax, or legal advice, nor an offer or recommendation to buy or sell a financial instrument."] },
-      { "title": "Accuracy and availability", "paragraphs": ["We seek to provide current and accurate information but do not guarantee completeness, accuracy, or continuous availability. Content may be changed or removed at any time."] },
-      { "title": "Risks and personal responsibility", "paragraphs": ["Investments and financing involve risk. Past performance does not reliably indicate future results. Decisions must be made independently and following personal professional advice."] },
-      { "title": "Links and intellectual property", "paragraphs": ["We accept no responsibility for external websites. All trademarks, text, images, and other content remain reserved to their respective rights holders."] }
-    ] },
-    "legal-foundations": { "eyebrow": "Legal", "title": "Legal Foundations", "intro": "Trade licences, registrations, and licensed partners of ProInvestment.", "notice": "This English translation is provided for convenience. The German version governs.", "sections": [
-      { "title": "Commercial investment advisory services", "paragraphs": ["Commercial investment advisory services pursuant to trade licence reference Vlb-211/2589-1999."] },
-      { "title": "Asset management", "paragraphs": ["Asset manager pursuant to trade licences II-925/1993 and II-1101-0695/2002, “Management of movable assets”." ] },
-      { "title": "Real estate trustee in Austria", "paragraphs": ["The activity is performed by ProInvestment German Division – Wolfram Ruck – 88450 Berkheim, registered with DLR Austria under reference 2026-0.000.269."] },
-      { "title": "Real estate trustee in Germany", "paragraphs": ["Real estate trustee, property developer, loan broker, and investment broker services in Germany are provided by PIV ProInvestment Vermögenstreuhand German Division – Wolfram Ruck – 88450 Berkheim, pursuant to the trade licence under Section 34c of the German Trade Regulation Act, reference 24-826/2000 LRA Lindau."] },
-      { "title": "Legal Entity Identifier", "paragraphs": ["Legal Entity Identifier (LEI) number verified and published by OeKB – Oesterreichische Kontrollbank AG: 529900UJOIYTJZOPJ108."] },
-      { "title": "Licensed partner", "paragraphs": ["Pursuant to the Austrian Securities Supervision Act 2018, FinanzAdmin is our licensed partner for the advisory and brokerage of financial instruments.", "Within this area of activity, ProInvestment Vermögenstreuhandgesellschaft mbH acts as an auxiliary agent of FinanzAdmin pursuant to Section 1313a of the Austrian Civil Code and acts in the name, on behalf, and for the account of FinanzAdmin."] }
-    ] }
+    "imprint": {
+      "eyebrow": "Legal",
+      "title": "Legal Notice",
+      "intro": "Information about the responsible company together with liability and copyright notices.",
+      "notice": "This English translation is provided for convenience. The German version governs.",
+      "sections": [
+        {
+          "title": "Responsible for content",
+          "paragraphs": [
+            "ProInvestment VermögenstreuhandgesmbH, Managing Director Wolfram Ruck, Ruckburg – Allgäustraße 5, 6912 Hörbranz, Austria.",
+            "Telephone: +43 (0)5573/84777-0. Fax: +43 (0)5573/84777-77. Email: office@proinvestment.at."
+          ]
+        },
+        {
+          "title": "Legal Entity Identifier",
+          "paragraphs": [
+            "Legal Entity Identifier (LEI) number verified and published by OeKB – Oesterreichische Kontrollbank AG: 529900UJOIYTJZOPJ108."
+          ]
+        },
+        {
+          "title": "Section 1: Liability for website content",
+          "paragraphs": [
+            "As a service provider, we are responsible for our own content on these pages under the general laws pursuant to Section 7(1) of the German Telemedia Act. Under Sections 8 to 10, however, we are not required to monitor transmitted or stored third-party information or investigate circumstances indicating unlawful activity.",
+            "Obligations to remove or block information under general law remain unaffected. Liability is only possible from the time a specific infringement becomes known. Upon becoming aware of an infringement, we will remove the relevant content immediately."
+          ]
+        },
+        {
+          "title": "Section 2: Liability for links",
+          "paragraphs": [
+            "Our website contains links to external third-party websites whose content is outside our control. We therefore cannot accept responsibility for third-party content. The respective provider or operator is always responsible for linked pages.",
+            "Linked pages were checked for possible legal violations when linked. Permanent monitoring is not reasonable without specific indications of an infringement. Upon becoming aware of an infringement, we will remove the relevant links immediately."
+          ]
+        },
+        {
+          "title": "Section 3: Copyright",
+          "paragraphs": [
+            "Content and works created by the website operators are subject to German copyright law. Reproduction, editing, distribution, or any exploitation outside copyright limits requires written consent from the relevant author or creator. Downloads and copies are permitted only for private, non-commercial use.",
+            "Where content was not created by the operator, third-party copyrights are respected and such content is identified. Please notify us of possible copyright infringements. Upon becoming aware of an infringement, we will remove the relevant content immediately."
+          ]
+        },
+        {
+          "title": "Section 4: Legal validity",
+          "paragraphs": [
+            "This disclaimer is considered part of the website. If individual parts or formulations do not, no longer, or do not fully comply with applicable law, the remaining parts remain unaffected in content and validity."
+          ]
+        },
+        {
+          "title": "Web concept, design, and implementation",
+          "paragraphs": [
+            "ProInvestment Vermögenstreuhandgesellschaft mbH."
+          ]
+        }
+      ]
+    },
+    "privacy": {
+      "eyebrow": "Legal",
+      "title": "Privacy Policy",
+      "intro": "The following information provides an overview of what happens to your personal data when you visit our website.",
+      "notice": "This English translation is provided for convenience. The German version governs.",
+      "sections": [
+        {
+          "title": "Data protection at a glance",
+          "paragraphs": [
+            "Personal data is any data that can identify you personally. Some data is collected when you provide it to us, for example through a contact form. Other data is automatically collected by IT systems when you visit the website. This mainly includes technical data such as browser, operating system, and time of access.",
+            "Some data is collected to ensure the website is provided securely and without technical errors."
+          ]
+        },
+        {
+          "title": "Controller",
+          "paragraphs": [
+            "The controller responsible for data processing on this website is ProInvestment VermögenstreuhandgesmbH, Managing Director Wolfram Ruck, Ruckburg – Allgäustraße 5, 6912 Hörbranz, Austria.",
+            "Telephone: +43 (0)5573/84777-0. Fax: +43 (0)5573/84777-77. Email: office@proinvestment.at."
+          ]
+        },
+        {
+          "title": "General information",
+          "paragraphs": [
+            "We take the protection of your personal data seriously and treat it confidentially and in accordance with applicable data protection regulations and this privacy policy.",
+            "Data transmitted over the internet, for example by email, may be subject to security vulnerabilities. Complete protection against third-party access is not possible."
+          ]
+        },
+        {
+          "title": "Your rights",
+          "paragraphs": [
+            "Under applicable law, you have the right to receive information free of charge regarding your stored personal data, its origin, recipients, and processing purpose, as well as rights to rectification, restriction, or erasure where applicable.",
+            "You may withdraw consent at any time by sending an informal email. You also have a right to data portability and the right to lodge a complaint with the Austrian Data Protection Authority at dsb.gv.at."
+          ]
+        },
+        {
+          "title": "SSL or TLS encryption",
+          "paragraphs": [
+            "For security and to protect confidential content, this website uses SSL or TLS encryption. An encrypted connection is indicated by the change from “http://” to “https://” and the browser's lock symbol."
+          ]
+        },
+        {
+          "title": "Cookies",
+          "paragraphs": [
+            "This website may use technically necessary cookies. Cookies are small text files stored on your device and do not cause damage. Session cookies are automatically deleted after your visit.",
+            "You can configure your browser to notify you when cookies are set, allow cookies only in individual cases, reject them generally, or automatically delete them when closing the browser."
+          ]
+        },
+        {
+          "title": "Server log files",
+          "paragraphs": [
+            "The website provider may automatically collect information in server log files transmitted by your browser. This includes browser type and version, operating system, referrer URL, hostname, server-request time, and IP address.",
+            "Processing is based on Article 6(1)(f) GDPR. There is a legitimate interest in the technically correct presentation, security, and optimisation of the website. This data is not combined with other data sources."
+          ]
+        },
+        {
+          "title": "Contact forms and enquiries",
+          "paragraphs": [
+            "If you contact us through a contact form or by email, the information you provide, including your contact details, is stored to process your enquiry and possible follow-up questions. This data is not shared without your consent.",
+            "Processing is based on your consent under Article 6(1)(a) GDPR. The data remains with us until you request deletion, withdraw consent, or the purpose for storage ceases. Statutory retention obligations remain unaffected."
+          ]
+        },
+        {
+          "title": "Objection to promotional emails",
+          "paragraphs": [
+            "The use of contact details published as part of legal-notice obligations for sending unsolicited advertising and informational materials is prohibited. We reserve the right to take legal action in the event of unsolicited promotional information."
+          ]
+        }
+      ]
+    },
+    "terms": {
+      "eyebrow": "Legal",
+      "title": "Terms of Use",
+      "intro": "Conditions governing the use of this website and the information it provides.",
+      "notice": "This English translation is provided for convenience. The German version governs.",
+      "sections": [
+        {
+          "title": "Scope",
+          "paragraphs": [
+            "By using this website, you accept these terms of use. The content is intended only for persons whose access is permitted under the applicable legal system."
+          ]
+        },
+        {
+          "title": "No advice or recommendation",
+          "paragraphs": [
+            "Information provided on this website is for general information only. It does not constitute investment, financing, tax, or legal advice, nor an offer or recommendation to buy or sell a financial instrument."
+          ]
+        },
+        {
+          "title": "Accuracy and availability",
+          "paragraphs": [
+            "We seek to provide current and accurate information but do not guarantee completeness, accuracy, or continuous availability. Content may be changed or removed at any time."
+          ]
+        },
+        {
+          "title": "Risks and personal responsibility",
+          "paragraphs": [
+            "Investments and financing involve risk. Past performance does not reliably indicate future results. Decisions must be made independently and following personal professional advice."
+          ]
+        },
+        {
+          "title": "Links and intellectual property",
+          "paragraphs": [
+            "We accept no responsibility for external websites. All trademarks, text, images, and other content remain reserved to their respective rights holders."
+          ]
+        }
+      ]
+    },
+    "legal-foundations": {
+      "eyebrow": "Legal",
+      "title": "Legal Foundations",
+      "intro": "Trade licences, registrations, and licensed partners of ProInvestment.",
+      "notice": "This English translation is provided for convenience. The German version governs.",
+      "sections": [
+        {
+          "title": "Commercial investment advisory services",
+          "paragraphs": [
+            "Commercial investment advisory services pursuant to trade licence reference Vlb-211/2589-1999."
+          ]
+        },
+        {
+          "title": "Asset management",
+          "paragraphs": [
+            "Asset manager pursuant to trade licences II-925/1993 and II-1101-0695/2002, “Management of movable assets”."
+          ]
+        },
+        {
+          "title": "Real estate trustee in Austria",
+          "paragraphs": [
+            "The activity is performed by ProInvestment German Division – Wolfram Ruck – 88450 Berkheim, registered with DLR Austria under reference 2026-0.000.269."
+          ]
+        },
+        {
+          "title": "Real estate trustee in Germany",
+          "paragraphs": [
+            "Real estate trustee, property developer, loan broker, and investment broker services in Germany are provided by PIV ProInvestment Vermögenstreuhand German Division – Wolfram Ruck – 88450 Berkheim, pursuant to the trade licence under Section 34c of the German Trade Regulation Act, reference 24-826/2000 LRA Lindau."
+          ]
+        },
+        {
+          "title": "Legal Entity Identifier",
+          "paragraphs": [
+            "Legal Entity Identifier (LEI) number verified and published by OeKB – Oesterreichische Kontrollbank AG: 529900UJOIYTJZOPJ108."
+          ]
+        },
+        {
+          "title": "Licensed partner",
+          "paragraphs": [
+            "Pursuant to the Austrian Securities Supervision Act 2018, FinanzAdmin is our licensed partner for the advisory and brokerage of financial instruments.",
+            "Within this area of activity, ProInvestment Vermögenstreuhandgesellschaft mbH acts as an auxiliary agent of FinanzAdmin pursuant to Section 1313a of the Austrian Civil Code and acts in the name, on behalf, and for the account of FinanzAdmin."
+          ]
+        }
+      ]
+    }
   },
-  "footer": { "description": "Creating sustainable value through strategic investments, financing, and real estate expertise.", "company": "Company", "contact": "Contact", "rights": "All rights reserved.", "privacy": "Privacy Policy", "terms": "Terms of Use", "legal": "Legal Notice", "foundations": "Legal Foundations" }
+  "footer": {
+    "description": "Creating sustainable value through strategic investments, financing, and real estate expertise.",
+    "company": "Company",
+    "contact": "Contact",
+    "rights": "All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use",
+    "legal": "Legal Notice",
+    "foundations": "Legal Foundations"
+  },
+  "contactPage": {
+    "eyebrow": "Contact",
+    "title": "Direct contact information.",
+    "description": "ProInvestment Verm?genstreuhandgesmbH in H?rbranz. Reach us directly by phone or email.",
+    "officeTitle": "Office",
+    "officeName": "ProInvestment Verm?genstreuhandgesmbH",
+    "addressLabel": "Address",
+    "addressLines": [
+      "Ruckburg ? Allg?ustra?e 5",
+      "6912 H?rbranz",
+      "Austria"
+    ],
+    "phoneLabel": "Phone",
+    "phoneValue": "+43 (0)5573/84777-0",
+    "faxLabel": "Fax",
+    "faxValue": "+43 (0)5573/84777-77",
+    "emailLabel": "Email",
+    "emailValue": "office@proinvestment.at",
+    "ctaTitle": "Direct contact",
+    "ctaDescription": "Reach us directly by phone or email. We respond personally and with the right next step.",
+    "actionEmailLabel": "Send email",
+    "actionCallLabel": "Call now",
+    "topicsTitle": "Topics we can discuss",
+    "topics": [
+      "Investment strategy",
+      "Project and real estate financing",
+      "Commercial and residential properties",
+      "Project review and next steps"
+    ],
+    "availabilityTitle": "How we work",
+    "availabilityDescription": "Clear communication matters. The first conversation is focused on your current situation, your objective, and the structure that fits.",
+    "availabilityItems": [
+      "Direct contact with the team",
+      "Structured next steps instead of generic replies",
+      "German and English communication"
+    ]
+  }
 }

@@ -1,0 +1,152 @@
+@use "@/styles/mixins" as *;
+@use "@/styles/tokens" as *;
+
+.page {
+  padding-block: clamp(2rem, 4vw, 4rem) $section-space;
+}
+
+.inner {
+  @include container;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.75rem, 3vw, 3rem);
+  align-items: start;
+}
+
+.intro,
+.sideColumn,
+.contactBlock,
+.detailList,
+.actions {
+  display: grid;
+  gap: 1rem;
+}
+
+.eyebrow,
+.cardLabel,
+.detailGroup span,
+.detailItem span {
+  @include eyebrow;
+  margin: 0;
+  color: $color-accent;
+}
+
+.intro h1 {
+  max-width: 16ch;
+  margin: 0;
+  font-family: $font-serif;
+  font-size: clamp(2rem, 3.2vw, 3.2rem);
+  font-weight: 400;
+  letter-spacing: -0.065em;
+  line-height: 1.04;
+}
+
+.description {
+  max-width: 38rem;
+  margin: 0;
+  color: $color-muted;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  padding-top: 0.5rem;
+}
+
+.primaryAction,
+.secondaryAction {
+  @include eyebrow;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 11rem;
+  padding: 0.95rem 1.2rem;
+}
+
+.primaryAction {
+  background: $color-paper;
+  color: $color-ink;
+}
+
+.secondaryAction {
+  background: rgba($color-paper, 0.1);
+  color: $color-paper;
+}
+
+.sideColumn {
+  display: grid;
+  grid-template-columns: minmax(18rem, 28rem) minmax(0, 1fr) auto;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  align-items: start;
+  padding-top: 0.25rem;
+}
+
+.contactBlock h2 {
+  margin: 0;
+  font-size: clamp(1.4rem, 2.1vw, 2rem);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.detailGroup {
+  display: grid;
+  gap: 0.7rem;
+
+  address {
+    margin: 0;
+    color: $color-paper;
+    font-style: normal;
+    line-height: 1.9;
+  }
+}
+
+.detailList {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.detailRow {
+  display: grid;
+  gap: 0.35rem;
+
+  span {
+    @include eyebrow;
+    color: $color-accent;
+  }
+
+  a,
+  p {
+    margin: 0;
+    color: $color-paper;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .grid,
+  .sideColumn,
+  .detailList {
+    grid-template-columns: 1fr;
+  }
+
+  .intro h1 {
+    max-width: 100%;
+  }
+
+  .primaryAction,
+  .secondaryAction {
+    width: 100%;
+  }
+
+  .sideColumn {
+    padding-top: 0;
+  }
+}

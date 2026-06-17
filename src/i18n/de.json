@@ -22,10 +22,22 @@
       "secondaryAction": "Kontakt"
     },
     "metrics": [
-      { "value": "2B+", "label": "Verwaltetes Vermögen" },
-      { "value": "150+", "label": "Abgeschlossene Projekte" },
-      { "value": "25+", "label": "Jahre Erfahrung" },
-      { "value": "40+", "label": "Strategische Partner" }
+      {
+        "value": "2B+",
+        "label": "Verwaltetes Vermögen"
+      },
+      {
+        "value": "150+",
+        "label": "Abgeschlossene Projekte"
+      },
+      {
+        "value": "25+",
+        "label": "Jahre Erfahrung"
+      },
+      {
+        "value": "40+",
+        "label": "Strategische Partner"
+      }
     ],
     "focus": {
       "title": "Unser Fokus",
@@ -173,10 +185,22 @@
     "flowTitle": "Von der Idee zur nachhaltigen Rückzahlung.",
     "flowDescription": "Bei Investitionsvorhaben kann die Rückzahlung auf den künftig erwirtschafteten Erträgen des Projekts selbst aufbauen. Kapital wird entlang erreichter Meilensteine bereitgestellt, während Risiken und Beteiligte klar koordiniert bleiben.",
     "flowSteps": [
-      { "label": "Konzept", "value": "Strategie und Machbarkeit" },
-      { "label": "Struktur", "value": "Kapital und Sicherheiten" },
-      { "label": "Umsetzung", "value": "Liquidität nach Meilensteinen" },
-      { "label": "Betrieb", "value": "Rückzahlung aus Erträgen" }
+      {
+        "label": "Konzept",
+        "value": "Strategie und Machbarkeit"
+      },
+      {
+        "label": "Struktur",
+        "value": "Kapital und Sicherheiten"
+      },
+      {
+        "label": "Umsetzung",
+        "value": "Liquidität nach Meilensteinen"
+      },
+      {
+        "label": "Betrieb",
+        "value": "Rückzahlung aus Erträgen"
+      }
     ],
     "optionsEyebrow": "Finanzierungsinstrumente",
     "optionsTitle": "Der richtige Mix schafft Handlungsspielraum.",
@@ -250,7 +274,9 @@
         },
         {
           "title": "Web-Konzept, Gestaltung und Realisierung",
-          "paragraphs": ["ProInvestment Vermögenstreuhandgesellschaft mbH."]
+          "paragraphs": [
+            "ProInvestment Vermögenstreuhandgesellschaft mbH."
+          ]
         }
       ]
     },
@@ -416,5 +442,42 @@
     "terms": "Nutzungsbedingungen",
     "legal": "Impressum",
     "foundations": "Rechtliche Grundlagen"
+  },
+  "contactPage": {
+    "eyebrow": "Kontakt",
+    "title": "Direkte Kontaktinformationen.",
+    "description": "ProInvestment Verm?genstreuhandgesmbH in H?rbranz. Telefonisch oder per E-Mail direkt erreichbar.",
+    "officeTitle": "B?ro",
+    "officeName": "ProInvestment Verm?genstreuhandgesmbH",
+    "addressLabel": "Adresse",
+    "addressLines": [
+      "Ruckburg ? Allg?ustra?e 5",
+      "6912 H?rbranz",
+      "Austria"
+    ],
+    "phoneLabel": "Telefon",
+    "phoneValue": "+43 (0)5573/84777-0",
+    "faxLabel": "Fax",
+    "faxValue": "+43 (0)5573/84777-77",
+    "emailLabel": "E-Mail",
+    "emailValue": "office@proinvestment.at",
+    "ctaTitle": "Direkter Kontakt",
+    "ctaDescription": "Erreichen Sie uns direkt per Telefon oder E-Mail. Sie erhalten eine pers?nliche Antwort mit dem passenden n?chsten Schritt.",
+    "actionEmailLabel": "E-Mail senden",
+    "actionCallLabel": "Jetzt anrufen",
+    "topicsTitle": "Wor?ber wir sprechen k?nnen",
+    "topics": [
+      "Veranlagungsstrategie",
+      "Projekt- und Immobilienfinanzierung",
+      "Gewerbe- und Wohnimmobilien",
+      "Projektpr?fung und n?chste Schritte"
+    ],
+    "availabilityTitle": "So arbeiten wir",
+    "availabilityDescription": "Klare Kommunikation ist wesentlich. Das erste Gespr?ch konzentriert sich auf Ihre aktuelle Situation, Ihr Ziel und die passende Struktur.",
+    "availabilityItems": [
+      "Direkter Kontakt mit dem Team",
+      "Klare n?chste Schritte statt generischer Antworten",
+      "Kommunikation auf Deutsch und Englisch"
+    ]
   }
 }

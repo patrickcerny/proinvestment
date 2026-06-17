@@ -17,8 +17,10 @@ export function PropertyHero({ description, eyebrow, hint, title }: PropertyHero
       </div>
 
       <div className={styles.copy}>
-        <p>{eyebrow}</p>
-        <h1>{title}</h1>
+        <div className={styles.headline}>
+          <p>{eyebrow}</p>
+          <h1>{title}</h1>
+        </div>
         <div className={styles.summary}>
           <span>{description}</span>
         </div>

@@ -1,8 +1,16 @@
 #!/usr/bin/env bash
 set -e
 
+APP_DIR="$(cd "$(dirname "$0")" && pwd)"
 APP_NAME="proinvestment-page"
 PORT="1204"
+DATA_DIR="$APP_DIR/data"
+UPLOADS_DIR="$APP_DIR/public/uploads/real-estate"
+
+cd "$APP_DIR"
+
+mkdir -p "$DATA_DIR"
+mkdir -p "$UPLOADS_DIR/documents"
 
 docker stop "$APP_NAME" 2>/dev/null || true
 docker rm "$APP_NAME" 2>/dev/null || true
@@ -15,6 +23,8 @@ docker run -d \
   --name "$APP_NAME" \
   --restart unless-stopped \
   -p "$PORT:$PORT" \
+  -v "$DATA_DIR:/app/data" \
+  -v "$UPLOADS_DIR:/app/public/uploads/real-estate" \
   "$APP_NAME"
 
 docker ps --filter "name=$APP_NAME"

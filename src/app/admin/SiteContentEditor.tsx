@@ -34,6 +34,9 @@ const caps = {
   flowSteps: 6,
   options: 6,
   chapters: 8,
+  contactAddressLines: 5,
+  contactTopics: 8,
+  contactAvailabilityItems: 8,
   legalSections: 12,
   legalParagraphs: 8,
 } as const;
@@ -97,6 +100,9 @@ export function SiteContentEditor({ initialContent }: { initialContent: CmsConte
   const deFlowSteps = content.de.financingStory.flowSteps;
   const deOptions = content.de.financingStory.options;
   const deChapters = content.de.investmentStory.chapters;
+  const deAddressLines = content.de.contactPage.addressLines;
+  const deContactTopics = content.de.contactPage.topics;
+  const deAvailabilityItems = content.de.contactPage.availabilityItems;
   const deLegalSections = content.de.legalPages[legalSlug].sections;
 
   return (
@@ -248,10 +254,50 @@ export function SiteContentEditor({ initialContent }: { initialContent: CmsConte
         {section === "pages" && (
           <SectionFrame title="Seiten">
             <Panel title="Kontaktseite">
-              <DualField label="Eyebrow" deValue={content.de.pages.getInTouch.eyebrow} enValue={content.en.pages.getInTouch.eyebrow} onDeChange={(value) => setLocaleValue("de", ["pages", "getInTouch", "eyebrow"], value)} onEnChange={(value) => setLocaleValue("en", ["pages", "getInTouch", "eyebrow"], value)} />
-              <DualField label="Titel" deValue={content.de.pages.getInTouch.title} enValue={content.en.pages.getInTouch.title} onDeChange={(value) => setLocaleValue("de", ["pages", "getInTouch", "title"], value)} onEnChange={(value) => setLocaleValue("en", ["pages", "getInTouch", "title"], value)} />
-              <DualField label="Beschreibung" textarea deValue={content.de.pages.getInTouch.description} enValue={content.en.pages.getInTouch.description} onDeChange={(value) => setLocaleValue("de", ["pages", "getInTouch", "description"], value)} onEnChange={(value) => setLocaleValue("en", ["pages", "getInTouch", "description"], value)} />
+              <DualField label="Eyebrow" deValue={content.de.contactPage.eyebrow} enValue={content.en.contactPage.eyebrow} onDeChange={(value) => setLocaleValue("de", ["contactPage", "eyebrow"], value)} onEnChange={(value) => setLocaleValue("en", ["contactPage", "eyebrow"], value)} />
+              <DualField label="Titel" deValue={content.de.contactPage.title} enValue={content.en.contactPage.title} onDeChange={(value) => setLocaleValue("de", ["contactPage", "title"], value)} onEnChange={(value) => setLocaleValue("en", ["contactPage", "title"], value)} />
+              <DualField label="Beschreibung" textarea deValue={content.de.contactPage.description} enValue={content.en.contactPage.description} onDeChange={(value) => setLocaleValue("de", ["contactPage", "description"], value)} onEnChange={(value) => setLocaleValue("en", ["contactPage", "description"], value)} />
+              <DualField label="Büro Titel" deValue={content.de.contactPage.officeTitle} enValue={content.en.contactPage.officeTitle} onDeChange={(value) => setLocaleValue("de", ["contactPage", "officeTitle"], value)} onEnChange={(value) => setLocaleValue("en", ["contactPage", "officeTitle"], value)} />
+              <DualField label="Firmenname" deValue={content.de.contactPage.officeName} enValue={content.en.contactPage.officeName} onDeChange={(value) => setLocaleValue("de", ["contactPage", "officeName"], value)} onEnChange={(value) => setLocaleValue("en", ["contactPage", "officeName"], value)} />
+              <DualField label="Adress Label" deValue={content.de.contactPage.addressLabel} enValue={content.en.contactPage.addressLabel} onDeChange={(value) => setLocaleValue("de", ["contactPage", "addressLabel"], value)} onEnChange={(value) => setLocaleValue("en", ["contactPage", "addressLabel"], value)} />
+              <DualField label="Telefon Label" deValue={content.de.contactPage.phoneLabel} enValue={content.en.contactPage.phoneLabel} onDeChange={(value) => setLocaleValue("de", ["contactPage", "phoneLabel"], value)} onEnChange={(value) => setLocaleValue("en", ["contactPage", "phoneLabel"], value)} />
+              <DualField label="Telefon" deValue={content.de.contactPage.phoneValue} enValue={content.en.contactPage.phoneValue} onDeChange={(value) => setLocaleValue("de", ["contactPage", "phoneValue"], value)} onEnChange={(value) => setLocaleValue("en", ["contactPage", "phoneValue"], value)} />
+              <DualField label="Fax Label" deValue={content.de.contactPage.faxLabel} enValue={content.en.contactPage.faxLabel} onDeChange={(value) => setLocaleValue("de", ["contactPage", "faxLabel"], value)} onEnChange={(value) => setLocaleValue("en", ["contactPage", "faxLabel"], value)} />
+              <DualField label="Fax" deValue={content.de.contactPage.faxValue} enValue={content.en.contactPage.faxValue} onDeChange={(value) => setLocaleValue("de", ["contactPage", "faxValue"], value)} onEnChange={(value) => setLocaleValue("en", ["contactPage", "faxValue"], value)} />
+              <DualField label="E-Mail Label" deValue={content.de.contactPage.emailLabel} enValue={content.en.contactPage.emailLabel} onDeChange={(value) => setLocaleValue("de", ["contactPage", "emailLabel"], value)} onEnChange={(value) => setLocaleValue("en", ["contactPage", "emailLabel"], value)} />
+              <DualField label="E-Mail" deValue={content.de.contactPage.emailValue} enValue={content.en.contactPage.emailValue} onDeChange={(value) => setLocaleValue("de", ["contactPage", "emailValue"], value)} onEnChange={(value) => setLocaleValue("en", ["contactPage", "emailValue"], value)} />
+              <DualField label="CTA Titel" deValue={content.de.contactPage.ctaTitle} enValue={content.en.contactPage.ctaTitle} onDeChange={(value) => setLocaleValue("de", ["contactPage", "ctaTitle"], value)} onEnChange={(value) => setLocaleValue("en", ["contactPage", "ctaTitle"], value)} />
+              <DualField label="CTA Beschreibung" textarea deValue={content.de.contactPage.ctaDescription} enValue={content.en.contactPage.ctaDescription} onDeChange={(value) => setLocaleValue("de", ["contactPage", "ctaDescription"], value)} onEnChange={(value) => setLocaleValue("en", ["contactPage", "ctaDescription"], value)} />
+              <DualField label="Button E-Mail" deValue={content.de.contactPage.actionEmailLabel} enValue={content.en.contactPage.actionEmailLabel} onDeChange={(value) => setLocaleValue("de", ["contactPage", "actionEmailLabel"], value)} onEnChange={(value) => setLocaleValue("en", ["contactPage", "actionEmailLabel"], value)} />
+              <DualField label="Button Telefon" deValue={content.de.contactPage.actionCallLabel} enValue={content.en.contactPage.actionCallLabel} onDeChange={(value) => setLocaleValue("de", ["contactPage", "actionCallLabel"], value)} onEnChange={(value) => setLocaleValue("en", ["contactPage", "actionCallLabel"], value)} />
+              <DualField label="Themen Titel" deValue={content.de.contactPage.topicsTitle} enValue={content.en.contactPage.topicsTitle} onDeChange={(value) => setLocaleValue("de", ["contactPage", "topicsTitle"], value)} onEnChange={(value) => setLocaleValue("en", ["contactPage", "topicsTitle"], value)} />
+              <DualField label="Ablauf Titel" deValue={content.de.contactPage.availabilityTitle} enValue={content.en.contactPage.availabilityTitle} onDeChange={(value) => setLocaleValue("de", ["contactPage", "availabilityTitle"], value)} onEnChange={(value) => setLocaleValue("en", ["contactPage", "availabilityTitle"], value)} />
+              <DualField label="Ablauf Beschreibung" textarea deValue={content.de.contactPage.availabilityDescription} enValue={content.en.contactPage.availabilityDescription} onDeChange={(value) => setLocaleValue("de", ["contactPage", "availabilityDescription"], value)} onEnChange={(value) => setLocaleValue("en", ["contactPage", "availabilityDescription"], value)} />
             </Panel>
+
+            <ArrayPanel count={deAddressLines.length} max={caps.contactAddressLines} title="Adresszeilen" onAdd={() => addPairedItem(["contactPage", "addressLines"], () => "", () => "", caps.contactAddressLines)}>
+              {deAddressLines.map((line, index) => (
+                <AccordionItem key={`address-${index}`} open={index === 0} title={`Zeile ${index + 1}`} onRemove={() => removePairedItem(["contactPage", "addressLines"], index)} canRemove={deAddressLines.length > 1}>
+                  <DualField label="Adresszeile" deValue={line} enValue={content.en.contactPage.addressLines[index] || ""} onDeChange={(value) => setLocaleValue("de", ["contactPage", "addressLines", index], value)} onEnChange={(value) => setLocaleValue("en", ["contactPage", "addressLines", index], value)} />
+                </AccordionItem>
+              ))}
+            </ArrayPanel>
+
+            <ArrayPanel count={deContactTopics.length} max={caps.contactTopics} title="Themen" onAdd={() => addPairedItem(["contactPage", "topics"], () => "", () => "", caps.contactTopics)}>
+              {deContactTopics.map((topic, index) => (
+                <AccordionItem key={`topic-${index}`} open={index === 0} title={`Thema ${index + 1}`} onRemove={() => removePairedItem(["contactPage", "topics"], index)} canRemove={deContactTopics.length > 1}>
+                  <DualField label="Thema" deValue={topic} enValue={content.en.contactPage.topics[index] || ""} onDeChange={(value) => setLocaleValue("de", ["contactPage", "topics", index], value)} onEnChange={(value) => setLocaleValue("en", ["contactPage", "topics", index], value)} />
+                </AccordionItem>
+              ))}
+            </ArrayPanel>
+
+            <ArrayPanel count={deAvailabilityItems.length} max={caps.contactAvailabilityItems} title="Ablauf Punkte" onAdd={() => addPairedItem(["contactPage", "availabilityItems"], () => "", () => "", caps.contactAvailabilityItems)}>
+              {deAvailabilityItems.map((item, index) => (
+                <AccordionItem key={`availability-${index}`} open={index === 0} title={`Punkt ${index + 1}`} onRemove={() => removePairedItem(["contactPage", "availabilityItems"], index)} canRemove={deAvailabilityItems.length > 1}>
+                  <DualField label="Punkt" deValue={item} enValue={content.en.contactPage.availabilityItems[index] || ""} onDeChange={(value) => setLocaleValue("de", ["contactPage", "availabilityItems", index], value)} onEnChange={(value) => setLocaleValue("en", ["contactPage", "availabilityItems", index], value)} />
+                </AccordionItem>
+              ))}
+            </ArrayPanel>
 
             <Panel title="Immobilienseite">
               <DualField label="Eyebrow" deValue={content.de.pages.realEstate.eyebrow} enValue={content.en.pages.realEstate.eyebrow} onDeChange={(value) => setLocaleValue("de", ["pages", "realEstate", "eyebrow"], value)} onEnChange={(value) => setLocaleValue("en", ["pages", "realEstate", "eyebrow"], value)} />
