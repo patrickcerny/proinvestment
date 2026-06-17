@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createHash } from "crypto";
-import { createPropertyId, getProperties, saveProperties, savePropertyImages, savePropertyDocument, type PropertyButton, type PropertyEntry } from "@/lib/properties";
+import { createPropertyId, deleteManagedPropertyImages, getProperties, getPropertyImages, normalizePropertyImageUrl, saveProperties, savePropertyImages, savePropertyDocument, type PropertyButton, type PropertyEntry } from "@/lib/properties";
 import { saveCmsContent } from "@/lib/cms-dictionary";
 
 const cookieName = "proinvestment_admin";
@@ -169,6 +169,10 @@ export async function deletePropertyAction(formData: FormData) {
   if (!await isAdminAuthenticated()) redirect("/admin");
   const id = value(formData, "id");
   const properties = await getProperties();
+  const propertyToDelete = properties.find((property) => property.id === id);
+  if (propertyToDelete) {
+    await deleteManagedPropertyImages(getPropertyImages(propertyToDelete));
+  }
   await saveProperties(properties.filter((property) => property.id !== id));
   revalidatePropertyPages();
   redirect("/admin?deleted=1");
@@ -180,8 +184,14 @@ export async function updatePropertyAction(formData: FormData) {
   const properties = await getProperties();
   const imageFiles = formData.getAll("images").filter((file): file is File => file instanceof File);
   const addedImages = await savePropertyImages(imageFiles);
-  const existingImages = formData.getAll("existingImages").map(String).filter(Boolean);
+  const existingImages = formData.getAll("existingImages").map(String).filter(Boolean).map((image) => normalizePropertyImageUrl(image));
   const updatedButtons = await collectButtons(formData);
+  const currentProperty = properties.find((property) => property.id === id);
+  const removedImages = (currentProperty ? getPropertyImages(currentProperty) : []).filter((image) => !existingImages.includes(normalizePropertyImageUrl(image)));
+
+  if (removedImages.length) {
+    await deleteManagedPropertyImages(removedImages);
+  }
 
   await saveProperties(properties.map((property) => property.id !== id ? property : {
     ...property,

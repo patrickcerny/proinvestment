@@ -8,7 +8,8 @@ SERVICE_PATH="/etc/systemd/system/${SERVICE_NAME}"
 PORT="1204"
 
 DATA_DIR="$APP_DIR/data"
-UPLOADS_DIR="$APP_DIR/public/uploads/real-estate"
+IMAGE_UPLOADS_DIR="$APP_DIR/uploads/real-estate"
+LEGACY_PUBLIC_UPLOADS_DIR="$APP_DIR/public/uploads/real-estate"
 
 APP_USER="$(id -un)"
 APP_GROUP="$(id -gn)"
@@ -29,12 +30,20 @@ fi
 cd "$APP_DIR"
 
 mkdir -p "$DATA_DIR"
-mkdir -p "$UPLOADS_DIR/documents"
+mkdir -p "$IMAGE_UPLOADS_DIR"
+mkdir -p "$LEGACY_PUBLIC_UPLOADS_DIR/documents"
 
-sudo chown -R "$APP_USER:$APP_GROUP" "$DATA_DIR" "$UPLOADS_DIR"
+sudo chown -R "$APP_USER:$APP_GROUP" "$DATA_DIR" "$IMAGE_UPLOADS_DIR"
+if [ -d "$LEGACY_PUBLIC_UPLOADS_DIR" ]; then
+  sudo chown -R "$APP_USER:$APP_GROUP" "$LEGACY_PUBLIC_UPLOADS_DIR"
+fi
 
-sudo find "$DATA_DIR" "$UPLOADS_DIR" -type d -exec chmod 755 {} \;
-sudo find "$DATA_DIR" "$UPLOADS_DIR" -type f -exec chmod 644 {} \;
+sudo find "$DATA_DIR" "$IMAGE_UPLOADS_DIR" -type d -exec chmod 755 {} \;
+sudo find "$DATA_DIR" "$IMAGE_UPLOADS_DIR" -type f -exec chmod 644 {} \;
+if [ -d "$LEGACY_PUBLIC_UPLOADS_DIR" ]; then
+  sudo find "$LEGACY_PUBLIC_UPLOADS_DIR" -type d -exec chmod 755 {} \;
+  sudo find "$LEGACY_PUBLIC_UPLOADS_DIR" -type f -exec chmod 644 {} \;
+fi
 
 if command -v docker >/dev/null 2>&1; then
   docker stop "$APP_NAME" 2>/dev/null || true
