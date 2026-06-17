@@ -1,30 +1,66 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
 APP_DIR="$(cd "$(dirname "$0")" && pwd)"
 APP_NAME="proinvestment-page"
+SERVICE_NAME="${APP_NAME}.service"
+SERVICE_PATH="/etc/systemd/system/${SERVICE_NAME}"
 PORT="1204"
 DATA_DIR="$APP_DIR/data"
 UPLOADS_DIR="$APP_DIR/public/uploads/real-estate"
+APP_USER="$(id -un)"
+APP_GROUP="$(id -gn)"
+
+if ! command -v systemctl >/dev/null 2>&1; then
+  echo "systemctl not found. This deploy script requires systemd on the target host." >&2
+  exit 1
+fi
 
 cd "$APP_DIR"
 
 mkdir -p "$DATA_DIR"
 mkdir -p "$UPLOADS_DIR/documents"
 
-docker stop "$APP_NAME" 2>/dev/null || true
-docker rm "$APP_NAME" 2>/dev/null || true
+if command -v docker >/dev/null 2>&1; then
+  docker stop "$APP_NAME" 2>/dev/null || true
+  docker rm "$APP_NAME" 2>/dev/null || true
+fi
 
-git pull
+if sudo systemctl is-active --quiet "$SERVICE_NAME"; then
+  sudo systemctl stop "$SERVICE_NAME"
+fi
 
-docker build -t "$APP_NAME" .
+git pull --ff-only
 
-docker run -d \
-  --name "$APP_NAME" \
-  --restart unless-stopped \
-  -p "$PORT:$PORT" \
-  -v "$DATA_DIR:/app/data" \
-  -v "$UPLOADS_DIR:/app/public/uploads/real-estate" \
-  "$APP_NAME"
+npm ci
+npm run build
 
-docker ps --filter "name=$APP_NAME"
+TMP_SERVICE_FILE="$(mktemp)"
+cat > "$TMP_SERVICE_FILE" <<EOF
+[Unit]
+Description=ProInvestment Next.js application
+After=network.target
+
+[Service]
+Type=simple
+User=$APP_USER
+Group=$APP_GROUP
+WorkingDirectory=$APP_DIR
+Environment=NODE_ENV=production
+Environment=PORT=$PORT
+ExecStart=$APP_DIR/node_modules/.bin/next start -p $PORT
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+sudo mv "$TMP_SERVICE_FILE" "$SERVICE_PATH"
+sudo chmod 644 "$SERVICE_PATH"
+
+sudo systemctl daemon-reload
+sudo systemctl enable "$SERVICE_NAME"
+sudo systemctl start "$SERVICE_NAME"
+
+sudo systemctl --no-pager --full status "$SERVICE_NAME"
