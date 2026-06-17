@@ -13,9 +13,9 @@
       "title": "Our Focus",
       "description": "We create sustainable value through strategic investments, tailored financing, and comprehensive real estate expertise.",
       "items": [
-        { "title": "Investment", "description": "Strategic investments designed for resilient, long-term value creation." },
-        { "title": "Financing", "description": "Tailored financing structures for ambitious real estate projects." },
-        { "title": "Real Estate", "description": "Prime commercial and residential properties across Austria and Central Europe." }
+        { "icon": "growth", "title": "Investment", "description": "Strategic investments designed for resilient, long-term value creation." },
+        { "icon": "finance", "title": "Financing", "description": "Tailored financing structures for ambitious real estate projects." },
+        { "icon": "property", "title": "Real Estate", "description": "Prime commercial and residential properties across Austria and Central Europe." }
       ]
     },
     "projects": {

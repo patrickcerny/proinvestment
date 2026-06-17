@@ -53,7 +53,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <div className={styles.focusGrid}>
             {t.focus.items.map((item, index) => (
               <Reveal delay={index * 110} key={item.title}>
-                <article className={styles.focusCard}><BuildingIcon /><h3>{item.title}</h3><p>{item.description}</p></article>
+                <article className={styles.focusCard}><FocusIcon name={item.icon} fallbackIndex={index} /><h3>{item.title}</h3><p>{item.description}</p></article>
               </Reveal>
             ))}
           </div>
@@ -73,7 +73,17 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   );
 }
 
-function BuildingIcon() {
+function FocusIcon({ fallbackIndex, name }: { fallbackIndex: number; name?: string }) {
+  const resolved = name || ["growth", "finance", "property"][fallbackIndex % 3];
+
+  if (resolved === "growth") {
+    return <svg aria-hidden="true" fill="none" viewBox="0 0 48 48"><path d="M8 36l9-9 7 7 16-16M31 18h9v9M8 42h32" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" /></svg>;
+  }
+
+  if (resolved === "finance") {
+    return <svg aria-hidden="true" fill="none" viewBox="0 0 48 48"><path d="M10 38V22M24 38V10M38 38V18M6 42h36" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" /></svg>;
+  }
+
   return <svg aria-hidden="true" fill="none" viewBox="0 0 48 48"><path d="M9 42V20h12v22M21 42V8h18v34M5 42h38M14 26h3m-3 7h3M27 15h6m-6 7h6m-6 7h6m-6 7h6" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" /></svg>;
 }
 

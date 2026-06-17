@@ -3,7 +3,7 @@
 
 .layout {
   display: grid;
-  grid-template-columns: 16rem minmax(0, 1fr);
+  grid-template-columns: 15rem minmax(0, 1fr);
   gap: 1.5rem;
   align-items: start;
 }
@@ -13,19 +13,23 @@
   top: 1rem;
   display: grid;
   gap: 0.65rem;
-  align-self: start;
 }
 
 .sidebarButton,
-.legalButton {
+.tabButton,
+.addButton,
+.removeButton {
   @include eyebrow;
-  width: 100%;
   border: 1px solid $color-line;
-  padding: 0.95rem 1rem;
   background: rgba($color-surface, 0.72);
   color: $color-paper;
-  text-align: left;
   cursor: pointer;
+}
+
+.sidebarButton,
+.tabButton {
+  padding: 0.95rem 1rem;
+  text-align: left;
 
   &[data-active="true"] {
     border-color: $color-accent;
@@ -33,24 +37,16 @@
   }
 }
 
-.content {
-  display: grid;
-  gap: 1.25rem;
-  min-width: 0;
-}
-
-.note {
-  margin: 0;
-  color: $color-muted;
-}
-
-.section {
+.content,
+.section,
+.panel,
+.panelBody {
   display: grid;
   gap: 1rem;
 }
 
 .sectionHeader h2,
-.localePanel h3 {
+.panel h3 {
   margin: 0;
   font-weight: 400;
 }
@@ -59,27 +55,84 @@
   font-size: 1.4rem;
 }
 
-.localePanel {
-  display: grid;
-  gap: 1rem;
+.panel {
   padding: 1.25rem;
   border: 1px solid $color-line;
   background: rgba($color-surface, 0.72);
 }
 
-.localeFields {
+.panelTop,
+.inlineActions,
+.subsectionHeader,
+.tabRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.tabRow {
+  justify-content: flex-start;
+}
+
+.addButton,
+.removeButton {
+  padding: 0.7rem 0.9rem;
+
+  &:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+}
+
+.accordion {
+  border: 1px solid rgba($color-line, 0.75);
+  background: rgba($color-ink, 0.26);
+
+  &[open] .accordionSummary {
+    border-bottom: 1px solid rgba($color-line, 0.75);
+  }
+}
+
+.accordionSummary {
+  padding: 1rem 1.1rem;
+  cursor: pointer;
+  list-style: none;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+}
+
+.accordionBody {
   display: grid;
   gap: 1rem;
+  padding: 1rem 1.1rem 1.1rem;
+}
+
+.dualField,
+.selectField,
+.paragraphItem {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.fieldLabel,
+.field span {
+  @include eyebrow;
+  color: $color-muted;
+}
+
+.localeGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
 }
 
 .field {
   display: grid;
   gap: 0.45rem;
-
-  span {
-    @include eyebrow;
-    color: $color-muted;
-  }
 
   input,
   textarea {
@@ -96,10 +149,19 @@
   }
 }
 
-.legalPicker {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
+.selectField {
+  select {
+    width: 100%;
+    border: 1px solid $color-line;
+    padding: 0.9rem 1rem;
+    background: rgba($color-ink, 0.72);
+    color: $color-paper;
+  }
+}
+
+.subsectionHeader h4 {
+  margin: 0;
+  font-weight: 500;
 }
 
 .saveButton {
@@ -113,7 +175,8 @@
 }
 
 @media (max-width: $breakpoint-tablet) {
-  .layout {
+  .layout,
+  .localeGrid {
     grid-template-columns: 1fr;
   }
 

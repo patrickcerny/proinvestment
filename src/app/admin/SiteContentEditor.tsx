@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState, type ReactNode } from "react";
-import type { Dictionary, Locale } from "@/i18n/config";
+import type { Dictionary } from "@/i18n/config";
 import { saveSiteContentAction } from "./actions";
 import styles from "./SiteContentEditor.module.scss";
 
@@ -10,8 +10,9 @@ type CmsContent = {
   en: Dictionary;
 };
 
+type FocusIcon = "growth" | "finance" | "property";
+
 const sections = [
-  { id: "global", label: "Global" },
   { id: "home", label: "Homepage" },
   { id: "financing", label: "Finanzierung" },
   { id: "investment", label: "Veranlagung" },
@@ -20,21 +21,83 @@ const sections = [
 ] as const;
 
 const legalSlugs = ["imprint", "privacy", "terms", "legal-foundations"] as const;
-type LegalSlug = (typeof legalSlugs)[number];
+const iconOptions: { label: string; value: FocusIcon }[] = [
+  { label: "Growth", value: "growth" },
+  { label: "Finance", value: "finance" },
+  { label: "Property", value: "property" },
+];
+
+const caps = {
+  focus: 3,
+  metrics: 6,
+  principles: 6,
+  flowSteps: 6,
+  options: 6,
+  chapters: 8,
+  legalSections: 12,
+  legalParagraphs: 8,
+} as const;
 
 export function SiteContentEditor({ initialContent }: { initialContent: CmsContent }) {
-  const [content, setContent] = useState<CmsContent>(initialContent);
-  const [section, setSection] = useState<(typeof sections)[number]["id"]>("global");
-  const [legalSlug, setLegalSlug] = useState<LegalSlug>("imprint");
+  const [content, setContent] = useState<CmsContent>(() => normalizeContent(initialContent));
+  const [section, setSection] = useState<(typeof sections)[number]["id"]>("home");
+  const [legalSlug, setLegalSlug] = useState<(typeof legalSlugs)[number]>("imprint");
   const serialized = useMemo(() => JSON.stringify(content), [content]);
 
-  function updateLocale(locale: Locale, updater: (current: Dictionary) => Dictionary) {
-    setContent((current) => ({ ...current, [locale]: updater(current[locale]) }));
+  function setLocaleValue(locale: "de" | "en", path: (string | number)[], value: string) {
+    setContent((current) => ({ ...current, [locale]: setDeepValue(current[locale], path, value) }));
   }
 
-  function setValue(locale: Locale, path: (string | number)[], value: string) {
-    updateLocale(locale, (current) => setDeepValue(current, path, value));
+  function setSharedValue(path: (string | number)[], value: string) {
+    setContent((current) => ({
+      de: setDeepValue(current.de, path, value),
+      en: setDeepValue(current.en, path, value),
+    }));
   }
+
+  function updatePairedArray(path: (string | number)[], updater: (items: unknown[]) => unknown[]) {
+    setContent((current) => ({
+      de: setDeepValue(current.de, path, updater(getDeepValue(current.de, path) as unknown[])),
+      en: setDeepValue(current.en, path, updater(getDeepValue(current.en, path) as unknown[])),
+    }));
+  }
+
+  function addPairedItem(path: (string | number)[], createDe: () => unknown, createEn: () => unknown, max: number) {
+    const items = getDeepValue(content.de, path) as unknown[];
+    if (items.length >= max) return;
+    setContent((current) => ({
+      de: setDeepValue(current.de, path, [...(getDeepValue(current.de, path) as unknown[]), createDe()]),
+      en: setDeepValue(current.en, path, [...(getDeepValue(current.en, path) as unknown[]), createEn()]),
+    }));
+  }
+
+  function removePairedItem(path: (string | number)[], index: number, min = 1) {
+    const items = getDeepValue(content.de, path) as unknown[];
+    if (items.length <= min) return;
+    updatePairedArray(path, (current) => current.filter((_, itemIndex) => itemIndex !== index));
+  }
+
+  function addLegalParagraph(slug: (typeof legalSlugs)[number], sectionIndex: number) {
+    const path = ["legalPages", slug, "sections", sectionIndex, "paragraphs"] as (string | number)[];
+    const paragraphs = getDeepValue(content.de, path) as string[];
+    if (paragraphs.length >= caps.legalParagraphs) return;
+    updatePairedArray(path, (items) => [...items, ""]);
+  }
+
+  function removeLegalParagraph(slug: (typeof legalSlugs)[number], sectionIndex: number, paragraphIndex: number) {
+    const path = ["legalPages", slug, "sections", sectionIndex, "paragraphs"] as (string | number)[];
+    const paragraphs = getDeepValue(content.de, path) as string[];
+    if (paragraphs.length <= 1) return;
+    updatePairedArray(path, (items) => items.filter((_, itemIndex) => itemIndex !== paragraphIndex));
+  }
+
+  const deFocusItems = content.de.home.focus.items;
+  const deMetrics = content.de.home.metrics;
+  const dePrinciples = content.de.financingStory.principles;
+  const deFlowSteps = content.de.financingStory.flowSteps;
+  const deOptions = content.de.financingStory.options;
+  const deChapters = content.de.investmentStory.chapters;
+  const deLegalSections = content.de.legalPages[legalSlug].sections;
 
   return (
     <form action={saveSiteContentAction} className={styles.layout}>
@@ -53,171 +116,185 @@ export function SiteContentEditor({ initialContent }: { initialContent: CmsConte
       </aside>
 
       <section className={styles.content}>
-        <p className={styles.note}>Animated structures stay in code. Edit the visible copy here.</p>
-        {section === "global" && (
-          <SectionFrame title="Navigation und Footer">
-            <LocalePanel title="Deutsch" locale="de">
-              <Field label="Meta Titel" value={content.de.meta.title} onChange={(value) => setValue("de", ["meta", "title"], value)} />
-              <Field label="Meta Beschreibung" textarea value={content.de.meta.description} onChange={(value) => setValue("de", ["meta", "description"], value)} />
-              <Field label="Home" value={content.de.navigation.home} onChange={(value) => setValue("de", ["navigation", "home"], value)} />
-              <Field label="Investment" value={content.de.navigation.investment} onChange={(value) => setValue("de", ["navigation", "investment"], value)} />
-              <Field label="Finanzierung" value={content.de.navigation.financing} onChange={(value) => setValue("de", ["navigation", "financing"], value)} />
-              <Field label="Immobilien" value={content.de.navigation.realEstate} onChange={(value) => setValue("de", ["navigation", "realEstate"], value)} />
-              <Field label="Kontakt" value={content.de.navigation.getInTouch} onChange={(value) => setValue("de", ["navigation", "getInTouch"], value)} />
-              <Field label="Sprache" value={content.de.navigation.language} onChange={(value) => setValue("de", ["navigation", "language"], value)} />
-              <Field label="Menü öffnen" value={content.de.navigation.openMenu} onChange={(value) => setValue("de", ["navigation", "openMenu"], value)} />
-              <Field label="Menü schließen" value={content.de.navigation.closeMenu} onChange={(value) => setValue("de", ["navigation", "closeMenu"], value)} />
-              <Field label="Footer-Text" textarea value={content.de.footer.description} onChange={(value) => setValue("de", ["footer", "description"], value)} />
-              <Field label="Footer - Firma" value={content.de.footer.company} onChange={(value) => setValue("de", ["footer", "company"], value)} />
-              <Field label="Footer - Kontakt" value={content.de.footer.contact} onChange={(value) => setValue("de", ["footer", "contact"], value)} />
-              <Field label="Footer - Rechte" value={content.de.footer.rights} onChange={(value) => setValue("de", ["footer", "rights"], value)} />
-              <Field label="Footer - Datenschutz" value={content.de.footer.privacy} onChange={(value) => setValue("de", ["footer", "privacy"], value)} />
-              <Field label="Footer - AGB" value={content.de.footer.terms} onChange={(value) => setValue("de", ["footer", "terms"], value)} />
-              <Field label="Footer - Rechtliches" value={content.de.footer.legal} onChange={(value) => setValue("de", ["footer", "legal"], value)} />
-              <Field label="Footer - Grundlagen" value={content.de.footer.foundations} onChange={(value) => setValue("de", ["footer", "foundations"], value)} />
-            </LocalePanel>
-            <LocalePanel title="English" locale="en">
-              <Field label="Meta title" value={content.en.meta.title} onChange={(value) => setValue("en", ["meta", "title"], value)} />
-              <Field label="Meta description" textarea value={content.en.meta.description} onChange={(value) => setValue("en", ["meta", "description"], value)} />
-              <Field label="Home" value={content.en.navigation.home} onChange={(value) => setValue("en", ["navigation", "home"], value)} />
-              <Field label="Investment" value={content.en.navigation.investment} onChange={(value) => setValue("en", ["navigation", "investment"], value)} />
-              <Field label="Financing" value={content.en.navigation.financing} onChange={(value) => setValue("en", ["navigation", "financing"], value)} />
-              <Field label="Real estate" value={content.en.navigation.realEstate} onChange={(value) => setValue("en", ["navigation", "realEstate"], value)} />
-              <Field label="Contact" value={content.en.navigation.getInTouch} onChange={(value) => setValue("en", ["navigation", "getInTouch"], value)} />
-              <Field label="Language" value={content.en.navigation.language} onChange={(value) => setValue("en", ["navigation", "language"], value)} />
-              <Field label="Open menu" value={content.en.navigation.openMenu} onChange={(value) => setValue("en", ["navigation", "openMenu"], value)} />
-              <Field label="Close menu" value={content.en.navigation.closeMenu} onChange={(value) => setValue("en", ["navigation", "closeMenu"], value)} />
-              <Field label="Footer description" textarea value={content.en.footer.description} onChange={(value) => setValue("en", ["footer", "description"], value)} />
-              <Field label="Footer - Company" value={content.en.footer.company} onChange={(value) => setValue("en", ["footer", "company"], value)} />
-              <Field label="Footer - Contact" value={content.en.footer.contact} onChange={(value) => setValue("en", ["footer", "contact"], value)} />
-              <Field label="Footer - Rights" value={content.en.footer.rights} onChange={(value) => setValue("en", ["footer", "rights"], value)} />
-              <Field label="Footer - Privacy" value={content.en.footer.privacy} onChange={(value) => setValue("en", ["footer", "privacy"], value)} />
-              <Field label="Footer - Terms" value={content.en.footer.terms} onChange={(value) => setValue("en", ["footer", "terms"], value)} />
-              <Field label="Footer - Legal" value={content.en.footer.legal} onChange={(value) => setValue("en", ["footer", "legal"], value)} />
-              <Field label="Footer - Foundations" value={content.en.footer.foundations} onChange={(value) => setValue("en", ["footer", "foundations"], value)} />
-            </LocalePanel>
-          </SectionFrame>
-        )}
-
         {section === "home" && (
           <SectionFrame title="Homepage">
-            <LocalePanel title="Deutsch" locale="de">
-              <Field label="Titelzeile 1" value={content.de.home.hero.titleLine1} onChange={(value) => setValue("de", ["home", "hero", "titleLine1"], value)} />
-              <Field label="Titelzeile 2" value={content.de.home.hero.titleLine2} onChange={(value) => setValue("de", ["home", "hero", "titleLine2"], value)} />
-              <Field label="Beschreibung" textarea value={content.de.home.hero.description} onChange={(value) => setValue("de", ["home", "hero", "description"], value)} />
-              <Field label="Primäre Aktion" value={content.de.home.hero.primaryAction} onChange={(value) => setValue("de", ["home", "hero", "primaryAction"], value)} />
-              <Field label="Sekundäre Aktion" value={content.de.home.hero.secondaryAction} onChange={(value) => setValue("de", ["home", "hero", "secondaryAction"], value)} />
-              <Field label="Focus Titel" value={content.de.home.focus.title} onChange={(value) => setValue("de", ["home", "focus", "title"], value)} />
-              <Field label="Focus Beschreibung" textarea value={content.de.home.focus.description} onChange={(value) => setValue("de", ["home", "focus", "description"], value)} />
-              <Field label="Philosophie Zitat" textarea value={content.de.home.philosophy.quote} onChange={(value) => setValue("de", ["home", "philosophy", "quote"], value)} />
-              <Field label="Philosophie Label" value={content.de.home.philosophy.label} onChange={(value) => setValue("de", ["home", "philosophy", "label"], value)} />
-              <Field label="CTA Titel" value={content.de.home.cta.title} onChange={(value) => setValue("de", ["home", "cta", "title"], value)} />
-              <Field label="CTA Beschreibung" textarea value={content.de.home.cta.description} onChange={(value) => setValue("de", ["home", "cta", "description"], value)} />
-              <Field label="CTA Aktion" value={content.de.home.cta.action} onChange={(value) => setValue("de", ["home", "cta", "action"], value)} />
-            </LocalePanel>
-            <LocalePanel title="English" locale="en">
-              <Field label="Title line 1" value={content.en.home.hero.titleLine1} onChange={(value) => setValue("en", ["home", "hero", "titleLine1"], value)} />
-              <Field label="Title line 2" value={content.en.home.hero.titleLine2} onChange={(value) => setValue("en", ["home", "hero", "titleLine2"], value)} />
-              <Field label="Description" textarea value={content.en.home.hero.description} onChange={(value) => setValue("en", ["home", "hero", "description"], value)} />
-              <Field label="Primary action" value={content.en.home.hero.primaryAction} onChange={(value) => setValue("en", ["home", "hero", "primaryAction"], value)} />
-              <Field label="Secondary action" value={content.en.home.hero.secondaryAction} onChange={(value) => setValue("en", ["home", "hero", "secondaryAction"], value)} />
-              <Field label="Focus title" value={content.en.home.focus.title} onChange={(value) => setValue("en", ["home", "focus", "title"], value)} />
-              <Field label="Focus description" textarea value={content.en.home.focus.description} onChange={(value) => setValue("en", ["home", "focus", "description"], value)} />
-              <Field label="Philosophy quote" textarea value={content.en.home.philosophy.quote} onChange={(value) => setValue("en", ["home", "philosophy", "quote"], value)} />
-              <Field label="Philosophy label" value={content.en.home.philosophy.label} onChange={(value) => setValue("en", ["home", "philosophy", "label"], value)} />
-              <Field label="CTA title" value={content.en.home.cta.title} onChange={(value) => setValue("en", ["home", "cta", "title"], value)} />
-              <Field label="CTA description" textarea value={content.en.home.cta.description} onChange={(value) => setValue("en", ["home", "cta", "description"], value)} />
-              <Field label="CTA action" value={content.en.home.cta.action} onChange={(value) => setValue("en", ["home", "cta", "action"], value)} />
-            </LocalePanel>
+            <Panel title="Allgemein">
+              <DualField label="Hero Titel Zeile 1" deValue={content.de.home.hero.titleLine1} enValue={content.en.home.hero.titleLine1} onDeChange={(value) => setLocaleValue("de", ["home", "hero", "titleLine1"], value)} onEnChange={(value) => setLocaleValue("en", ["home", "hero", "titleLine1"], value)} />
+              <DualField label="Hero Titel Zeile 2" deValue={content.de.home.hero.titleLine2} enValue={content.en.home.hero.titleLine2} onDeChange={(value) => setLocaleValue("de", ["home", "hero", "titleLine2"], value)} onEnChange={(value) => setLocaleValue("en", ["home", "hero", "titleLine2"], value)} />
+              <DualField label="Hero Beschreibung" textarea deValue={content.de.home.hero.description} enValue={content.en.home.hero.description} onDeChange={(value) => setLocaleValue("de", ["home", "hero", "description"], value)} onEnChange={(value) => setLocaleValue("en", ["home", "hero", "description"], value)} />
+              <DualField label="Focus Titel" deValue={content.de.home.focus.title} enValue={content.en.home.focus.title} onDeChange={(value) => setLocaleValue("de", ["home", "focus", "title"], value)} onEnChange={(value) => setLocaleValue("en", ["home", "focus", "title"], value)} />
+              <DualField label="Focus Beschreibung" textarea deValue={content.de.home.focus.description} enValue={content.en.home.focus.description} onDeChange={(value) => setLocaleValue("de", ["home", "focus", "description"], value)} onEnChange={(value) => setLocaleValue("en", ["home", "focus", "description"], value)} />
+              <DualField label="Zitat" textarea deValue={content.de.home.philosophy.quote} enValue={content.en.home.philosophy.quote} onDeChange={(value) => setLocaleValue("de", ["home", "philosophy", "quote"], value)} onEnChange={(value) => setLocaleValue("en", ["home", "philosophy", "quote"], value)} />
+              <DualField label="CTA Titel" deValue={content.de.home.cta.title} enValue={content.en.home.cta.title} onDeChange={(value) => setLocaleValue("de", ["home", "cta", "title"], value)} onEnChange={(value) => setLocaleValue("en", ["home", "cta", "title"], value)} />
+              <DualField label="CTA Beschreibung" textarea deValue={content.de.home.cta.description} enValue={content.en.home.cta.description} onDeChange={(value) => setLocaleValue("de", ["home", "cta", "description"], value)} onEnChange={(value) => setLocaleValue("en", ["home", "cta", "description"], value)} />
+            </Panel>
+
+            <ArrayPanel
+              count={deMetrics.length}
+              max={caps.metrics}
+              title="KPIs"
+              onAdd={() => addPairedItem(["home", "metrics"], () => ({ value: "", label: "" }), () => ({ value: "", label: "" }), caps.metrics)}
+            >
+              {deMetrics.map((metric, index) => (
+                <AccordionItem key={`metric-${index}`} open={index === 0} title={`KPI ${index + 1}`} onRemove={() => removePairedItem(["home", "metrics"], index)} canRemove={deMetrics.length > 1}>
+                  <DualField label="Wert" deValue={metric.value} enValue={content.en.home.metrics[index]?.value || ""} onDeChange={(value) => setLocaleValue("de", ["home", "metrics", index, "value"], value)} onEnChange={(value) => setLocaleValue("en", ["home", "metrics", index, "value"], value)} />
+                  <DualField label="Label" deValue={metric.label} enValue={content.en.home.metrics[index]?.label || ""} onDeChange={(value) => setLocaleValue("de", ["home", "metrics", index, "label"], value)} onEnChange={(value) => setLocaleValue("en", ["home", "metrics", index, "label"], value)} />
+                </AccordionItem>
+              ))}
+            </ArrayPanel>
+
+            <ArrayPanel
+              count={deFocusItems.length}
+              max={caps.focus}
+              title="Focus Karten"
+              onAdd={() => addPairedItem(["home", "focus", "items"], () => ({ icon: "growth", title: "", description: "" }), () => ({ icon: "growth", title: "", description: "" }), caps.focus)}
+            >
+              {deFocusItems.map((item, index) => {
+                const iconValue = (item.icon as FocusIcon | undefined) ?? "growth";
+
+                return (
+                  <AccordionItem key={`focus-${index}`} open={index === 0} title={`Karte ${index + 1}`} onRemove={() => removePairedItem(["home", "focus", "items"], index)} canRemove={deFocusItems.length > 1}>
+                    <SelectField label="Icon" options={iconOptions} value={iconValue} onChange={(value) => setSharedValue(["home", "focus", "items", index, "icon"], value)} />
+                  <DualField label="Titel" deValue={item.title} enValue={content.en.home.focus.items[index]?.title || ""} onDeChange={(value) => setLocaleValue("de", ["home", "focus", "items", index, "title"], value)} onEnChange={(value) => setLocaleValue("en", ["home", "focus", "items", index, "title"], value)} />
+                  <DualField label="Beschreibung" textarea deValue={item.description} enValue={content.en.home.focus.items[index]?.description || ""} onDeChange={(value) => setLocaleValue("de", ["home", "focus", "items", index, "description"], value)} onEnChange={(value) => setLocaleValue("en", ["home", "focus", "items", index, "description"], value)} />
+                  </AccordionItem>
+                );
+              })}
+            </ArrayPanel>
           </SectionFrame>
         )}
 
         {section === "financing" && (
           <SectionFrame title="Finanzierung">
-            <LocalePanel title="Deutsch" locale="de">
-              <Field label="Eyebrow" value={content.de.financingStory.eyebrow} onChange={(value) => setValue("de", ["financingStory", "eyebrow"], value)} />
-              <Field label="Titel" value={content.de.financingStory.title} onChange={(value) => setValue("de", ["financingStory", "title"], value)} />
-              <Field label="Intro" textarea value={content.de.financingStory.intro} onChange={(value) => setValue("de", ["financingStory", "intro"], value)} />
-              <Field label="Scroll hint" value={content.de.financingStory.scrollHint} onChange={(value) => setValue("de", ["financingStory", "scrollHint"], value)} />
-              <Field label="Flow Titel" value={content.de.financingStory.flowTitle} onChange={(value) => setValue("de", ["financingStory", "flowTitle"], value)} />
-              <Field label="Flow Beschreibung" textarea value={content.de.financingStory.flowDescription} onChange={(value) => setValue("de", ["financingStory", "flowDescription"], value)} />
-              <Field label="Options Titel" value={content.de.financingStory.optionsTitle} onChange={(value) => setValue("de", ["financingStory", "optionsTitle"], value)} />
-              <Field label="Closing Titel" value={content.de.financingStory.closingTitle} onChange={(value) => setValue("de", ["financingStory", "closingTitle"], value)} />
-              <Field label="Closing Aktion" value={content.de.financingStory.closingAction} onChange={(value) => setValue("de", ["financingStory", "closingAction"], value)} />
-            </LocalePanel>
-            <LocalePanel title="English" locale="en">
-              <Field label="Eyebrow" value={content.en.financingStory.eyebrow} onChange={(value) => setValue("en", ["financingStory", "eyebrow"], value)} />
-              <Field label="Title" value={content.en.financingStory.title} onChange={(value) => setValue("en", ["financingStory", "title"], value)} />
-              <Field label="Intro" textarea value={content.en.financingStory.intro} onChange={(value) => setValue("en", ["financingStory", "intro"], value)} />
-              <Field label="Scroll hint" value={content.en.financingStory.scrollHint} onChange={(value) => setValue("en", ["financingStory", "scrollHint"], value)} />
-              <Field label="Flow title" value={content.en.financingStory.flowTitle} onChange={(value) => setValue("en", ["financingStory", "flowTitle"], value)} />
-              <Field label="Flow description" textarea value={content.en.financingStory.flowDescription} onChange={(value) => setValue("en", ["financingStory", "flowDescription"], value)} />
-              <Field label="Options title" value={content.en.financingStory.optionsTitle} onChange={(value) => setValue("en", ["financingStory", "optionsTitle"], value)} />
-              <Field label="Closing title" value={content.en.financingStory.closingTitle} onChange={(value) => setValue("en", ["financingStory", "closingTitle"], value)} />
-              <Field label="Closing action" value={content.en.financingStory.closingAction} onChange={(value) => setValue("en", ["financingStory", "closingAction"], value)} />
-            </LocalePanel>
+            <Panel title="Allgemein">
+              <DualField label="Eyebrow" deValue={content.de.financingStory.eyebrow} enValue={content.en.financingStory.eyebrow} onDeChange={(value) => setLocaleValue("de", ["financingStory", "eyebrow"], value)} onEnChange={(value) => setLocaleValue("en", ["financingStory", "eyebrow"], value)} />
+              <DualField label="Titel" deValue={content.de.financingStory.title} enValue={content.en.financingStory.title} onDeChange={(value) => setLocaleValue("de", ["financingStory", "title"], value)} onEnChange={(value) => setLocaleValue("en", ["financingStory", "title"], value)} />
+              <DualField label="Intro" textarea deValue={content.de.financingStory.intro} enValue={content.en.financingStory.intro} onDeChange={(value) => setLocaleValue("de", ["financingStory", "intro"], value)} onEnChange={(value) => setLocaleValue("en", ["financingStory", "intro"], value)} />
+              <DualField label="Scroll Hinweis" deValue={content.de.financingStory.scrollHint} enValue={content.en.financingStory.scrollHint} onDeChange={(value) => setLocaleValue("de", ["financingStory", "scrollHint"], value)} onEnChange={(value) => setLocaleValue("en", ["financingStory", "scrollHint"], value)} />
+              <DualField label="Principles Eyebrow" deValue={content.de.financingStory.principlesEyebrow} enValue={content.en.financingStory.principlesEyebrow} onDeChange={(value) => setLocaleValue("de", ["financingStory", "principlesEyebrow"], value)} onEnChange={(value) => setLocaleValue("en", ["financingStory", "principlesEyebrow"], value)} />
+              <DualField label="Principles Titel" deValue={content.de.financingStory.principlesTitle} enValue={content.en.financingStory.principlesTitle} onDeChange={(value) => setLocaleValue("de", ["financingStory", "principlesTitle"], value)} onEnChange={(value) => setLocaleValue("en", ["financingStory", "principlesTitle"], value)} />
+              <DualField label="Flow Eyebrow" deValue={content.de.financingStory.flowEyebrow} enValue={content.en.financingStory.flowEyebrow} onDeChange={(value) => setLocaleValue("de", ["financingStory", "flowEyebrow"], value)} onEnChange={(value) => setLocaleValue("en", ["financingStory", "flowEyebrow"], value)} />
+              <DualField label="Flow Titel" deValue={content.de.financingStory.flowTitle} enValue={content.en.financingStory.flowTitle} onDeChange={(value) => setLocaleValue("de", ["financingStory", "flowTitle"], value)} onEnChange={(value) => setLocaleValue("en", ["financingStory", "flowTitle"], value)} />
+              <DualField label="Flow Beschreibung" textarea deValue={content.de.financingStory.flowDescription} enValue={content.en.financingStory.flowDescription} onDeChange={(value) => setLocaleValue("de", ["financingStory", "flowDescription"], value)} onEnChange={(value) => setLocaleValue("en", ["financingStory", "flowDescription"], value)} />
+              <DualField label="Options Eyebrow" deValue={content.de.financingStory.optionsEyebrow} enValue={content.en.financingStory.optionsEyebrow} onDeChange={(value) => setLocaleValue("de", ["financingStory", "optionsEyebrow"], value)} onEnChange={(value) => setLocaleValue("en", ["financingStory", "optionsEyebrow"], value)} />
+              <DualField label="Options Titel" deValue={content.de.financingStory.optionsTitle} enValue={content.en.financingStory.optionsTitle} onDeChange={(value) => setLocaleValue("de", ["financingStory", "optionsTitle"], value)} onEnChange={(value) => setLocaleValue("en", ["financingStory", "optionsTitle"], value)} />
+              <DualField label="Closing Titel" deValue={content.de.financingStory.closingTitle} enValue={content.en.financingStory.closingTitle} onDeChange={(value) => setLocaleValue("de", ["financingStory", "closingTitle"], value)} onEnChange={(value) => setLocaleValue("en", ["financingStory", "closingTitle"], value)} />
+            </Panel>
+
+            <Panel title="Blueprint">
+              {Object.entries(content.de.financingStory.blueprint).map(([key, value]) => (
+                <DualField
+                  key={`blueprint-${key}`}
+                  label={key}
+                  deValue={value}
+                  enValue={String((content.en.financingStory.blueprint as Record<string, string>)[key] || "")}
+                  onDeChange={(next) => setLocaleValue("de", ["financingStory", "blueprint", key], next)}
+                  onEnChange={(next) => setLocaleValue("en", ["financingStory", "blueprint", key], next)}
+                />
+              ))}
+            </Panel>
+
+            <ArrayPanel count={dePrinciples.length} max={caps.principles} title="Principles" onAdd={() => addPairedItem(["financingStory", "principles"], () => ({ number: nextNumber(dePrinciples.length), title: "", description: "" }), () => ({ number: nextNumber(dePrinciples.length), title: "", description: "" }), caps.principles)}>
+              {dePrinciples.map((item, index) => (
+                <AccordionItem key={`principle-${index}`} open={index === 0} title={`Principle ${index + 1}`} onRemove={() => removePairedItem(["financingStory", "principles"], index)} canRemove={dePrinciples.length > 1}>
+                  <DualField label="Titel" deValue={item.title} enValue={content.en.financingStory.principles[index]?.title || ""} onDeChange={(value) => setLocaleValue("de", ["financingStory", "principles", index, "title"], value)} onEnChange={(value) => setLocaleValue("en", ["financingStory", "principles", index, "title"], value)} />
+                  <DualField label="Beschreibung" textarea deValue={item.description} enValue={content.en.financingStory.principles[index]?.description || ""} onDeChange={(value) => setLocaleValue("de", ["financingStory", "principles", index, "description"], value)} onEnChange={(value) => setLocaleValue("en", ["financingStory", "principles", index, "description"], value)} />
+                </AccordionItem>
+              ))}
+            </ArrayPanel>
+
+            <ArrayPanel count={deFlowSteps.length} max={caps.flowSteps} title="Flow Steps" onAdd={() => addPairedItem(["financingStory", "flowSteps"], () => ({ label: "", value: "" }), () => ({ label: "", value: "" }), caps.flowSteps)}>
+              {deFlowSteps.map((step, index) => (
+                <AccordionItem key={`flow-${index}`} open={index === 0} title={`Step ${index + 1}`} onRemove={() => removePairedItem(["financingStory", "flowSteps"], index)} canRemove={deFlowSteps.length > 1}>
+                  <DualField label="Label" deValue={step.label} enValue={content.en.financingStory.flowSteps[index]?.label || ""} onDeChange={(value) => setLocaleValue("de", ["financingStory", "flowSteps", index, "label"], value)} onEnChange={(value) => setLocaleValue("en", ["financingStory", "flowSteps", index, "label"], value)} />
+                  <DualField label="Wert" deValue={step.value} enValue={content.en.financingStory.flowSteps[index]?.value || ""} onDeChange={(value) => setLocaleValue("de", ["financingStory", "flowSteps", index, "value"], value)} onEnChange={(value) => setLocaleValue("en", ["financingStory", "flowSteps", index, "value"], value)} />
+                </AccordionItem>
+              ))}
+            </ArrayPanel>
+
+            <ArrayPanel count={deOptions.length} max={caps.options} title="Optionen" onAdd={() => addPairedItem(["financingStory", "options"], () => ({ title: "", description: "" }), () => ({ title: "", description: "" }), caps.options)}>
+              {deOptions.map((item, index) => (
+                <AccordionItem key={`option-${index}`} open={index === 0} title={`Option ${index + 1}`} onRemove={() => removePairedItem(["financingStory", "options"], index)} canRemove={deOptions.length > 1}>
+                  <DualField label="Titel" deValue={item.title} enValue={content.en.financingStory.options[index]?.title || ""} onDeChange={(value) => setLocaleValue("de", ["financingStory", "options", index, "title"], value)} onEnChange={(value) => setLocaleValue("en", ["financingStory", "options", index, "title"], value)} />
+                  <DualField label="Beschreibung" textarea deValue={item.description} enValue={content.en.financingStory.options[index]?.description || ""} onDeChange={(value) => setLocaleValue("de", ["financingStory", "options", index, "description"], value)} onEnChange={(value) => setLocaleValue("en", ["financingStory", "options", index, "description"], value)} />
+                </AccordionItem>
+              ))}
+            </ArrayPanel>
           </SectionFrame>
         )}
 
         {section === "investment" && (
           <SectionFrame title="Veranlagung">
-            <LocalePanel title="Deutsch" locale="de">
-              <Field label="Eyebrow" value={content.de.investmentStory.eyebrow} onChange={(value) => setValue("de", ["investmentStory", "eyebrow"], value)} />
-              <Field label="Titel" value={content.de.investmentStory.title} onChange={(value) => setValue("de", ["investmentStory", "title"], value)} />
-              <Field label="Intro" textarea value={content.de.investmentStory.intro} onChange={(value) => setValue("de", ["investmentStory", "intro"], value)} />
-              <Field label="Scroll hint" value={content.de.investmentStory.scrollHint} onChange={(value) => setValue("de", ["investmentStory", "scrollHint"], value)} />
-              <Field label="Closing Titel" value={content.de.investmentStory.closingTitle} onChange={(value) => setValue("de", ["investmentStory", "closingTitle"], value)} />
-              <Field label="Closing Aktion" value={content.de.investmentStory.closingAction} onChange={(value) => setValue("de", ["investmentStory", "closingAction"], value)} />
-            </LocalePanel>
-            <LocalePanel title="English" locale="en">
-              <Field label="Eyebrow" value={content.en.investmentStory.eyebrow} onChange={(value) => setValue("en", ["investmentStory", "eyebrow"], value)} />
-              <Field label="Title" value={content.en.investmentStory.title} onChange={(value) => setValue("en", ["investmentStory", "title"], value)} />
-              <Field label="Intro" textarea value={content.en.investmentStory.intro} onChange={(value) => setValue("en", ["investmentStory", "intro"], value)} />
-              <Field label="Scroll hint" value={content.en.investmentStory.scrollHint} onChange={(value) => setValue("en", ["investmentStory", "scrollHint"], value)} />
-              <Field label="Closing title" value={content.en.investmentStory.closingTitle} onChange={(value) => setValue("en", ["investmentStory", "closingTitle"], value)} />
-              <Field label="Closing action" value={content.en.investmentStory.closingAction} onChange={(value) => setValue("en", ["investmentStory", "closingAction"], value)} />
-            </LocalePanel>
+            <Panel title="Allgemein">
+              <DualField label="Eyebrow" deValue={content.de.investmentStory.eyebrow} enValue={content.en.investmentStory.eyebrow} onDeChange={(value) => setLocaleValue("de", ["investmentStory", "eyebrow"], value)} onEnChange={(value) => setLocaleValue("en", ["investmentStory", "eyebrow"], value)} />
+              <DualField label="Titel" deValue={content.de.investmentStory.title} enValue={content.en.investmentStory.title} onDeChange={(value) => setLocaleValue("de", ["investmentStory", "title"], value)} onEnChange={(value) => setLocaleValue("en", ["investmentStory", "title"], value)} />
+              <DualField label="Intro" textarea deValue={content.de.investmentStory.intro} enValue={content.en.investmentStory.intro} onDeChange={(value) => setLocaleValue("de", ["investmentStory", "intro"], value)} onEnChange={(value) => setLocaleValue("en", ["investmentStory", "intro"], value)} />
+              <DualField label="Scroll Hinweis" deValue={content.de.investmentStory.scrollHint} enValue={content.en.investmentStory.scrollHint} onDeChange={(value) => setLocaleValue("de", ["investmentStory", "scrollHint"], value)} onEnChange={(value) => setLocaleValue("en", ["investmentStory", "scrollHint"], value)} />
+              <DualField label="Closing Titel" deValue={content.de.investmentStory.closingTitle} enValue={content.en.investmentStory.closingTitle} onDeChange={(value) => setLocaleValue("de", ["investmentStory", "closingTitle"], value)} onEnChange={(value) => setLocaleValue("en", ["investmentStory", "closingTitle"], value)} />
+            </Panel>
+
+            <ArrayPanel count={deChapters.length} max={caps.chapters} title="Kapitel" onAdd={() => addPairedItem(["investmentStory", "chapters"], () => ({ number: nextNumber(deChapters.length), title: "", body: "", aside: "" }), () => ({ number: nextNumber(deChapters.length), title: "", body: "", aside: "" }), caps.chapters)}>
+              {deChapters.map((chapter, index) => (
+                <AccordionItem key={`chapter-${index}`} open={index === 0} title={`Kapitel ${index + 1}`} onRemove={() => removePairedItem(["investmentStory", "chapters"], index)} canRemove={deChapters.length > 1}>
+                  <DualField label="Titel" deValue={chapter.title} enValue={content.en.investmentStory.chapters[index]?.title || ""} onDeChange={(value) => setLocaleValue("de", ["investmentStory", "chapters", index, "title"], value)} onEnChange={(value) => setLocaleValue("en", ["investmentStory", "chapters", index, "title"], value)} />
+                  <DualField label="Body" textarea deValue={chapter.body} enValue={content.en.investmentStory.chapters[index]?.body || ""} onDeChange={(value) => setLocaleValue("de", ["investmentStory", "chapters", index, "body"], value)} onEnChange={(value) => setLocaleValue("en", ["investmentStory", "chapters", index, "body"], value)} />
+                  <DualField label="Aside" textarea deValue={chapter.aside} enValue={content.en.investmentStory.chapters[index]?.aside || ""} onDeChange={(value) => setLocaleValue("de", ["investmentStory", "chapters", index, "aside"], value)} onEnChange={(value) => setLocaleValue("en", ["investmentStory", "chapters", index, "aside"], value)} />
+                </AccordionItem>
+              ))}
+            </ArrayPanel>
           </SectionFrame>
         )}
 
         {section === "pages" && (
           <SectionFrame title="Seiten">
-            <LocalePanel title="Deutsch" locale="de">
-              <Field label="Kontakt Eyebrow" value={content.de.pages.getInTouch.eyebrow} onChange={(value) => setValue("de", ["pages", "getInTouch", "eyebrow"], value)} />
-              <Field label="Kontakt Titel" value={content.de.pages.getInTouch.title} onChange={(value) => setValue("de", ["pages", "getInTouch", "title"], value)} />
-              <Field label="Kontakt Beschreibung" textarea value={content.de.pages.getInTouch.description} onChange={(value) => setValue("de", ["pages", "getInTouch", "description"], value)} />
-              <Field label="Immobilien Eyebrow" value={content.de.pages.realEstate.eyebrow} onChange={(value) => setValue("de", ["pages", "realEstate", "eyebrow"], value)} />
-              <Field label="Immobilien Titel" value={content.de.pages.realEstate.title} onChange={(value) => setValue("de", ["pages", "realEstate", "title"], value)} />
-              <Field label="Immobilien Beschreibung" textarea value={content.de.pages.realEstate.description} onChange={(value) => setValue("de", ["pages", "realEstate", "description"], value)} />
-            </LocalePanel>
-            <LocalePanel title="English" locale="en">
-              <Field label="Contact eyebrow" value={content.en.pages.getInTouch.eyebrow} onChange={(value) => setValue("en", ["pages", "getInTouch", "eyebrow"], value)} />
-              <Field label="Contact title" value={content.en.pages.getInTouch.title} onChange={(value) => setValue("en", ["pages", "getInTouch", "title"], value)} />
-              <Field label="Contact description" textarea value={content.en.pages.getInTouch.description} onChange={(value) => setValue("en", ["pages", "getInTouch", "description"], value)} />
-              <Field label="Real estate eyebrow" value={content.en.pages.realEstate.eyebrow} onChange={(value) => setValue("en", ["pages", "realEstate", "eyebrow"], value)} />
-              <Field label="Real estate title" value={content.en.pages.realEstate.title} onChange={(value) => setValue("en", ["pages", "realEstate", "title"], value)} />
-              <Field label="Real estate description" textarea value={content.en.pages.realEstate.description} onChange={(value) => setValue("en", ["pages", "realEstate", "description"], value)} />
-            </LocalePanel>
+            <Panel title="Kontaktseite">
+              <DualField label="Eyebrow" deValue={content.de.pages.getInTouch.eyebrow} enValue={content.en.pages.getInTouch.eyebrow} onDeChange={(value) => setLocaleValue("de", ["pages", "getInTouch", "eyebrow"], value)} onEnChange={(value) => setLocaleValue("en", ["pages", "getInTouch", "eyebrow"], value)} />
+              <DualField label="Titel" deValue={content.de.pages.getInTouch.title} enValue={content.en.pages.getInTouch.title} onDeChange={(value) => setLocaleValue("de", ["pages", "getInTouch", "title"], value)} onEnChange={(value) => setLocaleValue("en", ["pages", "getInTouch", "title"], value)} />
+              <DualField label="Beschreibung" textarea deValue={content.de.pages.getInTouch.description} enValue={content.en.pages.getInTouch.description} onDeChange={(value) => setLocaleValue("de", ["pages", "getInTouch", "description"], value)} onEnChange={(value) => setLocaleValue("en", ["pages", "getInTouch", "description"], value)} />
+            </Panel>
+
+            <Panel title="Immobilienseite">
+              <DualField label="Eyebrow" deValue={content.de.pages.realEstate.eyebrow} enValue={content.en.pages.realEstate.eyebrow} onDeChange={(value) => setLocaleValue("de", ["pages", "realEstate", "eyebrow"], value)} onEnChange={(value) => setLocaleValue("en", ["pages", "realEstate", "eyebrow"], value)} />
+              <DualField label="Titel" deValue={content.de.pages.realEstate.title} enValue={content.en.pages.realEstate.title} onDeChange={(value) => setLocaleValue("de", ["pages", "realEstate", "title"], value)} onEnChange={(value) => setLocaleValue("en", ["pages", "realEstate", "title"], value)} />
+              <DualField label="Beschreibung" textarea deValue={content.de.pages.realEstate.description} enValue={content.en.pages.realEstate.description} onDeChange={(value) => setLocaleValue("de", ["pages", "realEstate", "description"], value)} onEnChange={(value) => setLocaleValue("en", ["pages", "realEstate", "description"], value)} />
+            </Panel>
           </SectionFrame>
         )}
 
         {section === "legal" && (
           <SectionFrame title="Rechtliches">
-            <div className={styles.legalPicker}>
-              {legalSlugs.map((slug) => <button className={styles.legalButton} data-active={legalSlug === slug} key={slug} type="button" onClick={() => setLegalSlug(slug)}>{slug}</button>)}
+            <div className={styles.tabRow}>
+              {legalSlugs.map((slug) => (
+                <button className={styles.tabButton} data-active={legalSlug === slug} key={slug} type="button" onClick={() => setLegalSlug(slug)}>
+                  {slug}
+                </button>
+              ))}
             </div>
-            <LocalePanel title="Deutsch" locale="de">
-              <Field label="Eyebrow" value={content.de.legalPages[legalSlug].eyebrow} onChange={(value) => setValue("de", ["legalPages", legalSlug, "eyebrow"], value)} />
-              <Field label="Titel" value={content.de.legalPages[legalSlug].title} onChange={(value) => setValue("de", ["legalPages", legalSlug, "title"], value)} />
-              <Field label="Intro" textarea value={content.de.legalPages[legalSlug].intro} onChange={(value) => setValue("de", ["legalPages", legalSlug, "intro"], value)} />
-              <Field label="Hinweis" textarea value={content.de.legalPages[legalSlug].notice} onChange={(value) => setValue("de", ["legalPages", legalSlug, "notice"], value)} />
-            </LocalePanel>
-            <LocalePanel title="English" locale="en">
-              <Field label="Eyebrow" value={content.en.legalPages[legalSlug].eyebrow} onChange={(value) => setValue("en", ["legalPages", legalSlug, "eyebrow"], value)} />
-              <Field label="Title" value={content.en.legalPages[legalSlug].title} onChange={(value) => setValue("en", ["legalPages", legalSlug, "title"], value)} />
-              <Field label="Intro" textarea value={content.en.legalPages[legalSlug].intro} onChange={(value) => setValue("en", ["legalPages", legalSlug, "intro"], value)} />
-              <Field label="Notice" textarea value={content.en.legalPages[legalSlug].notice} onChange={(value) => setValue("en", ["legalPages", legalSlug, "notice"], value)} />
-            </LocalePanel>
+
+            <Panel title="Allgemein">
+              <DualField label="Eyebrow" deValue={content.de.legalPages[legalSlug].eyebrow} enValue={content.en.legalPages[legalSlug].eyebrow} onDeChange={(value) => setLocaleValue("de", ["legalPages", legalSlug, "eyebrow"], value)} onEnChange={(value) => setLocaleValue("en", ["legalPages", legalSlug, "eyebrow"], value)} />
+              <DualField label="Titel" deValue={content.de.legalPages[legalSlug].title} enValue={content.en.legalPages[legalSlug].title} onDeChange={(value) => setLocaleValue("de", ["legalPages", legalSlug, "title"], value)} onEnChange={(value) => setLocaleValue("en", ["legalPages", legalSlug, "title"], value)} />
+              <DualField label="Intro" textarea deValue={content.de.legalPages[legalSlug].intro} enValue={content.en.legalPages[legalSlug].intro} onDeChange={(value) => setLocaleValue("de", ["legalPages", legalSlug, "intro"], value)} onEnChange={(value) => setLocaleValue("en", ["legalPages", legalSlug, "intro"], value)} />
+              <DualField label="Hinweis" textarea deValue={content.de.legalPages[legalSlug].notice} enValue={content.en.legalPages[legalSlug].notice} onDeChange={(value) => setLocaleValue("de", ["legalPages", legalSlug, "notice"], value)} onEnChange={(value) => setLocaleValue("en", ["legalPages", legalSlug, "notice"], value)} />
+            </Panel>
+
+            <ArrayPanel count={deLegalSections.length} max={caps.legalSections} title="Abschnitte" onAdd={() => addPairedItem(["legalPages", legalSlug, "sections"], () => ({ title: "", paragraphs: [""] }), () => ({ title: "", paragraphs: [""] }), caps.legalSections)}>
+              {deLegalSections.map((item, sectionIndex) => (
+                <AccordionItem key={`legal-${sectionIndex}`} open={sectionIndex === 0} title={`Abschnitt ${sectionIndex + 1}`} onRemove={() => removePairedItem(["legalPages", legalSlug, "sections"], sectionIndex)} canRemove={deLegalSections.length > 1}>
+                  <DualField label="Titel" deValue={item.title} enValue={content.en.legalPages[legalSlug].sections[sectionIndex]?.title || ""} onDeChange={(value) => setLocaleValue("de", ["legalPages", legalSlug, "sections", sectionIndex, "title"], value)} onEnChange={(value) => setLocaleValue("en", ["legalPages", legalSlug, "sections", sectionIndex, "title"], value)} />
+                  <SubsectionHeader title="Absätze" onAdd={() => addLegalParagraph(legalSlug, sectionIndex)} addDisabled={item.paragraphs.length >= caps.legalParagraphs} />
+                  {item.paragraphs.map((paragraph, paragraphIndex) => (
+                    <div className={styles.paragraphItem} key={`paragraph-${sectionIndex}-${paragraphIndex}`}>
+                      <div className={styles.inlineActions}>
+                        <span>Absatz {paragraphIndex + 1}</span>
+                        <button className={styles.removeButton} type="button" onClick={() => removeLegalParagraph(legalSlug, sectionIndex, paragraphIndex)} disabled={item.paragraphs.length <= 1}>Entfernen</button>
+                      </div>
+                      <DualField label="Text" textarea deValue={paragraph} enValue={content.en.legalPages[legalSlug].sections[sectionIndex]?.paragraphs[paragraphIndex] || ""} onDeChange={(value) => setLocaleValue("de", ["legalPages", legalSlug, "sections", sectionIndex, "paragraphs", paragraphIndex], value)} onEnChange={(value) => setLocaleValue("en", ["legalPages", legalSlug, "sections", sectionIndex, "paragraphs", paragraphIndex], value)} />
+                    </div>
+                  ))}
+                </AccordionItem>
+              ))}
+            </ArrayPanel>
           </SectionFrame>
         )}
 
@@ -239,25 +316,144 @@ function SectionFrame({ children, title }: { children: ReactNode; title: string 
   );
 }
 
-function LocalePanel({ children, locale, title }: { children: ReactNode; locale: Locale; title: string }) {
+function Panel({ children, title }: { children: ReactNode; title: string }) {
   return (
-    <section className={styles.localePanel} data-locale={locale}>
+    <section className={styles.panel}>
       <h3>{title}</h3>
-      <div className={styles.localeFields}>{children}</div>
+      <div className={styles.panelBody}>{children}</div>
     </section>
   );
 }
 
-function Field({ label, onChange, textarea = false, value }: { label: string; onChange: (value: string) => void; textarea?: boolean; value: string }) {
+function ArrayPanel({ children, count, max, onAdd, title }: { children: ReactNode; count: number; max: number; onAdd: () => void; title: string }) {
+  return (
+    <section className={styles.panel}>
+      <div className={styles.panelTop}>
+        <h3>{title}</h3>
+        <div className={styles.inlineActions}>
+          <span>{count} / {max}</span>
+          <button className={styles.addButton} disabled={count >= max} type="button" onClick={onAdd}>Hinzufügen</button>
+        </div>
+      </div>
+      <div className={styles.panelBody}>{children}</div>
+    </section>
+  );
+}
+
+function AccordionItem({ canRemove, children, onRemove, open, title }: { canRemove: boolean; children: ReactNode; onRemove: () => void; open?: boolean; title: string }) {
+  return (
+    <details className={styles.accordion} open={open}>
+      <summary className={styles.accordionSummary}>{title}</summary>
+      <div className={styles.accordionBody}>
+        <div className={styles.inlineActions}>
+          <span />
+          <button className={styles.removeButton} disabled={!canRemove} type="button" onClick={onRemove}>Entfernen</button>
+        </div>
+        {children}
+      </div>
+    </details>
+  );
+}
+
+function SubsectionHeader({ addDisabled, onAdd, title }: { addDisabled?: boolean; onAdd: () => void; title: string }) {
+  return (
+    <div className={styles.subsectionHeader}>
+      <h4>{title}</h4>
+      <button className={styles.addButton} disabled={addDisabled} type="button" onClick={onAdd}>Hinzufügen</button>
+    </div>
+  );
+}
+
+function DualField({
+  deValue,
+  enValue,
+  label,
+  onDeChange,
+  onEnChange,
+  textarea = false,
+}: {
+  deValue: string;
+  enValue: string;
+  label: string;
+  onDeChange: (value: string) => void;
+  onEnChange: (value: string) => void;
+  textarea?: boolean;
+}) {
+  return (
+    <div className={styles.dualField}>
+      <span className={styles.fieldLabel}>{label}</span>
+      <div className={styles.localeGrid}>
+        <Field locale="DE" onChange={onDeChange} textarea={textarea} value={deValue} />
+        <Field locale="EN" onChange={onEnChange} textarea={textarea} value={enValue} />
+      </div>
+    </div>
+  );
+}
+
+function SelectField({ label, onChange, options, value }: { label: string; onChange: (value: FocusIcon) => void; options: { label: string; value: FocusIcon }[]; value: FocusIcon }) {
+  return (
+    <label className={styles.selectField}>
+      <span className={styles.fieldLabel}>{label}</span>
+      <select value={value} onChange={(event) => onChange(event.target.value as FocusIcon)}>
+        {options.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
+      </select>
+    </label>
+  );
+}
+
+function Field({ locale, onChange, textarea = false, value }: { locale: "DE" | "EN"; onChange: (value: string) => void; textarea?: boolean; value: string }) {
   return (
     <label className={styles.field}>
-      <span>{label}</span>
+      <span>{locale}</span>
       {textarea ? <textarea value={value} onChange={(event) => onChange(event.target.value)} /> : <input value={value} onChange={(event) => onChange(event.target.value)} />}
     </label>
   );
 }
 
-function setDeepValue<T>(value: T, path: (string | number)[], nextValue: string): T {
+function normalizeContent(content: CmsContent): CmsContent {
+  const fallbackIcons: FocusIcon[] = ["growth", "finance", "property"];
+  return {
+    de: {
+      ...content.de,
+      home: {
+        ...content.de.home,
+        focus: {
+          ...content.de.home.focus,
+          items: content.de.home.focus.items.map((item, index) => ({
+            icon: (item.icon as FocusIcon | undefined) || fallbackIcons[index % fallbackIcons.length],
+            title: item.title,
+            description: item.description,
+          })),
+        },
+      },
+    },
+    en: {
+      ...content.en,
+      home: {
+        ...content.en.home,
+        focus: {
+          ...content.en.home.focus,
+          items: content.en.home.focus.items.map((item, index) => ({
+            icon: (item.icon as FocusIcon | undefined) || fallbackIcons[index % fallbackIcons.length],
+            title: item.title,
+            description: item.description,
+          })),
+        },
+      },
+    },
+  };
+}
+
+function getDeepValue(value: unknown, path: (string | number)[]): unknown {
+  return path.reduce<unknown>((current, key) => {
+    if (current && typeof current === "object") {
+      return (current as Record<string, unknown>)[String(key)];
+    }
+    return undefined;
+  }, value);
+}
+
+function setDeepValue<T>(value: T, path: (string | number)[], nextValue: unknown): T {
   if (!path.length) return nextValue as T;
   const [head, ...rest] = path;
   if (Array.isArray(value)) {
@@ -270,8 +466,12 @@ function setDeepValue<T>(value: T, path: (string | number)[], nextValue: string)
     const current = value as Record<string, unknown>;
     return {
       ...current,
-      [key]: setDeepValue(current[key] as T, rest, nextValue),
+      [key]: setDeepValue(current[key], rest, nextValue),
     } as T;
   }
   return value;
+}
+
+function nextNumber(index: number) {
+  return String(index + 1).padStart(2, "0");
 }

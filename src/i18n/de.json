@@ -32,14 +32,17 @@
       "description": "Wir schaffen nachhaltige Werte durch strategische Veranlagung, maßgeschneiderte Finanzierung und umfassende Immobilienkompetenz.",
       "items": [
         {
+          "icon": "growth",
           "title": "Veranlagung",
           "description": "Strategische Veranlagungen für widerstandsfähige und langfristige Wertschöpfung."
         },
         {
+          "icon": "finance",
           "title": "Finanzierung",
           "description": "Maßgeschneiderte Finanzierungsstrukturen für ambitionierte Immobilienprojekte."
         },
         {
+          "icon": "property",
           "title": "Immobilien",
           "description": "Erstklassige Gewerbe- und Wohnimmobilien in Österreich und Zentraleuropa."
         }

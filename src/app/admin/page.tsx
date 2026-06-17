@@ -14,6 +14,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
   const authenticated = await isAdminAuthenticated();
   const params = await searchParams;
   const section = params.section === "site" ? "site" : "properties";
+  const pageTitle = section === "site" ? "Seite verwalten." : "Immobilien verwalten.";
 
   if (!authenticated) {
     return (
@@ -41,7 +42,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
         <div className={styles.top}>
           <div>
             <p>Real Estate CMS</p>
-            <h1>Immobilien verwalten.</h1>
+            <h1>{pageTitle}</h1>
             <nav className={styles.adminTabs} aria-label="CMS navigation">
               <Link data-active={section === "properties"} href="/admin?section=properties">Immobilien</Link>
               <Link data-active={section === "site"} href="/admin?section=site">Website</Link>
