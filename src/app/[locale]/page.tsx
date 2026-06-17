@@ -1,23 +1,24 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArrowLink } from "@/components/ui/ArrowLink/ArrowLink";
 import { PropertyShowcase } from "@/components/ui/PropertyShowcase/PropertyShowcase";
 import { Reveal } from "@/components/ui/Reveal/Reveal";
-import { getDictionary, isLocale, localizedPath } from "@/i18n/config";
+import { getCmsDictionary } from "@/lib/cms-dictionary";
+import { isLocale, localizedPath } from "@/i18n/config";
 import { getProperties } from "@/lib/properties";
 import styles from "../Home.module.scss";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  const t = getDictionary(locale).home.hero;
-  return { title: locale === "de" ? "Werte schaffen. Zukunft gestalten." : "Creating Value. Shaping the Future.", description: t.description };
+  const dictionary = getCmsDictionary(locale);
+  return { title: dictionary.meta.title, description: dictionary.meta.description };
 }
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  const t = getDictionary(locale).home;
+  const t = getCmsDictionary(locale).home;
   const featuredProperties = (await getProperties()).filter((property) => property.enabled !== false && property.showOnHome).slice(0, 3);
 
   return (
@@ -75,3 +76,4 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 function BuildingIcon() {
   return <svg aria-hidden="true" fill="none" viewBox="0 0 48 48"><path d="M9 42V20h12v22M21 42V8h18v34M5 42h38M14 26h3m-3 7h3M27 15h6m-6 7h6m-6 7h6m-6 7h6" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" /></svg>;
 }
+

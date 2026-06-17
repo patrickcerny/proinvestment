@@ -1,6 +1,6 @@
 import type { Locale } from "@/i18n/config";
 import type { PropertyEntry } from "@/lib/properties";
-import { getPropertyImages } from "@/lib/properties";
+import { getPropertyButtonTarget, getPropertyImages } from "@/lib/properties";
 import { PropertyCarousel } from "@/components/ui/PropertyShowcase/PropertyCarousel";
 import { Reveal } from "@/components/ui/Reveal/Reveal";
 import styles from "./PropertyDetail.module.scss";
@@ -58,7 +58,15 @@ export function PropertyDetail({ locale, property }: { locale: Locale; property:
 
         <Reveal className={styles.actions}>
           <a className={styles.contactButton} href={inquiryHref}>{locale === "de" ? "Anfrage senden" : "Send enquiry"}</a>
-          {property.buttons.map((button) => <a href={button.href} key={`${button.href}-${button.label[locale]}`}>{button.label[locale] || button.label.de || button.label.en}</a>)}
+          {property.buttons.map((button) => {
+            const target = getPropertyButtonTarget(button);
+            if (!target) return null;
+            return (
+              <a download={button.kind === "document" ? button.label[locale] || button.label.de || button.label.en : undefined} href={target} key={`${target}-${button.label[locale]}`}>
+                {button.label[locale] || button.label.de || button.label.en}
+              </a>
+            );
+          })}
         </Reveal>
       </section>
     </article>

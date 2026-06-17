@@ -192,18 +192,38 @@ function DynamicTextList({ initial, label, name }: { initial: string[]; label: s
 }
 
 function DynamicButtons({ initial }: { initial: PropertyEntry["buttons"] }) {
-  const [items, setItems] = useState(initial.length ? initial : [{ label: { de: "", en: "" }, href: "" }]);
+  type ButtonItem = {
+    kind: "link" | "document";
+    label: { de: string; en: string };
+    href: string;
+    document: string;
+  };
+
+  const [items, setItems] = useState<ButtonItem[]>(initial.length ? initial.map((button) => ({
+    kind: button.kind === "document" || button.document ? "document" : "link",
+    label: { de: button.label.de, en: button.label.en },
+    href: button.href || "",
+    document: button.document || "",
+  })) : [{ kind: "link", label: { de: "", en: "" }, href: "", document: "" }]);
   return (
     <div className={styles.dynamicList}>
       {items.map((button, index) => (
         <div className={styles.buttonEditorRow} key={index}>
+          <label className={styles.field}><span>Typ</span>
+            <select name="buttonKind" defaultValue={button.kind}>
+              <option value="link">Link</option>
+              <option value="document">Dokument</option>
+            </select>
+          </label>
           <label className={styles.field}><span>Label DE</span><input name="buttonLabelDe" defaultValue={button.label.de} /></label>
           <label className={styles.field}><span>Label EN</span><input name="buttonLabelEn" defaultValue={button.label.en} /></label>
-          <label className={styles.field}><span>Link</span><input name="buttonHref" defaultValue={button.href} /></label>
+          <label className={styles.field}><span>Link</span><input name="buttonHref" defaultValue={button.href} placeholder={button.kind === "document" ? "optional" : ""} /></label>
+          <label className={styles.field}><span>Dokument</span><input accept=".pdf,.doc,.docx,application/pdf" name="buttonDocument" type="file" /></label>
+          <input name="existingButtonDocument" type="hidden" value={button.document} />
           <button type="button" onClick={() => setItems((current) => current.filter((_, itemIndex) => itemIndex !== index))}>Remove</button>
         </div>
       ))}
-      <button type="button" onClick={() => setItems((current) => [...current, { label: { de: "", en: "" }, href: "" }])}>+ Button hinzufügen</button>
+      <button type="button" onClick={() => setItems((current) => [...current, { kind: "link", label: { de: "", en: "" }, href: "", document: "" }])}>+ Button hinzufügen</button>
     </div>
   );
 }

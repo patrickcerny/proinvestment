@@ -1,0 +1,123 @@
+@use "@/styles/mixins" as *;
+@use "@/styles/tokens" as *;
+
+.layout {
+  display: grid;
+  grid-template-columns: 16rem minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.sidebar {
+  position: sticky;
+  top: 1rem;
+  display: grid;
+  gap: 0.65rem;
+  align-self: start;
+}
+
+.sidebarButton,
+.legalButton {
+  @include eyebrow;
+  width: 100%;
+  border: 1px solid $color-line;
+  padding: 0.95rem 1rem;
+  background: rgba($color-surface, 0.72);
+  color: $color-paper;
+  text-align: left;
+  cursor: pointer;
+
+  &[data-active="true"] {
+    border-color: $color-accent;
+    color: $color-accent;
+  }
+}
+
+.content {
+  display: grid;
+  gap: 1.25rem;
+  min-width: 0;
+}
+
+.note {
+  margin: 0;
+  color: $color-muted;
+}
+
+.section {
+  display: grid;
+  gap: 1rem;
+}
+
+.sectionHeader h2,
+.localePanel h3 {
+  margin: 0;
+  font-weight: 400;
+}
+
+.sectionHeader h2 {
+  font-size: 1.4rem;
+}
+
+.localePanel {
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem;
+  border: 1px solid $color-line;
+  background: rgba($color-surface, 0.72);
+}
+
+.localeFields {
+  display: grid;
+  gap: 1rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.45rem;
+
+  span {
+    @include eyebrow;
+    color: $color-muted;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    border: 1px solid $color-line;
+    padding: 0.9rem 1rem;
+    background: rgba($color-ink, 0.72);
+    color: $color-paper;
+  }
+
+  textarea {
+    min-height: 7rem;
+    resize: vertical;
+  }
+}
+
+.legalPicker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.saveButton {
+  @include eyebrow;
+  width: fit-content;
+  border: 1px solid $color-paper;
+  padding: 1rem 1.35rem;
+  background: $color-paper;
+  color: $color-ink;
+  cursor: pointer;
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+  }
+}

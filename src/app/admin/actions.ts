@@ -4,7 +4,8 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createHash } from "crypto";
-import { createPropertyId, getProperties, saveProperties, savePropertyImages, type PropertyButton, type PropertyEntry } from "@/lib/properties";
+import { createPropertyId, getProperties, saveProperties, savePropertyImages, savePropertyDocument, type PropertyButton, type PropertyEntry } from "@/lib/properties";
+import { saveCmsContent } from "@/lib/cms-dictionary";
 
 const cookieName = "proinvestment_admin";
 
@@ -24,14 +25,34 @@ function value(formData: FormData, key: string) {
   return String(formData.get(key) || "").trim();
 }
 
-function collectButtons(formData: FormData): PropertyButton[] {
+async function collectButtons(formData: FormData): Promise<PropertyButton[]> {
   const labelsDe = formData.getAll("buttonLabelDe").map(String);
   const labelsEn = formData.getAll("buttonLabelEn").map(String);
+  const kinds = formData.getAll("buttonKind").map((item) => String(item) as PropertyButton["kind"]);
   const hrefs = formData.getAll("buttonHref").map(String);
-  return hrefs.map((href, index) => ({
-    label: { de: labelsDe[index]?.trim() || "", en: labelsEn[index]?.trim() || "" },
-    href: href.trim(),
-  })).filter((button) => button.href && (button.label.de || button.label.en));
+  const existingDocuments = formData.getAll("existingButtonDocument").map(String);
+  const documents = formData.getAll("buttonDocument");
+  const buttons: PropertyButton[] = [];
+
+  for (let index = 0; index < Math.max(labelsDe.length, labelsEn.length, kinds.length, hrefs.length); index += 1) {
+    const kind = kinds[index] === "document" ? "document" : "link";
+    const label = { de: labelsDe[index]?.trim() || "", en: labelsEn[index]?.trim() || "" };
+    if (!label.de && !label.en) continue;
+
+    if (kind === "document") {
+      const file = documents[index];
+      const document = file instanceof File && file.size > 0 ? await savePropertyDocument(file) : existingDocuments[index]?.trim() || "";
+      if (!document) continue;
+      buttons.push({ kind, label, document });
+      continue;
+    }
+
+    const href = hrefs[index]?.trim() || "";
+    if (!href) continue;
+    buttons.push({ kind, label, href });
+  }
+
+  return buttons;
 }
 
 function collectFeatures(formData: FormData, locale: "de" | "en") {
@@ -79,6 +100,29 @@ function revalidatePropertyPages() {
   revalidatePath("/en/real-estate/[id]", "page");
 }
 
+function revalidateCmsPages() {
+  revalidatePath("/de");
+  revalidatePath("/en");
+  revalidatePath("/de/financing");
+  revalidatePath("/en/financing");
+  revalidatePath("/de/investment");
+  revalidatePath("/en/investment");
+  revalidatePath("/de/get-in-touch");
+  revalidatePath("/en/get-in-touch");
+  revalidatePath("/de/legal/imprint");
+  revalidatePath("/en/legal/imprint");
+  revalidatePath("/de/legal/privacy");
+  revalidatePath("/en/legal/privacy");
+  revalidatePath("/de/legal/terms");
+  revalidatePath("/en/legal/terms");
+  revalidatePath("/de/legal/legal-foundations");
+  revalidatePath("/en/legal/legal-foundations");
+  revalidatePath("/de/real-estate");
+  revalidatePath("/en/real-estate");
+  revalidatePath("/de/real-estate/[id]", "page");
+  revalidatePath("/en/real-estate/[id]", "page");
+}
+
 export async function loginAction(formData: FormData) {
   if (value(formData, "password") !== adminPassword()) {
     redirect("/admin?error=1");
@@ -112,7 +156,7 @@ export async function createPropertyAction(formData: FormData) {
     createdAt: new Date().toISOString(),
     ...propertyFields(formData),
     content: contentFields(formData),
-    buttons: collectButtons(formData),
+    buttons: await collectButtons(formData),
   };
 
   const properties = await getProperties();
@@ -137,18 +181,16 @@ export async function updatePropertyAction(formData: FormData) {
   const imageFiles = formData.getAll("images").filter((file): file is File => file instanceof File);
   const addedImages = await savePropertyImages(imageFiles);
   const existingImages = formData.getAll("existingImages").map(String).filter(Boolean);
+  const updatedButtons = await collectButtons(formData);
 
-  await saveProperties(properties.map((property) => {
-    if (property.id !== id) return property;
-    return {
-      ...property,
-      images: [...existingImages, ...addedImages],
-      enabled: formData.get("enabled") === "on",
-      showOnHome: formData.get("showOnHome") === "on",
-      ...propertyFields(formData),
-      content: contentFields(formData),
-      buttons: collectButtons(formData),
-    };
+  await saveProperties(properties.map((property) => property.id !== id ? property : {
+    ...property,
+    images: [...existingImages, ...addedImages],
+    enabled: formData.get("enabled") === "on",
+    showOnHome: formData.get("showOnHome") === "on",
+    ...propertyFields(formData),
+    content: contentFields(formData),
+    buttons: updatedButtons,
   }));
   revalidatePropertyPages();
   redirect(`/admin?updated=${id}`);
@@ -170,4 +212,14 @@ export async function reorderPropertiesAction(ids: string[]) {
   const remaining = properties.filter((property) => !ids.includes(property.id));
   await saveProperties([...ordered, ...remaining]);
   revalidatePropertyPages();
+}
+
+export async function saveSiteContentAction(formData: FormData) {
+  if (!await isAdminAuthenticated()) redirect("/admin");
+  const raw = String(formData.get("contentJson") || "");
+  if (!raw.trim()) redirect("/admin?section=site&error=1");
+  const content = JSON.parse(raw);
+  saveCmsContent(content);
+  revalidateCmsPages();
+  redirect("/admin?section=site&saved=1");
 }

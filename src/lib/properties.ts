@@ -5,7 +5,9 @@ import type { Locale } from "@/i18n/config";
 
 export type PropertyButton = {
   label: Record<Locale, string>;
-  href: string;
+  kind?: "link" | "document";
+  href?: string;
+  document?: string;
 };
 
 export type PropertyEntry = {
@@ -34,6 +36,7 @@ export type PropertyEntry = {
 
 const dataDir = path.join(process.cwd(), "data");
 const uploadsDir = path.join(process.cwd(), "public", "uploads", "real-estate");
+const documentsDir = path.join(uploadsDir, "documents");
 const propertiesFile = path.join(dataDir, "properties.json");
 
 export async function getProperties(): Promise<PropertyEntry[]> {
@@ -50,6 +53,10 @@ export async function getProperties(): Promise<PropertyEntry[]> {
 
 export function getPropertyImages(property: PropertyEntry) {
   return property.images?.length ? property.images : property.image ? [property.image] : [];
+}
+
+export function getPropertyButtonTarget(button: PropertyButton) {
+  return button.kind === "document" ? button.document || button.href || "" : button.href || button.document || "";
 }
 
 export async function saveProperties(properties: PropertyEntry[]) {
@@ -70,6 +77,21 @@ export async function savePropertyImage(file: File) {
 export async function savePropertyImages(files: File[]) {
   const validFiles = files.filter((file) => file.size > 0);
   return Promise.all(validFiles.map((file) => savePropertyImage(file)));
+}
+
+export async function savePropertyDocument(file: File) {
+  await mkdir(documentsDir, { recursive: true });
+  const extension = path.extname(file.name).toLowerCase() || ".pdf";
+  const filename = `${randomUUID()}${extension}`;
+  const destination = path.join(documentsDir, filename);
+  const bytes = Buffer.from(await file.arrayBuffer());
+  await writeFile(destination, bytes);
+  return `/uploads/real-estate/documents/${filename}`;
+}
+
+export async function savePropertyDocuments(files: File[]) {
+  const validFiles = files.filter((file) => file.size > 0);
+  return Promise.all(validFiles.map((file) => savePropertyDocument(file)));
 }
 
 export function createPropertyId() {

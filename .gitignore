@@ -5,4 +5,5 @@ out
 .env*
 !.env.example
 data/properties.json
+data/site-content.json
 public/uploads/real-estate/*

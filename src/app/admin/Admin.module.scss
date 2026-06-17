@@ -35,6 +35,26 @@
   }
 }
 
+.adminTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+
+  a {
+    @include eyebrow;
+    border: 1px solid $color-line;
+    padding: 0.75rem 1rem;
+    background: rgba($color-surface, 0.62);
+    color: $color-muted;
+
+    &[data-active="true"] {
+      border-color: $color-accent;
+      color: $color-accent;
+    }
+  }
+}
+
 .logout {
   @include eyebrow;
   border: 1px solid $color-line;
@@ -228,7 +248,8 @@
   }
 
   input,
-  textarea {
+  textarea,
+  select {
     width: 100%;
     border: 1px solid $color-line;
     border-radius: 0;
@@ -357,7 +378,7 @@
 
 .buttonEditorRow {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+  grid-template-columns: minmax(8rem, 0.8fr) repeat(2, minmax(0, 1fr)) minmax(0, 1fr) minmax(0, 1fr) auto;
   gap: 0.75rem;
   align-items: end;
 }
