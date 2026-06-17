@@ -26,7 +26,6 @@ export function PropertyShowcase({ locale, mode = "full", properties }: Property
     <section className={`${styles.showcase} ${styles[mode]}`}>
       {mode === "featured" && (
         <Reveal className={styles.heading}>
-          <p>{locale === "de" ? "Ausgewählte Immobilien" : "Featured Real Estate"}</p>
           <h2>{locale === "de" ? "Aktuelle Möglichkeiten." : "Current opportunities."}</h2>
           <Link href={localizedPath(locale, "/real-estate")}>{locale === "de" ? "Alle Immobilien ansehen" : "View all properties"}</Link>
         </Reveal>
