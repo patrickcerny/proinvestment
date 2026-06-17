@@ -10,9 +10,16 @@ DATA_DIR="$APP_DIR/data"
 UPLOADS_DIR="$APP_DIR/public/uploads/real-estate"
 APP_USER="$(id -un)"
 APP_GROUP="$(id -gn)"
+NODE_BIN="$(command -v node || true)"
+NPM_BIN="$(command -v npm || true)"
 
 if ! command -v systemctl >/dev/null 2>&1; then
   echo "systemctl not found. This deploy script requires systemd on the target host." >&2
+  exit 1
+fi
+
+if [ -z "$NODE_BIN" ] || [ -z "$NPM_BIN" ]; then
+  echo "node/npm not found in PATH for the current user. Load the correct Node environment first, then re-run deploy." >&2
   exit 1
 fi
 
@@ -32,8 +39,8 @@ fi
 
 git pull --ff-only
 
-npm ci
-npm run build
+"$NPM_BIN" ci
+"$NPM_BIN" run build
 
 TMP_SERVICE_FILE="$(mktemp)"
 cat > "$TMP_SERVICE_FILE" <<EOF
@@ -48,7 +55,8 @@ Group=$APP_GROUP
 WorkingDirectory=$APP_DIR
 Environment=NODE_ENV=production
 Environment=PORT=$PORT
-ExecStart=$APP_DIR/node_modules/.bin/next start -p $PORT
+Environment=PATH=$(dirname "$NODE_BIN"):/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ExecStart=$NODE_BIN $APP_DIR/node_modules/next/dist/bin/next start -p $PORT
 Restart=always
 RestartSec=5
 
