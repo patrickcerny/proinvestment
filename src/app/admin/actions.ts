@@ -178,7 +178,7 @@ export async function deletePropertyAction(formData: FormData) {
   redirect("/admin?deleted=1");
 }
 
-export async function updatePropertyAction(formData: FormData) {
+export async function updatePropertyAction(_prevState: unknown, formData: FormData) {
   if (!await isAdminAuthenticated()) redirect("/admin");
   const id = value(formData, "id");
   const properties = await getProperties();
@@ -203,7 +203,7 @@ export async function updatePropertyAction(formData: FormData) {
     buttons: updatedButtons,
   }));
   revalidatePropertyPages();
-  redirect(`/admin?updated=${id}`);
+  return { ok: true };
 }
 
 export async function togglePropertyEnabledAction(formData: FormData) {

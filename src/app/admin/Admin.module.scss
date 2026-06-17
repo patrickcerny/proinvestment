@@ -379,9 +379,83 @@
 
 .buttonEditorRow {
   display: grid;
-  grid-template-columns: minmax(8rem, 0.8fr) repeat(2, minmax(0, 1fr)) minmax(0, 1fr) minmax(0, 1fr) auto;
+  grid-template-columns: minmax(8rem, 0.8fr) repeat(2, minmax(0, 1fr)) minmax(0, 1.4fr) auto;
   gap: 0.75rem;
   align-items: end;
+  padding: 1rem;
+  border: 1px solid $color-line;
+  background: rgba($color-ink, 0.4);
+}
+
+.removeButton {
+  border: 1px solid rgba($color-paper, 0.25) !important;
+  padding: 0.65rem 0.85rem !important;
+  background: transparent !important;
+  color: $color-muted !important;
+  cursor: pointer;
+  align-self: end;
+
+  &:hover {
+    border-color: rgba(200, 60, 60, 0.6) !important;
+    color: rgba(220, 80, 80, 0.9) !important;
+  }
+}
+
+.documentUpload {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.documentPickButton {
+  width: 100%;
+  border: 1px dashed $color-line !important;
+  padding: 0.9rem 1rem !important;
+  background: rgba($color-ink, 0.5) !important;
+  color: $color-accent !important;
+  cursor: pointer;
+  text-align: left;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: border-color 150ms ease, background 150ms ease;
+
+  &:hover {
+    border-color: rgba($color-accent, 0.6) !important;
+    background: rgba($color-surface, 0.6) !important;
+  }
+}
+
+.documentName {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid rgba($color-accent, 0.3);
+  background: rgba($color-accent, 0.07);
+  color: $color-paper;
+  font-size: 0.8rem;
+  overflow: hidden;
+
+  span:last-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.imagePending {
+  opacity: 0.75;
+  outline: 1px dashed $color-accent;
+}
+
+.imagePendingLabel {
+  padding: 0.25rem 0.5rem;
+  background: rgba($color-accent, 0.18);
+  color: $color-accent;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
 }
 
 .imageManager {

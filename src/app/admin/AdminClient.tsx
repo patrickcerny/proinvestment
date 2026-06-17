@@ -1,7 +1,7 @@
-﻿"use client";
+"use client";
 
 import Image from "next/image";
-import { useMemo, useState, useTransition } from "react";
+import { useActionState, useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { createPropertyAction, deletePropertyAction, reorderPropertiesAction, togglePropertyEnabledAction, updatePropertyAction } from "./actions";
 import type { PropertyEntry } from "@/lib/properties";
 import styles from "./Admin.module.scss";
@@ -96,7 +96,7 @@ export function AdminClient({ properties }: AdminClientProps) {
       </aside>
 
       <section className={styles.editor}>
-        {selected ? <EditForm property={selected} /> : <CreateForm />}
+        {selected ? <EditForm key={selected.id} property={selected} /> : <CreateForm />}
       </section>
     </div>
   );
@@ -112,13 +112,18 @@ function CreateForm() {
 }
 
 function EditForm({ property }: { property: PropertyEntry }) {
+  const [state, formAction, pending] = useActionState(updatePropertyAction, null);
+
   return (
-    <form action={updatePropertyAction} className={styles.form} key={property.id}>
+    <form action={formAction} className={styles.form}>
       <input name="id" type="hidden" value={property.id} />
       <FormFields property={property} />
       <ImageManager images={imagesOf(property)} />
+      {state?.ok && <p className={styles.success}>Gespeichert ✓</p>}
       <div className={styles.editorActions}>
-        <button className={styles.button} type="submit">Speichern</button>
+        <button className={styles.button} type="submit" disabled={pending}>
+          {pending ? "Speichern…" : "Speichern"}
+        </button>
         <button className={styles.delete} formAction={deletePropertyAction} type="submit" name="id" value={property.id}>Entfernen</button>
       </div>
     </form>
@@ -191,39 +196,115 @@ function DynamicTextList({ initial, label, name }: { initial: string[]; label: s
   );
 }
 
-function DynamicButtons({ initial }: { initial: PropertyEntry["buttons"] }) {
-  type ButtonItem = {
-    kind: "link" | "document";
-    label: { de: string; en: string };
-    href: string;
-    document: string;
-  };
+type ButtonItem = {
+  kind: "link" | "document";
+  labelDe: string;
+  labelEn: string;
+  href: string;
+  document: string;
+};
 
-  const [items, setItems] = useState<ButtonItem[]>(initial.length ? initial.map((button) => ({
-    kind: button.kind === "document" || button.document ? "document" : "link",
-    label: { de: button.label.de, en: button.label.en },
-    href: button.href || "",
-    document: button.document || "",
-  })) : [{ kind: "link", label: { de: "", en: "" }, href: "", document: "" }]);
+function DynamicButtons({ initial }: { initial: PropertyEntry["buttons"] }) {
+  const [items, setItems] = useState<ButtonItem[]>(
+    initial.map((button) => ({
+      kind: button.kind === "document" || button.document ? "document" : "link",
+      labelDe: button.label.de,
+      labelEn: button.label.en,
+      href: button.href || "",
+      document: button.document || "",
+    }))
+  );
+
+  function updateItem(index: number, patch: Partial<ButtonItem>) {
+    setItems((current) => current.map((item, i) => i === index ? { ...item, ...patch } : item));
+  }
+
+  function removeItem(index: number) {
+    setItems((current) => current.filter((_, i) => i !== index));
+  }
+
   return (
     <div className={styles.dynamicList}>
       {items.map((button, index) => (
         <div className={styles.buttonEditorRow} key={index}>
-          <label className={styles.field}><span>Typ</span>
-            <select name="buttonKind" defaultValue={button.kind}>
+          <label className={styles.field}>
+            <span>Typ</span>
+            <select
+              name="buttonKind"
+              value={button.kind}
+              onChange={(e) => updateItem(index, { kind: e.target.value as "link" | "document" })}
+            >
               <option value="link">Link</option>
               <option value="document">Dokument</option>
             </select>
           </label>
-          <label className={styles.field}><span>Label DE</span><input name="buttonLabelDe" defaultValue={button.label.de} /></label>
-          <label className={styles.field}><span>Label EN</span><input name="buttonLabelEn" defaultValue={button.label.en} /></label>
-          <label className={styles.field}><span>Link</span><input name="buttonHref" defaultValue={button.href} placeholder={button.kind === "document" ? "optional" : ""} /></label>
-          <label className={styles.field}><span>Dokument</span><input accept=".pdf,.doc,.docx,application/pdf" name="buttonDocument" type="file" /></label>
-          <input name="existingButtonDocument" type="hidden" value={button.document} />
-          <button type="button" onClick={() => setItems((current) => current.filter((_, itemIndex) => itemIndex !== index))}>Remove</button>
+
+          <label className={styles.field}><span>Label DE</span><input name="buttonLabelDe" defaultValue={button.labelDe} /></label>
+          <label className={styles.field}><span>Label EN</span><input name="buttonLabelEn" defaultValue={button.labelEn} /></label>
+
+          {button.kind === "link" ? (
+            <>
+              <label className={styles.field}><span>Link URL</span><input name="buttonHref" defaultValue={button.href} /></label>
+              {/* Hidden doc fields to keep FormData index alignment */}
+              <input name="existingButtonDocument" type="hidden" value="" />
+              <input name="buttonDocument" type="file" style={{ display: "none" }} tabIndex={-1} />
+            </>
+          ) : (
+            <>
+              {/* Hidden href to keep FormData index alignment */}
+              <input name="buttonHref" type="hidden" value="" />
+              <DocumentUpload
+                existingDoc={button.document}
+                onDocumentChange={(doc) => updateItem(index, { document: doc })}
+              />
+            </>
+          )}
+
+          <button type="button" className={styles.removeButton} onClick={() => removeItem(index)}>✕</button>
         </div>
       ))}
-      <button type="button" onClick={() => setItems((current) => [...current, { kind: "link", label: { de: "", en: "" }, href: "", document: "" }])}>+ Button hinzufügen</button>
+      <button
+        type="button"
+        onClick={() => setItems((current) => [...current, { kind: "link", labelDe: "", labelEn: "", href: "", document: "" }])}
+      >
+        + Button hinzufügen
+      </button>
+    </div>
+  );
+}
+
+function DocumentUpload({ existingDoc, onDocumentChange }: { existingDoc: string; onDocumentChange: (doc: string) => void }) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [pendingName, setPendingName] = useState<string>("");
+  const existingName = existingDoc ? existingDoc.split("/").pop() || existingDoc : "";
+  const displayName = pendingName || existingName;
+
+  return (
+    <div className={styles.documentUpload}>
+      <input
+        ref={inputRef}
+        name="buttonDocument"
+        type="file"
+        accept=".pdf,.doc,.docx,application/pdf"
+        style={{ display: "none" }}
+        onChange={(e) => {
+          const file = e.target.files?.[0];
+          setPendingName(file ? file.name : "");
+        }}
+      />
+      <input name="existingButtonDocument" type="hidden" value={existingDoc} />
+      <label className={styles.field}>
+        <span>Dokument</span>
+        <button type="button" className={styles.documentPickButton} onClick={() => inputRef.current?.click()}>
+          {displayName ? "↑ Datei ersetzen" : "+ PDF hochladen"}
+        </button>
+      </label>
+      {displayName && (
+        <div className={styles.documentName}>
+          <span>📄</span>
+          <span>{displayName}</span>
+        </div>
+      )}
     </div>
   );
 }
@@ -231,6 +312,12 @@ function DynamicButtons({ initial }: { initial: PropertyEntry["buttons"] }) {
 function ImageManager({ images }: { images: string[] }) {
   const [items, setItems] = useState(images);
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
+  const [pendingPreviews, setPendingPreviews] = useState<string[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    return () => pendingPreviews.forEach((url) => URL.revokeObjectURL(url));
+  }, [pendingPreviews]);
 
   function move(index: number, direction: -1 | 1) {
     setItems((current) => {
@@ -255,6 +342,13 @@ function ImageManager({ images }: { images: string[] }) {
       return next;
     });
     setDraggedIndex(null);
+  }
+
+  function onFilesSelected(e: React.ChangeEvent<HTMLInputElement>) {
+    const files = [...(e.target.files || [])];
+    if (!files.length) return;
+    pendingPreviews.forEach((url) => URL.revokeObjectURL(url));
+    setPendingPreviews(files.map((f) => URL.createObjectURL(f)));
   }
 
   return (
@@ -282,8 +376,26 @@ function ImageManager({ images }: { images: string[] }) {
             </div>
           </div>
         ))}
+
+        {pendingPreviews.map((src, i) => (
+          <div className={`${styles.imageManagerItem} ${styles.imagePending}`} key={`pending-${i}`}>
+            <div className={styles.imagePreview}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={src} alt="" style={{ width: "100%", aspectRatio: "4/3", objectFit: "cover", display: "block" }} />
+            </div>
+            <div className={styles.imagePendingLabel}>Neu</div>
+          </div>
+        ))}
+
         <label className={styles.imageUploadTile}>
-          <input accept="image/*" multiple name="images" type="file" />
+          <input
+            ref={fileInputRef}
+            accept="image/*"
+            multiple
+            name="images"
+            type="file"
+            onChange={onFilesSelected}
+          />
           <span>+ Bilder hinzufügen</span>
         </label>
       </div>
