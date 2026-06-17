@@ -79,6 +79,121 @@
   gap: 1.5rem;
 }
 
+.adminGrid {
+  display: grid;
+  grid-template-columns: minmax(18rem, 24rem) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.sidebar {
+  position: sticky;
+  top: 1rem;
+  display: grid;
+  gap: 0.8rem;
+  max-height: calc(100svh - 2rem);
+}
+
+.sidebarList {
+  display: grid;
+  gap: 0.55rem;
+  overflow: auto;
+  padding-right: 0.25rem;
+}
+
+.newButton,
+.sidebarRow {
+  width: 100%;
+  border: 1px solid $color-line;
+  background: rgba($color-surface, 0.72);
+  color: $color-paper;
+}
+
+.newButton {
+  @include eyebrow;
+  padding: 1rem;
+  text-align: left;
+  cursor: pointer;
+
+  &[data-active="true"] {
+    border-color: $color-accent;
+    color: $color-accent;
+  }
+}
+
+.sidebarRow {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: auto 3.5rem minmax(0, 1fr) auto;
+  gap: 0.65rem;
+  align-items: center;
+  padding: 0.55rem;
+  text-align: left;
+  cursor: grab;
+
+  &[data-active="true"] {
+    border-color: $color-accent;
+  }
+
+  img,
+  i {
+    width: 3.5rem;
+    height: 2.6rem;
+    object-fit: cover;
+    background: $color-surface-light;
+  }
+
+  b {
+    display: block;
+    overflow: hidden;
+    font-size: 0.82rem;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  small {
+    display: block;
+    margin-top: 0.2rem;
+    color: $color-muted;
+    font-size: 0.68rem;
+  }
+}
+
+.dragHandle {
+  color: $color-muted;
+  font-size: 0.75rem;
+  letter-spacing: -0.2em;
+}
+
+.switch {
+  width: 2.35rem;
+  height: 1.25rem;
+  border: 1px solid $color-line;
+  border-radius: 999px;
+  padding: 0.15rem;
+  background: rgba($color-ink, 0.75);
+  cursor: pointer;
+
+  span {
+    display: block;
+    width: 0.82rem;
+    height: 0.82rem;
+    border-radius: 999px;
+    background: $color-muted;
+    transition: transform 180ms ease, background 180ms ease;
+  }
+
+  &[data-on="true"] span {
+    background: $color-accent;
+    transform: translateX(1rem);
+  }
+}
+
+.editor {
+  min-width: 0;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -185,10 +300,172 @@
   cursor: pointer;
 }
 
+.editorActions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.imageStrip {
+  display: flex;
+  gap: 0.7rem;
+  overflow-x: auto;
+
+  img {
+    width: 7.5rem;
+    height: 5.6rem;
+    flex: 0 0 auto;
+    object-fit: cover;
+    border: 1px solid $color-line;
+  }
+}
+
+.dynamicList {
+  display: grid;
+  gap: 0.75rem;
+
+  > span {
+    @include eyebrow;
+    color: $color-muted;
+  }
+
+  > button,
+  .dynamicRow button,
+  .buttonEditorRow > button,
+  .imageManagerItem button {
+    border: 1px solid $color-line;
+    padding: 0.65rem 0.85rem;
+    background: rgba($color-ink, 0.72);
+    color: $color-paper;
+    cursor: pointer;
+  }
+
+  input {
+    width: 100%;
+    border: 1px solid $color-line;
+    padding: 0.75rem 0.9rem;
+    background: rgba($color-ink, 0.72);
+    color: $color-paper;
+  }
+}
+
+.dynamicRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.6rem;
+}
+
+.buttonEditorRow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+  gap: 0.75rem;
+  align-items: end;
+}
+
+.imageManager {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  gap: 1rem;
+}
+
+.imageManagerItem {
+  display: grid;
+  gap: 0.7rem;
+  padding: 0.55rem;
+  border: 1px solid $color-line;
+  background: linear-gradient(180deg, rgba($color-ink, 0.5), rgba($color-surface, 0.28));
+  cursor: grab;
+  overflow: hidden;
+
+  &:active {
+    cursor: grabbing;
+  }
+
+  .imagePreview {
+    overflow: hidden;
+    border: 1px solid $color-line;
+    background: $color-surface-light;
+  }
+
+  img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+  }
+
+  .imageActions {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.35rem;
+    padding-top: 0.1rem;
+
+    button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2.1rem;
+      padding: 0.45rem 0.25rem;
+      border: 1px solid rgba($color-line, 0.8);
+      border-radius: 0.55rem;
+      background: rgba($color-ink, 0.72);
+      color: $color-paper;
+      font-size: 0.95rem;
+      line-height: 1;
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+
+      svg {
+        width: 1rem;
+        height: 1rem;
+        display: block;
+      }
+
+      &:hover:not(:disabled) {
+        border-color: rgba($color-accent, 0.7);
+        background: rgba($color-surface, 0.82);
+        transform: translateY(-1px);
+      }
+
+      &:disabled {
+        opacity: 0.32;
+        cursor: not-allowed;
+        transform: none;
+      }
+    }
+  }
+}
+
+.imageUploadTile {
+  display: grid;
+  place-items: center;
+  min-height: 9.5rem;
+  padding: 1rem;
+  border: 1px dashed $color-line;
+  background: rgba($color-ink, 0.35);
+  cursor: pointer;
+  text-align: center;
+
+  input {
+    display: none;
+  }
+
+  span {
+    @include eyebrow;
+    color: $color-accent;
+  }
+}
+
 @media (max-width: $breakpoint-tablet) {
+  .adminGrid,
+  .buttonEditorRow,
   .grid,
   .property {
     grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+    max-height: none;
   }
 
   .top {

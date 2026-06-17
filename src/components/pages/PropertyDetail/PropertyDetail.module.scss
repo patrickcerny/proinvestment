@@ -1,0 +1,169 @@
+@use "@/styles/mixins" as *;
+@use "@/styles/tokens" as *;
+
+.page {
+  overflow: clip;
+  background: $color-ink;
+}
+
+.hero {
+  @include container;
+  min-height: calc(100svh - 5.5rem);
+  display: grid;
+  grid-template-columns: 0.78fr 1.22fr;
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: center;
+  padding-block: clamp(3rem, 7vw, 7rem);
+}
+
+.copy {
+  p {
+    @include eyebrow;
+    color: $color-accent;
+  }
+
+  h1 {
+    margin: 2rem 0;
+    font-size: clamp(3.4rem, 8vw, 8rem);
+    font-weight: 400;
+    letter-spacing: -0.065em;
+    line-height: 0.92;
+    hyphens: auto;
+  }
+
+  span {
+    color: $color-muted;
+    line-height: 1.8;
+  }
+}
+
+.gallery {
+  min-width: 0;
+
+  > div {
+    min-height: min(70svh, 46rem);
+    border: 1px solid $color-line;
+  }
+}
+
+.details {
+  @include container;
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.95fr) minmax(0, 1.05fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  padding-bottom: $section-space;
+}
+
+.facts {
+  display: grid;
+  align-content: start;
+  border-top: 1px solid $color-line;
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 1.25rem;
+    border-bottom: 1px solid $color-line;
+  }
+
+  span {
+    @include eyebrow;
+    color: $color-muted;
+  }
+}
+
+.description,
+.features,
+.actions {
+  grid-column: 2;
+}
+
+.description {
+  p {
+    @include eyebrow;
+    color: $color-accent;
+  }
+
+  h2 {
+    max-width: 20ch;
+    margin: 1rem 0 2rem;
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    font-weight: 400;
+    letter-spacing: -0.06em;
+    line-height: 0.96;
+  }
+
+  div {
+    color: $color-muted;
+    font-size: clamp(1rem, 1.3vw, 1.2rem);
+    line-height: 1.85;
+    white-space: pre-line;
+  }
+}
+
+.features {
+  margin-top: 4rem;
+
+  p {
+    @include eyebrow;
+    color: $color-accent;
+  }
+
+  ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    margin: 1.5rem 0 0;
+    padding: 0;
+    background: $color-line;
+    list-style: none;
+  }
+
+  li {
+    padding: 1.2rem;
+    background: $color-surface;
+    color: $color-paper;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 3rem;
+
+  a {
+    @include eyebrow;
+    border: 1px solid $color-paper;
+    padding: 1rem 1.25rem;
+    color: $color-paper;
+  }
+}
+
+.contactButton {
+  @include eyebrow;
+  border: 1px solid $color-accent;
+  padding: 1rem 1.25rem;
+  background: $color-accent;
+  color: $color-ink;
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .hero,
+  .details {
+    grid-template-columns: 1fr;
+  }
+
+  .description,
+  .features,
+  .actions {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .features ul {
+    grid-template-columns: 1fr;
+  }
+}

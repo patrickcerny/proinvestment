@@ -18,7 +18,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const t = getDictionary(locale).home;
-  const featuredProperties = (await getProperties()).filter((property) => property.showOnHome).slice(0, 3);
+  const featuredProperties = (await getProperties()).filter((property) => property.enabled !== false && property.showOnHome).slice(0, 3);
 
   return (
     <>

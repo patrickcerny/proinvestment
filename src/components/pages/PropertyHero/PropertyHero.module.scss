@@ -1,0 +1,133 @@
+@use "@/styles/mixins" as *;
+@use "@/styles/tokens" as *;
+@use "sass:color";
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  align-items: center;
+  overflow: clip;
+  padding: clamp(2rem, 6vw, 5rem) $page-gutter 5rem;
+  background:
+    radial-gradient(circle at 20% 15%, rgba($color-accent, 0.12), transparent 28%),
+    radial-gradient(circle at 85% 70%, rgba($color-blue-deep, 0.25), transparent 30%),
+    linear-gradient(180deg, $color-ink 0%, color.adjust($color-ink, $lightness: -4%) 100%);
+}
+
+.background {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.18;
+  background:
+    linear-gradient(rgba($color-paper, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba($color-paper, 0.05) 1px, transparent 1px);
+  background-size: 4rem 4rem;
+  mask-image: radial-gradient(circle at center, black 25%, transparent 80%);
+}
+
+.ringOne,
+.ringTwo {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba($color-accent, 0.25);
+}
+
+.ringOne {
+  top: 10%;
+  right: 12%;
+  width: min(34vw, 24rem);
+  height: min(34vw, 24rem);
+}
+
+.ringTwo {
+  left: -8rem;
+  bottom: -10rem;
+  width: min(50vw, 34rem);
+  height: min(50vw, 34rem);
+}
+
+.copy {
+  @include container;
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 24rem);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: end;
+
+  > p {
+    @include eyebrow;
+    margin: 0 0 1.5rem;
+    color: $color-accent;
+  }
+
+  h1 {
+    margin: 0;
+    max-width: 10ch;
+    font-size: clamp(4rem, 9vw, 9rem);
+    font-weight: 400;
+    letter-spacing: -0.07em;
+    line-height: 0.9;
+  }
+}
+
+.summary {
+  align-self: end;
+  padding-top: 3rem;
+
+  span {
+    display: block;
+    color: $color-muted;
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    line-height: 1.8;
+  }
+}
+
+.scrollHint {
+  position: absolute;
+  left: 50%;
+  bottom: 1.5rem;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  gap: 0.75rem;
+  transform: translateX(-50%);
+
+  span {
+    width: 1px;
+    height: 3rem;
+    background: linear-gradient($color-accent, transparent);
+  }
+
+  small {
+    @include eyebrow;
+    color: $color-accent;
+  }
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .copy {
+    grid-template-columns: 1fr;
+  }
+
+  .summary {
+    padding-top: 0;
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .hero {
+    padding-bottom: 4rem;
+  }
+
+  .copy h1 {
+    font-size: clamp(3rem, 14vw, 4.5rem);
+  }
+}

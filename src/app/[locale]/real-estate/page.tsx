@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { PageIntro } from "@/components/ui/PageIntro/PageIntro";
+import { PropertyHero } from "@/components/pages/PropertyHero/PropertyHero";
 import { PropertyShowcase } from "@/components/ui/PropertyShowcase/PropertyShowcase";
-import { Reveal } from "@/components/ui/Reveal/Reveal";
 import { getDictionary, isLocale } from "@/i18n/config";
 import { getProperties } from "@/lib/properties";
 
@@ -16,6 +15,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params; if (!isLocale(locale)) notFound();
   const page = getDictionary(locale).pages.realEstate;
-  const properties = await getProperties();
-  return <><Reveal><PageIntro {...page} /></Reveal><PropertyShowcase locale={locale} properties={properties} /></>;
+  const properties = (await getProperties()).filter((property) => property.enabled !== false);
+  return <><PropertyHero eyebrow={page.eyebrow} title={page.title} description={page.description} hint={locale === "de" ? "Scrollen zum Entdecken" : "Scroll to explore"} /><PropertyShowcase locale={locale} properties={properties} /></>;
 }

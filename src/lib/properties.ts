@@ -10,14 +10,24 @@ export type PropertyButton = {
 
 export type PropertyEntry = {
   id: string;
-  image: string;
+  image?: string;
+  images?: string[];
+  enabled?: boolean;
   showOnHome: boolean;
   createdAt: string;
+  price?: string;
+  livingArea?: string;
+  rooms?: string;
+  zip?: string;
+  city?: string;
+  country?: string;
   content: Record<Locale, {
     title: string;
     eyebrow: string;
     location: string;
     description: string;
+    objectDescription?: string;
+    features?: string[];
   }>;
   buttons: PropertyButton[];
 };
@@ -29,10 +39,17 @@ const propertiesFile = path.join(dataDir, "properties.json");
 export async function getProperties(): Promise<PropertyEntry[]> {
   try {
     const data = await readFile(propertiesFile, "utf8");
-    return JSON.parse(data) as PropertyEntry[];
+    return (JSON.parse(data) as PropertyEntry[]).map((property) => ({
+      ...property,
+      enabled: property.enabled ?? true,
+    }));
   } catch {
     return [];
   }
+}
+
+export function getPropertyImages(property: PropertyEntry) {
+  return property.images?.length ? property.images : property.image ? [property.image] : [];
 }
 
 export async function saveProperties(properties: PropertyEntry[]) {
@@ -48,6 +65,11 @@ export async function savePropertyImage(file: File) {
   const bytes = Buffer.from(await file.arrayBuffer());
   await writeFile(destination, bytes);
   return `/uploads/real-estate/${filename}`;
+}
+
+export async function savePropertyImages(files: File[]) {
+  const validFiles = files.filter((file) => file.size > 0);
+  return Promise.all(validFiles.map((file) => savePropertyImage(file)));
 }
 
 export function createPropertyId() {
