@@ -38,7 +38,7 @@ export type PropertyEntry = {
 const dataDir = path.join(process.cwd(), "data");
 const imageUploadsDir = path.join(process.cwd(), "uploads", "real-estate");
 const legacyPublicUploadsDir = path.join(process.cwd(), "public", "uploads", "real-estate");
-const documentsDir = path.join(legacyPublicUploadsDir, "documents");
+const documentsDir = path.join(process.cwd(), "uploads", "real-estate", "documents");
 const propertiesFile = path.join(dataDir, "properties.json");
 const directoryMode = 0o755;
 const fileMode = 0o644;
@@ -51,6 +51,20 @@ function basenameOf(value: string) {
 
 function imageUrlFromFilename(filename: string) {
   return `/media/real-estate/${filename}`;
+}
+
+function documentUrlFromFilename(filename: string) {
+  return `/media/real-estate/documents/${filename}`;
+}
+
+export function normalizePropertyDocumentUrl(value: string) {
+  if (!value) return value;
+  // Rewrite legacy public path to new media route
+  const legacyPrefix = "/uploads/real-estate/documents/";
+  if (value.startsWith(legacyPrefix)) {
+    return documentUrlFromFilename(path.basename(value));
+  }
+  return value;
 }
 
 export function normalizePropertyImageUrl(value: string) {
@@ -128,7 +142,7 @@ export async function savePropertyDocument(file: File) {
   const bytes = Buffer.from(await file.arrayBuffer());
   await writeFile(destination, bytes);
   await chmod(destination, fileMode);
-  return `/uploads/real-estate/documents/${filename}`;
+  return `/media/real-estate/documents/${filename}`;
 }
 
 export async function savePropertyDocuments(files: File[]) {
