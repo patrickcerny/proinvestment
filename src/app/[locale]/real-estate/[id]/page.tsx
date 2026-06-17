@@ -4,7 +4,7 @@ import { PropertyDetail } from "@/components/pages/PropertyDetail/PropertyDetail
 import { SchemaOrg } from "@/components/SchemaOrg";
 import { isLocale } from "@/i18n/config";
 import { getProperties } from "@/lib/properties";
-import { buildMetadata, canonicalUrl, realEstateListingSchema } from "@/lib/seo";
+import { SITE_URL, buildMetadata, canonicalUrl, realEstateListingSchema } from "@/lib/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; id: string }> }): Promise<Metadata> {
   const { locale, id } = await params;
@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     locale,
     path: `/real-estate/${id}`,
     keywords: [content.title, property.city, property.country].filter(Boolean) as string[],
-    ogImage: ogImage ? (ogImage.startsWith("http") ? ogImage : `https://www.proinvestment.at${ogImage}`) : undefined,
+    ogImage: ogImage ?? undefined,
   });
 }
 
@@ -34,7 +34,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
     name: content.title,
     description: content.description,
     url: canonicalUrl(locale, `/real-estate/${id}`),
-    image: image ? (image.startsWith("http") ? image : `https://www.proinvestment.at${image}`) : undefined,
+    image: image ? (image.startsWith("http") ? image : `${SITE_URL}${image}`) : undefined,
     price: property.price,
     city: property.city,
     country: property.country,

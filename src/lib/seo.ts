@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import type { Locale } from "@/i18n/config";
 
-export const SITE_URL = "https://www.proinvestment.at";
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://proinvestment.cerny.app";
 export const SITE_NAME = "ProInvestment";
 export const PUBLISHER = "ProInvestment VermögenstreuhandgesmbH";
-export const OG_IMAGE = `${SITE_URL}/images/proinvestment-og.jpg`;
-export const LOGO_URL = `${SITE_URL}/images/proinvestment-logo.png`;
+export const OG_IMAGE = "/images/proinvestment-og.jpg";
+export const LOGO_URL = "/images/proinvestment-logo.png";
 
 const BASE_KEYWORDS = [
   "ProInvestment",
@@ -72,7 +72,7 @@ export function buildMetadata({
       card: "summary_large_image",
       title,
       description,
-      images: [ogImage],
+      images: [{ url: ogImage }],
     },
     other: {
       publisher: PUBLISHER,

@@ -17,6 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   if (!isLocale(locale)) return {};
   const dictionary = getCmsDictionary(locale);
   return {
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://proinvestment.cerny.app"),
     ...buildMetadata({
       title: dictionary.meta.title,
       description: dictionary.meta.description,
