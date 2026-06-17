@@ -78,8 +78,9 @@
     letter-spacing: -0.06em;
   }
 
-  p {
-    color: $color-muted;
+  .button {
+    display: block;
+    margin: 2rem auto 0;
   }
 }
 

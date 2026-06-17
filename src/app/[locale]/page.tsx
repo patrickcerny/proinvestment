@@ -6,13 +6,19 @@ import { Reveal } from "@/components/ui/Reveal/Reveal";
 import { getCmsDictionary } from "@/lib/cms-dictionary";
 import { isLocale, localizedPath } from "@/i18n/config";
 import { getProperties } from "@/lib/properties";
+import { buildMetadata } from "@/lib/seo";
 import styles from "../Home.module.scss";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
   const dictionary = getCmsDictionary(locale);
-  return { title: dictionary.meta.title, description: dictionary.meta.description };
+  return buildMetadata({
+    title: dictionary.meta.title,
+    description: dictionary.meta.description,
+    locale,
+    keywords: ["Immobilieninvestment Österreich", "Vermögensverwaltung", "Kapitalanlage"],
+  });
 }
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {

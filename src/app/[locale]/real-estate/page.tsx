@@ -5,12 +5,19 @@ import { PropertyShowcase } from "@/components/ui/PropertyShowcase/PropertyShowc
 import { getCmsDictionary } from "@/lib/cms-dictionary";
 import { isLocale } from "@/i18n/config";
 import { getProperties } from "@/lib/properties";
+import { buildMetadata } from "@/lib/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
   const page = getCmsDictionary(locale).pages.realEstate;
-  return { title: page.eyebrow, description: page.description };
+  return buildMetadata({
+    title: page.eyebrow,
+    description: page.description,
+    locale,
+    path: "/real-estate",
+    keywords: ["Immobilien kaufen", "Gewerbeimmobilien", "Wohnimmobilien", "Österreich", "Zentraleuropa"],
+  });
 }
 
 export default async function Page({ params }: { params: Promise<{ locale: string }> }) {

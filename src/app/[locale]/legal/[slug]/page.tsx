@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { LegalPage } from "@/components/pages/LegalPage/LegalPage";
 import { getCmsDictionary } from "@/lib/cms-dictionary";
 import { isLocale } from "@/i18n/config";
+import { buildMetadata } from "@/lib/seo";
 
 const slugs = ["imprint", "privacy", "terms", "legal-foundations"] as const;
 
@@ -14,7 +15,13 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale, slug } = await params;
   if (!isLocale(locale) || !slugs.includes(slug as typeof slugs[number])) return {};
   const page = getCmsDictionary(locale).legalPages[slug as typeof slugs[number]];
-  return { title: page.title, description: page.intro };
+  return buildMetadata({
+    title: page.title,
+    description: page.intro,
+    locale,
+    path: `/legal/${slug}`,
+    noIndex: true,
+  });
 }
 
 export default async function Page({ params }: { params: Promise<{ locale: string; slug: string }> }) {

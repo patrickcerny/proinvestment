@@ -21,7 +21,6 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
       <main className={styles.page}>
         <form action={loginAction} className={styles.login}>
           <h1>Admin</h1>
-          <p>Immobilien verwalten. Passwort über <code>ADMIN_PASSWORD</code> setzen. Lokaler Fallback: <code>proinvestment</code>.</p>
           {params.error && <div className={styles.error}>Falsches Passwort.</div>}
           <label className={styles.field}><span>Passwort</span><input name="password" type="password" required /></label>
           <button className={styles.button} type="submit">Einloggen</button>
