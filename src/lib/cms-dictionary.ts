@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
+import { chmodSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import path from "path";
 import en from "@/i18n/en.json";
 import deData from "@/i18n/de.json";
@@ -9,6 +9,8 @@ type CmsContent = Partial<Record<Locale, Partial<CmsDictionary>>>;
 
 const dataDir = path.join(process.cwd(), "data");
 const cmsFile = path.join(dataDir, "site-content.json");
+const directoryMode = 0o755;
+const fileMode = 0o644;
 
 function readCmsContent(): CmsContent {
   if (!existsSync(cmsFile)) return {};
@@ -48,6 +50,7 @@ export function getCmsContent(): CmsContent {
 }
 
 export function saveCmsContent(content: CmsContent) {
-  mkdirSync(dataDir, { recursive: true });
+  mkdirSync(dataDir, { recursive: true, mode: directoryMode });
   writeFileSync(cmsFile, `${JSON.stringify(content, null, 2)}\n`, "utf8");
+  chmodSync(cmsFile, fileMode);
 }

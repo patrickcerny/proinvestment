@@ -1,5 +1,5 @@
 import { randomUUID } from "crypto";
-import { mkdir, readFile, writeFile } from "fs/promises";
+import { chmod, mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
 import type { Locale } from "@/i18n/config";
 
@@ -38,6 +38,8 @@ const dataDir = path.join(process.cwd(), "data");
 const uploadsDir = path.join(process.cwd(), "public", "uploads", "real-estate");
 const documentsDir = path.join(uploadsDir, "documents");
 const propertiesFile = path.join(dataDir, "properties.json");
+const directoryMode = 0o755;
+const fileMode = 0o644;
 
 export async function getProperties(): Promise<PropertyEntry[]> {
   try {
@@ -60,17 +62,19 @@ export function getPropertyButtonTarget(button: PropertyButton) {
 }
 
 export async function saveProperties(properties: PropertyEntry[]) {
-  await mkdir(dataDir, { recursive: true });
+  await mkdir(dataDir, { recursive: true, mode: directoryMode });
   await writeFile(propertiesFile, `${JSON.stringify(properties, null, 2)}\n`, "utf8");
+  await chmod(propertiesFile, fileMode);
 }
 
 export async function savePropertyImage(file: File) {
-  await mkdir(uploadsDir, { recursive: true });
+  await mkdir(uploadsDir, { recursive: true, mode: directoryMode });
   const extension = path.extname(file.name).toLowerCase() || ".jpg";
   const filename = `${randomUUID()}${extension}`;
   const destination = path.join(uploadsDir, filename);
   const bytes = Buffer.from(await file.arrayBuffer());
   await writeFile(destination, bytes);
+  await chmod(destination, fileMode);
   return `/uploads/real-estate/${filename}`;
 }
 
@@ -80,12 +84,13 @@ export async function savePropertyImages(files: File[]) {
 }
 
 export async function savePropertyDocument(file: File) {
-  await mkdir(documentsDir, { recursive: true });
+  await mkdir(documentsDir, { recursive: true, mode: directoryMode });
   const extension = path.extname(file.name).toLowerCase() || ".pdf";
   const filename = `${randomUUID()}${extension}`;
   const destination = path.join(documentsDir, filename);
   const bytes = Buffer.from(await file.arrayBuffer());
   await writeFile(destination, bytes);
+  await chmod(destination, fileMode);
   return `/uploads/real-estate/documents/${filename}`;
 }
 
